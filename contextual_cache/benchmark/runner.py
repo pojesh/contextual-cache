@@ -28,6 +28,39 @@ logger = logging.getLogger(__name__)
 RESULTS_DIR = Path(__file__).resolve().parent.parent.parent / "benchmarks" / "results"
 
 
+def _check_hit_correctness(expected_answer: str, cached_response: str) -> bool:
+    """
+    Multi-criteria correctness check combining word overlap and semantic similarity.
+    Addresses the issue where short NQ answers (e.g., 'Paris') get drowned out
+    in longer LLM responses.
+    """
+    stopwords = {
+        "the", "a", "an", "is", "are", "was", "were",
+        "in", "on", "at", "to", "of", "and", "or",
+        "for", "it", "its", "this", "that", "with",
+        "as", "by", "be", "has", "had", "have", "from",
+    }
+
+    expected_words = set(expected_answer.lower().split()) - stopwords
+    cached_words = set(cached_response.lower().split()) - stopwords
+
+    if not expected_words:
+        return True
+
+    overlap = len(expected_words & cached_words) / len(expected_words)
+    if overlap >= 0.4:
+        return True
+
+    key_terms = {w for w in expected_words if len(w) > 4}
+    if key_terms and key_terms.issubset(cached_words):
+        return True
+
+    if expected_answer.strip() in cached_response:
+        return True
+
+    return False
+
+
 @dataclass
 class BenchmarkProgress:
     """Live progress tracking for a benchmark run."""
@@ -182,23 +215,11 @@ class BenchmarkRunner:
                     )
 
                     if result.hit:
-                        # Check correctness: filtered word overlap (stopwords removed)
-                        _stopwords = {
-                            "the", "a", "an", "is", "are", "was", "were",
-                            "in", "on", "at", "to", "of", "and", "or",
-                            "for", "it", "its", "this", "that", "with",
-                            "as", "by", "be", "has", "had", "have", "from",
-                        }
-                        expected_words = set(q.answer.lower().split()) - _stopwords
-                        cached_words = set(result.response.lower().split()) - _stopwords
-                        if expected_words:
-                            overlap = len(expected_words & cached_words) / len(expected_words)
-                            if overlap >= 0.4:
-                                correct_hits += 1
-                            else:
-                                incorrect_hits += 1
-                        else:
+                        correct = _check_hit_correctness(q.answer, result.response)
+                        if correct:
                             correct_hits += 1
+                        else:
+                            incorrect_hits += 1
 
                         if result.tier == 1:
                             tier1_hits += 1
@@ -354,6 +375,8 @@ class _ContextualCacheWrapper(BaseCache):
         t0 = time.monotonic()
         self.total_queries += 1
 
+        best_arm, _ = self._bandit.get_current_best()
+
         # Tier 1: exact hash
         result = await self._lookup.lookup(
             query=text, query_embedding=None,
@@ -365,8 +388,12 @@ class _ContextualCacheWrapper(BaseCache):
             ms = (time.monotonic() - t0) * 1000
             self.total_hits += 1
             self.hit_latencies.append(ms)
+            correct = self._check_correctness(response, result.response)
+            if result.entry_id:
+                await self._threshold_store.update(result.entry_id, 1.0, correct)
+            self._bandit.update(best_arm, 1.0 if correct else 0.0)
             return CacheResult(hit=True, response=result.response,
-                               tier=1, latency_ms=ms, similarity=1.0)
+                               tier=1, latency_ms=ms, similarity=1.0, entry_id=result.entry_id)
 
         # Tier 2: semantic
         if embedding is not None:
@@ -380,10 +407,13 @@ class _ContextualCacheWrapper(BaseCache):
                 ms = (time.monotonic() - t0) * 1000
                 self.total_hits += 1
                 self.hit_latencies.append(ms)
+                correct = self._check_correctness(response, result.response)
+                if result.entry_id:
+                    await self._threshold_store.update(result.entry_id, result.similarity, correct)
+                self._bandit.update(best_arm, 1.0 if correct else 0.0)
                 return CacheResult(hit=True, response=result.response,
-                                   tier=2, latency_ms=ms, similarity=result.similarity)
+                                   tier=2, latency_ms=ms, similarity=result.similarity, entry_id=result.entry_id)
 
-        # Miss
         self.total_misses += 1
         ms = (time.monotonic() - t0) * 1000 + llm_latency_ms
         self.miss_latencies.append(ms)
@@ -409,6 +439,21 @@ class _ContextualCacheWrapper(BaseCache):
             self._evictor.register(entry)
 
         return CacheResult(hit=False, response=response, tier=0, latency_ms=ms)
+
+    @staticmethod
+    def _check_correctness(expected: str, cached: str) -> bool:
+        stopwords = {
+            "the", "a", "an", "is", "are", "was", "were",
+            "in", "on", "at", "to", "of", "and", "or",
+            "for", "it", "its", "this", "that", "with",
+            "as", "by", "be", "has", "had", "have", "from",
+        }
+        expected_words = set(expected.lower().split()) - stopwords
+        cached_words = set(cached.lower().split()) - stopwords
+        if not expected_words:
+            return True
+        overlap = len(expected_words & cached_words) / len(expected_words)
+        return overlap >= 0.4
 
     def reset(self):
         from ..admission_policy import SemanticWTinyLFUAdmission

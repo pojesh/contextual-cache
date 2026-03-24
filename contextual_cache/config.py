@@ -35,8 +35,8 @@ class Settings(BaseSettings):
 
     # ── Cache ─────────────────────────────────────────────────
     cache_capacity: int = 50_000
-    window_pct: float = 0.01          # W-TinyLFU window fraction
-    default_threshold: float = 0.80   # conformal default τ
+    window_pct: float = 0.05          # W-TinyLFU window fraction
+    default_threshold: float = 0.75   # conformal default τ
     target_error_rate: float = 0.05   # conformal ε
     session_timeout_s: int = 1800     # 30 min
     context_alpha: float = 0.85       # query-dominant fusion weight
@@ -46,7 +46,7 @@ class Settings(BaseSettings):
 
     # ── Embedding ─────────────────────────────────────────────
     embedding_backend: EmbeddingBackend = EmbeddingBackend.LOCAL
-    embedding_model: str = "all-MiniLM-L6-v2"
+    embedding_model: str = "paraphrase-MiniLM-L6-v2"
     embedding_dim: int = 384
     embedding_cache_size: int = 10_000
 
@@ -54,7 +54,7 @@ class Settings(BaseSettings):
     hnsw_m: int = 32                  # HNSW links per node
     hnsw_ef_construction: int = 200
     hnsw_ef_search: int = 64
-    ann_k: int = 5                    # top-k neighbors
+    ann_k: int = 10                    # top-k neighbors
 
     # ── LLM ───────────────────────────────────────────────────
     llm_backend: LLMBackend = LLMBackend.OLLAMA

@@ -34,40 +34,61 @@ class BenchmarkQuery:
 
 def _paraphrase(q: str, seed: int) -> str:
     """
-    Simple deterministic paraphrasing via rule-based transforms.
-    Not ML-based — keeps it reproducible without external services.
+    Deterministic paraphrasing via rule-based transforms.
+    Produces more linguistically diverse variants to better test semantic matching.
     """
     rng = random.Random(seed)
     transforms = [
-        # Swap "What is" / "What are" → "Explain" / "Describe"
-        (r"^What is ", "Explain "),
-        (r"^What are ", "Describe "),
+        (r"^What is ", "Define "),
+        (r"^What is ", "Give me a definition of "),
+        (r"^What are ", "List "),
+        (r"^What are ", "What do we mean by "),
         (r"^Who is ", "Tell me about "),
-        (r"^Who was ", "Describe "),
-        (r"^When did ", "In what year did "),
+        (r"^Who is ", "Can you identify "),
+        (r"^Who was ", "Identify the person known as "),
+        (r"^When did ", "In which year did "),
+        (r"^When did ", "What year saw "),
         (r"^Where is ", "What is the location of "),
-        (r"^How many ", "What is the number of "),
-        (r"^How does ", "Explain how "),
-        (r"^Why ", "For what reason "),
+        (r"^Where is ", "Locate "),
+        (r"^How many ", "What's the count of "),
+        (r"^How many ", "Give me the number of "),
+        (r"^How does ", "Explain the functioning of "),
+        (r"^How does ", "What is the mechanism behind "),
+        (r"^Why do ", "What causes "),
+        (r"^Why do ", "Explain the reason for "),
+        (r"^Why is ", "What explains "),
+        (r"^Why is ", "For what reason is "),
+        (r"^Can you ", ""),
+        (r"^Could you ", ""),
+        (r"^Please ", ""),
+        (r"^Tell me ", "What is "),
+        (r"^I want to know ", ""),
+        (r"^I'd like to know ", ""),
     ]
 
     text = q
+    applied = False
     for pattern, replacement in transforms:
         if re.match(pattern, text, re.IGNORECASE):
             text = re.sub(pattern, replacement, text, count=1, flags=re.IGNORECASE)
+            applied = True
             break
-    else:
-        # Generic: add "Can you tell me" prefix or append "?"
+
+    if not applied:
         prefixes = [
-            "Can you explain ",
-            "I'd like to know ",
-            "Tell me ",
-            "Please describe ",
+            "Here's a question: ",
+            "I need to know: ",
+            "Quick question: ",
+            "Mind telling me ",
+            "Curious about ",
+            "Looking for info on ",
         ]
         text = rng.choice(prefixes) + text[0].lower() + text[1:]
 
-    # Remove trailing ? and re-add
-    text = text.rstrip("?").strip() + "?"
+    text = text.rstrip("?").strip()
+    if not text.endswith((".", "!")):
+        text += "?"
+
     return text
 
 

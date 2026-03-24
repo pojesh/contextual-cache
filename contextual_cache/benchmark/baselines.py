@@ -15,6 +15,7 @@ import hashlib
 import logging
 import re
 import time
+import uuid
 from abc import ABC, abstractmethod
 from collections import OrderedDict
 from dataclasses import dataclass, field
@@ -35,11 +36,13 @@ class CacheResult:
     tier: int = 0            # 0=miss, 1=exact, 2=semantic
     latency_ms: float = 0.0
     similarity: float = 0.0
+    entry_id: Optional[str] = None
 
 
 @dataclass
 class CachedItem:
     """Single cached entry."""
+    entry_id: str
     key: str
     query_text: str
     response_text: str
@@ -142,14 +145,14 @@ class ExactMatchLRUCache(BaseCache):
             self.total_hits += 1
             self.hit_latencies.append(ms)
             return CacheResult(hit=True, response=item.response_text,
-                               tier=1, latency_ms=ms, similarity=1.0)
+                               tier=1, latency_ms=ms, similarity=1.0, entry_id=item.entry_id)
 
         # Miss — store
         self.total_misses += 1
         ms = (time.monotonic() - t0) * 1000 + llm_latency_ms
         self.miss_latencies.append(ms)
 
-        item = CachedItem(key=key, query_text=text, response_text=response,
+        item = CachedItem(entry_id=str(uuid.uuid4()), key=key, query_text=text, response_text=response,
                           embedding=None, storage_bytes=len(response.encode()))
         self._store[key] = item
         if len(self._store) > self.capacity:
@@ -171,7 +174,7 @@ class ExactMatchLRUCache(BaseCache):
 class GPTCacheStyleCache(BaseCache):
     """FAISS-less semantic cache with static threshold and LRU eviction."""
 
-    def __init__(self, capacity: int = 200, threshold: float = 0.80):
+    def __init__(self, capacity: int = 200, threshold: float = 0.75):
         super().__init__("GPTCache", capacity)
         self.threshold = threshold
         self._store: OrderedDict[str, CachedItem] = OrderedDict()
@@ -191,7 +194,7 @@ class GPTCacheStyleCache(BaseCache):
             self.total_hits += 1
             self.hit_latencies.append(ms)
             return CacheResult(hit=True, response=item.response_text,
-                               tier=1, latency_ms=ms, similarity=1.0)
+                               tier=1, latency_ms=ms, similarity=1.0, entry_id=item.entry_id)
 
         # Semantic check
         if embedding is not None and self._embeddings:
@@ -210,14 +213,14 @@ class GPTCacheStyleCache(BaseCache):
                 self.total_hits += 1
                 self.hit_latencies.append(ms)
                 return CacheResult(hit=True, response=item.response_text,
-                                   tier=2, latency_ms=ms, similarity=best_sim)
+                                   tier=2, latency_ms=ms, similarity=best_sim, entry_id=item.entry_id)
 
         # Miss
         self.total_misses += 1
         ms = (time.monotonic() - t0) * 1000 + llm_latency_ms
         self.miss_latencies.append(ms)
 
-        item = CachedItem(key=key, query_text=text, response_text=response,
+        item = CachedItem(entry_id=str(uuid.uuid4()), key=key, query_text=text, response_text=response,
                           embedding=embedding, storage_bytes=len(response.encode()))
         self._store[key] = item
         if embedding is not None:
@@ -294,7 +297,7 @@ class MeanCacheStyleCache(BaseCache):
             self.hit_latencies.append(ms)
             self._update_threshold(1.0)
             return CacheResult(hit=True, response=item.response_text,
-                               tier=1, latency_ms=ms, similarity=1.0)
+                               tier=1, latency_ms=ms, similarity=1.0, entry_id=item.entry_id)
 
         # Semantic check with compressed embeddings
         if embedding is not None and self._embeddings:
@@ -315,7 +318,7 @@ class MeanCacheStyleCache(BaseCache):
                 self.hit_latencies.append(ms)
                 self._update_threshold(best_sim)
                 return CacheResult(hit=True, response=item.response_text,
-                                   tier=2, latency_ms=ms, similarity=best_sim)
+                                   tier=2, latency_ms=ms, similarity=best_sim, entry_id=item.entry_id)
 
         # Miss
         self.total_misses += 1
@@ -323,7 +326,7 @@ class MeanCacheStyleCache(BaseCache):
         self.miss_latencies.append(ms)
 
         compressed_emb = self._compress(embedding) if embedding is not None else None
-        item = CachedItem(key=key, query_text=text, response_text=response,
+        item = CachedItem(entry_id=str(uuid.uuid4()), key=key, query_text=text, response_text=response,
                           embedding=compressed_emb, storage_bytes=len(response.encode()))
         self._store[key] = item
         if compressed_emb is not None:
@@ -399,7 +402,7 @@ class VCacheStyleCache(BaseCache):
             self.hit_latencies.append(ms)
             self._update_threshold(key, 1.0, True)
             return CacheResult(hit=True, response=item.response_text,
-                               tier=1, latency_ms=ms, similarity=1.0)
+                               tier=1, latency_ms=ms, similarity=1.0, entry_id=item.entry_id)
 
         # Semantic check with per-entry thresholds
         if embedding is not None and self._embeddings:
@@ -422,14 +425,14 @@ class VCacheStyleCache(BaseCache):
                 correct = self._check_correctness(response, item.response_text)
                 self._update_threshold(best_key, best_sim, correct)
                 return CacheResult(hit=True, response=item.response_text,
-                                   tier=2, latency_ms=ms, similarity=best_sim)
+                                   tier=2, latency_ms=ms, similarity=best_sim, entry_id=item.entry_id)
 
         # Miss
         self.total_misses += 1
         ms = (time.monotonic() - t0) * 1000 + llm_latency_ms
         self.miss_latencies.append(ms)
 
-        item = CachedItem(key=key, query_text=text, response_text=response,
+        item = CachedItem(entry_id=str(uuid.uuid4()), key=key, query_text=text, response_text=response,
                           embedding=embedding, storage_bytes=len(response.encode()))
         self._store[key] = item
         self._thresholds[key] = self.default_threshold
@@ -510,7 +513,7 @@ class RAGCacheStyleCache(BaseCache):
             self.total_hits += 1
             self.hit_latencies.append(ms)
             return CacheResult(hit=True, response=item.response_text,
-                               tier=1, latency_ms=ms, similarity=1.0)
+                               tier=1, latency_ms=ms, similarity=1.0, entry_id=item.entry_id)
 
         if embedding is not None and self._embeddings:
             best_sim = -1.0
@@ -530,7 +533,7 @@ class RAGCacheStyleCache(BaseCache):
                 self.total_hits += 1
                 self.hit_latencies.append(ms)
                 return CacheResult(hit=True, response=item.response_text,
-                                   tier=2, latency_ms=ms, similarity=best_sim)
+                                   tier=2, latency_ms=ms, similarity=best_sim, entry_id=item.entry_id)
 
         # Miss
         self.total_misses += 1
@@ -540,7 +543,7 @@ class RAGCacheStyleCache(BaseCache):
         while len(self._store) >= self.capacity:
             self._evict_lowest()
 
-        item = CachedItem(key=key, query_text=text, response_text=response,
+        item = CachedItem(entry_id=str(uuid.uuid4()), key=key, query_text=text, response_text=response,
                           embedding=embedding, llm_cost_usd=llm_latency_ms * 0.00001,
                           embed_cost_ms=5.0, storage_bytes=len(response.encode()))
         self._store[key] = item
@@ -621,7 +624,7 @@ class NoAdmissionSemanticCache(BaseCache):
             self.total_hits += 1
             self.hit_latencies.append(ms)
             return CacheResult(hit=True, response=item.response_text,
-                               tier=1, latency_ms=ms, similarity=1.0)
+                               tier=1, latency_ms=ms, similarity=1.0, entry_id=item.entry_id)
 
         if embedding is not None and self._embeddings:
             best_sim = -1.0
@@ -650,7 +653,7 @@ class NoAdmissionSemanticCache(BaseCache):
                     self._scores[best_key] = self._scores[best_key][-50:]
                 self._thresholds[best_key] = self._get_threshold(best_key)
                 return CacheResult(hit=True, response=item.response_text,
-                                   tier=2, latency_ms=ms, similarity=best_sim)
+                                   tier=2, latency_ms=ms, similarity=best_sim, entry_id=item.entry_id)
 
         # Miss — ALWAYS admit (no admission gate)
         self.total_misses += 1
@@ -660,7 +663,7 @@ class NoAdmissionSemanticCache(BaseCache):
         while len(self._store) >= self.capacity:
             self._evict_lowest()
 
-        item = CachedItem(key=key, query_text=text, response_text=response,
+        item = CachedItem(entry_id=str(uuid.uuid4()), key=key, query_text=text, response_text=response,
                           embedding=embedding, llm_cost_usd=llm_latency_ms * 0.00001,
                           embed_cost_ms=5.0, storage_bytes=len(response.encode()))
         self._store[key] = item
