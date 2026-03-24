@@ -74,6 +74,7 @@ async def lifespan(app: FastAPI):
     persistence = PersistenceLayer()
     await persistence.initialize()
     set_persistence_layer(persistence)
+    cm.set_persistence(persistence)
 
     if settings.persistence_enabled:
         entries = await persistence.load_all_entries()

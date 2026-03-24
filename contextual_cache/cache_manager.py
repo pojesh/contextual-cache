@@ -13,7 +13,7 @@ from __future__ import annotations
 import logging
 import time
 import uuid
-from typing import Optional
+from typing import List, Optional
 
 import numpy as np
 
@@ -58,6 +58,33 @@ class ContextualCacheManager:
         self._embed_circuit = CircuitBreaker(name="embedding")
 
         self._capacity = settings.cache_capacity
+
+        # Persistence layer (set externally for conversation history)
+        self._persistence = None
+
+    def set_persistence(self, persistence) -> None:
+        """Inject persistence layer for conversation-aware LLM calls."""
+        self._persistence = persistence
+
+    async def _build_chat_history(self, session_id: Optional[str],
+                                   max_turns: int = 10) -> Optional[List[dict]]:
+        """Fetch recent conversation history for LLM context."""
+        if not session_id or self._persistence is None:
+            return None
+        try:
+            messages = await self._persistence.get_session_messages(session_id)
+            if not messages:
+                return None
+            # Take last N messages (user + assistant pairs)
+            recent = messages[-(max_turns * 2):]
+            history = []
+            for m in recent:
+                role = m["role"]
+                if role in ("user", "assistant"):
+                    history.append({"role": role, "content": m["text"]})
+            return history if history else None
+        except Exception:
+            return None
 
     async def query(
         self,
@@ -121,8 +148,11 @@ class ContextualCacheManager:
             return self._format_response(result, overall_ms)
 
         # ── Cache miss: call LLM ──────────────────────────────
+        chat_history = await self._build_chat_history(session_id)
         try:
-            llm_resp = await self.llm_provider.generate(query_text)
+            llm_resp = await self.llm_provider.generate(
+                query_text, chat_history=chat_history
+            )
         except Exception as e:
             logger.error("LLM call failed: %s", e)
             overall_ms = (time.monotonic() - overall_t0) * 1000

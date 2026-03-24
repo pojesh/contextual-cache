@@ -94,9 +94,16 @@ class LLMProvider:
         self.total_retries = 0
 
     async def generate(self, prompt: str,
-                       system_prompt: Optional[str] = None) -> LLMResponse:
+                       system_prompt: Optional[str] = None,
+                       chat_history: Optional[list] = None) -> LLMResponse:
         """
         Generate a response from the LLM.
+
+        Args:
+            prompt: The current user query.
+            system_prompt: Optional system instruction.
+            chat_history: Optional list of {"role": "user"|"assistant", "content": str}
+                          for multi-turn context. Most recent messages last.
 
         Returns an LLMResponse with text, token count, cost, and latency.
         Raises on circuit-breaker rejection or LLM error after retries.
@@ -105,12 +112,18 @@ class LLMProvider:
 
         async def _call():
             if self.backend == LLMBackend.OLLAMA:
+                if chat_history:
+                    return await self._call_with_retry(
+                        self._call_ollama_chat, prompt, system_prompt,
+                        chat_history=chat_history,
+                    )
                 return await self._call_with_retry(
                     self._call_ollama, prompt, system_prompt
                 )
             else:
                 return await self._call_with_retry(
-                    self._call_openai_compat, prompt, system_prompt
+                    self._call_openai_compat, prompt, system_prompt,
+                    chat_history=chat_history,
                 )
 
         result = await self._circuit.call(_call)
@@ -127,11 +140,14 @@ class LLMProvider:
         return result
 
     async def _call_with_retry(self, fn, prompt: str,
-                                system_prompt: Optional[str]) -> LLMResponse:
+                                system_prompt: Optional[str],
+                                chat_history: Optional[list] = None) -> LLMResponse:
         """Retry transient failures with exponential backoff + jitter."""
         last_exc: Optional[Exception] = None
         for attempt in range(self._max_retries + 1):
             try:
+                if chat_history is not None:
+                    return await fn(prompt, system_prompt, chat_history=chat_history)
                 return await fn(prompt, system_prompt)
             except httpx.HTTPStatusError as e:
                 status = e.response.status_code
@@ -214,11 +230,58 @@ class LLMProvider:
             cost_usd=0.0,
         )
 
-    async def _call_openai_compat(self, prompt: str,
-                                   system_prompt: Optional[str]) -> LLMResponse:
+    async def _call_ollama_chat(self, prompt: str,
+                                system_prompt: Optional[str],
+                                chat_history: Optional[list] = None) -> LLMResponse:
+        """Ollama /api/chat endpoint for multi-turn conversations."""
         messages = []
         if system_prompt:
             messages.append({"role": "system", "content": system_prompt})
+        if chat_history:
+            messages.extend(chat_history)
+        messages.append({"role": "user", "content": prompt})
+
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "stream": False,
+            "options": {"num_predict": self.max_tokens},
+        }
+
+        resp = await self._client.post(
+            f"{self.base_url}/api/chat", json=payload
+        )
+        try:
+            resp.raise_for_status()
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 404:
+                raise ValueError(
+                    f"Ollama returned 404 Not Found. Please ensure you have "
+                    f"pulled the model '{self.model}' using "
+                    f"`ollama pull {self.model}`."
+                ) from e
+            raise
+
+        data = resp.json()
+        text = data.get("message", {}).get("content", "")
+        eval_count = data.get("eval_count", len(text.split()))
+        prompt_eval_count = data.get("prompt_eval_count", 0)
+
+        return LLMResponse(
+            text=text,
+            output_tokens=eval_count,
+            input_tokens=prompt_eval_count,
+            cost_usd=0.0,
+        )
+
+    async def _call_openai_compat(self, prompt: str,
+                                   system_prompt: Optional[str],
+                                   chat_history: Optional[list] = None) -> LLMResponse:
+        messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        if chat_history:
+            messages.extend(chat_history)
         messages.append({"role": "user", "content": prompt})
 
         headers = {}
