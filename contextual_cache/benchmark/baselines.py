@@ -71,7 +71,8 @@ class BaseCache(ABC):
 
     @abstractmethod
     async def query(self, text: str, embedding: Optional[np.ndarray],
-                    response: str, llm_latency_ms: float) -> CacheResult:
+                    response: str, llm_latency_ms: float,
+                    gold_answer: Optional[str] = None) -> CacheResult:
         """
         Query the cache. If miss, store the response.
         
@@ -131,7 +132,8 @@ class ExactMatchLRUCache(BaseCache):
         self._store: OrderedDict[str, CachedItem] = OrderedDict()
 
     async def query(self, text: str, embedding: Optional[np.ndarray],
-                    response: str, llm_latency_ms: float) -> CacheResult:
+                    response: str, llm_latency_ms: float,
+                    gold_answer: Optional[str] = None) -> CacheResult:
         t0 = time.monotonic()
         self.total_queries += 1
         key = self._hash_key(text)
@@ -181,7 +183,8 @@ class GPTCacheStyleCache(BaseCache):
         self._embeddings: Dict[str, np.ndarray] = {}
 
     async def query(self, text: str, embedding: Optional[np.ndarray],
-                    response: str, llm_latency_ms: float) -> CacheResult:
+                    response: str, llm_latency_ms: float,
+                    gold_answer: Optional[str] = None) -> CacheResult:
         t0 = time.monotonic()
         self.total_queries += 1
 
@@ -283,7 +286,8 @@ class MeanCacheStyleCache(BaseCache):
         self.threshold = max(0.65, float(np.mean(arr) - np.std(arr)))
 
     async def query(self, text: str, embedding: Optional[np.ndarray],
-                    response: str, llm_latency_ms: float) -> CacheResult:
+                    response: str, llm_latency_ms: float,
+                    gold_answer: Optional[str] = None) -> CacheResult:
         t0 = time.monotonic()
         self.total_queries += 1
 
@@ -388,7 +392,8 @@ class VCacheStyleCache(BaseCache):
         self._thresholds[key] = self._get_threshold(key)
 
     async def query(self, text: str, embedding: Optional[np.ndarray],
-                    response: str, llm_latency_ms: float) -> CacheResult:
+                    response: str, llm_latency_ms: float,
+                    gold_answer: Optional[str] = None) -> CacheResult:
         t0 = time.monotonic()
         self.total_queries += 1
 
@@ -499,7 +504,8 @@ class RAGCacheStyleCache(BaseCache):
         self._priorities.pop(victim_key, None)
 
     async def query(self, text: str, embedding: Optional[np.ndarray],
-                    response: str, llm_latency_ms: float) -> CacheResult:
+                    response: str, llm_latency_ms: float,
+                    gold_answer: Optional[str] = None) -> CacheResult:
         t0 = time.monotonic()
         self.total_queries += 1
 
@@ -610,7 +616,8 @@ class NoAdmissionSemanticCache(BaseCache):
         self._priorities.pop(victim_key, None)
 
     async def query(self, text: str, embedding: Optional[np.ndarray],
-                    response: str, llm_latency_ms: float) -> CacheResult:
+                    response: str, llm_latency_ms: float,
+                    gold_answer: Optional[str] = None) -> CacheResult:
         t0 = time.monotonic()
         self.total_queries += 1
 

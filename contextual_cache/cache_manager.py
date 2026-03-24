@@ -134,6 +134,9 @@ class ContextualCacheManager:
                 "tier": 0,
                 "latency_ms": round(overall_ms, 2),
                 "error": True,
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "total_tokens": 0,
             }
 
         # ── Admission + Store ─────────────────────────────────
@@ -188,6 +191,9 @@ class ContextualCacheManager:
             "entry_id": entry.entry_id if admitted else None,
             "admitted": admitted,
             "llm_latency_ms": round(llm_resp.latency_ms, 2),
+            "input_tokens": llm_resp.input_tokens,
+            "output_tokens": llm_resp.output_tokens,
+            "total_tokens": llm_resp.input_tokens + llm_resp.output_tokens,
         }
 
     async def feedback(self, entry_id: str, was_correct: bool,
@@ -301,6 +307,9 @@ class ContextualCacheManager:
                 "tier": 0,
                 "latency_ms": round(ms, 2),
                 "fallback": True,
+                "input_tokens": llm_resp.input_tokens,
+                "output_tokens": llm_resp.output_tokens,
+                "total_tokens": llm_resp.input_tokens + llm_resp.output_tokens,
             }
         except Exception as e:
             ms = (time.monotonic() - t0) * 1000
@@ -310,6 +319,9 @@ class ContextualCacheManager:
                 "tier": 0,
                 "latency_ms": round(ms, 2),
                 "error": True,
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "total_tokens": 0,
             }
 
     def _format_response(self, result: LookupResult, overall_ms: float) -> dict:
@@ -320,4 +332,7 @@ class ContextualCacheManager:
             "latency_ms": round(overall_ms, 2),
             "entry_id": result.entry_id,
             "similarity": round(result.similarity, 4),
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
         }

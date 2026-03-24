@@ -9,6 +9,7 @@
       latency_ms: number;
       similarity: number;
       entry_id?: string;
+      tokens?: number;
     };
     timestamp: number;
   }
@@ -21,12 +22,15 @@
 
 <script lang="ts">
   import { onMount, tick } from 'svelte';
-  import { sendQuery, getStats } from '$lib/api';
-  import type { QueryResponse } from '$lib/api';
+  import { sendQuery, getStats, listConversations, getConversation, deleteConversation } from '$lib/api';
+  import type { QueryResponse, ConversationSummary } from '$lib/api';
 
   // ── Local UI State ─────────────────────────────────────────
   let sending = $state(false);
   let cacheStats = $state({ hit_rate: 0, total_queries: 0, total_hits: 0, cache_size: 0, hit_latency: 0 });
+  let showHistory = $state(false);
+  let histSessions = $state<ConversationSummary[]>([]);
+  let loadingHistory = $state(false);
 
   let chatContainer: HTMLElement;
 
@@ -36,6 +40,51 @@
     if (chatContainer) {
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
+  }
+
+  // ── History helpers ────────────────────────────────────────
+  async function refreshHistory() {
+    try {
+      const res = await listConversations();
+      histSessions = res.sessions;
+    } catch { /* ignore */ }
+  }
+
+  async function loadSession(sid: string) {
+    loadingHistory = true;
+    try {
+      const res = await getConversation(sid);
+      sessionId = sid;
+      messages = res.messages.map((m: any) => ({
+        id: crypto.randomUUID(),
+        role: m.role,
+        text: m.text,
+        meta: m.meta ?? undefined,
+        timestamp: m.created_at * 1000,
+      }));
+      showHistory = false;
+      await scrollToBottom();
+    } catch (e: any) {
+      console.error('Failed to load session', e);
+    } finally {
+      loadingHistory = false;
+    }
+  }
+
+  async function removeSession(sid: string, ev: Event) {
+    ev.stopPropagation();
+    if (!confirm('Delete this conversation?')) return;
+    try {
+      await deleteConversation(sid);
+      histSessions = histSessions.filter(s => s.session_id !== sid);
+      if (sid === sessionId) {
+        newSession();
+      }
+    } catch { /* ignore */ }
+  }
+
+  function formatDate(ts: number) {
+    return new Date(ts * 1000).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   }
 
   // ── Send query ─────────────────────────────────────────────
@@ -70,11 +119,12 @@
           latency_ms: res.latency_ms,
           similarity: res.similarity ?? 0,
           entry_id: res.entry_id ?? undefined,
+          tokens: res.total_tokens ?? 0,
         },
         timestamp: Date.now(),
       }];
 
-      // Refresh stats
+      // Refresh stats + history
       try {
         const s = await getStats();
         cacheStats = {
@@ -85,6 +135,7 @@
           hit_latency: s.aggregate.avg_hit_latency_ms,
         };
       } catch { /* ignore */ }
+      refreshHistory();
     } catch (e: any) {
       messages = [...messages, {
         id: crypto.randomUUID(),
@@ -112,6 +163,7 @@
 
   onMount(async () => {
     scrollToBottom();
+    refreshHistory();
     try {
       const s = await getStats();
       cacheStats = {
@@ -133,6 +185,9 @@
   <!-- Top Bar -->
   <header class="topbar">
     <div class="topbar-left">
+      <button class="btn-icon" onclick={() => { showHistory = !showHistory; if(showHistory) refreshHistory(); }} title="Chat History">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </button>
       <h1 class="page-title">Chat</h1>
       <span class="session-tag">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -162,70 +217,112 @@
     </div>
   </header>
 
-  <!-- Chat Messages -->
-  <div class="chat-scroll" bind:this={chatContainer}>
-    {#if messages.length === 0}
-      <div class="empty-state">
-        <div class="empty-icon">💬</div>
-        <h2>Start a Conversation</h2>
-        <p>Ask anything — responses are cached semantically so similar questions get instant answers.</p>
-        <div class="hint-grid">
-          <button class="hint" onclick={() => { input = 'What is machine learning?'; handleSend(); }}>What is machine learning?</button>
-          <button class="hint" onclick={() => { input = 'Explain neural networks'; handleSend(); }}>Explain neural networks</button>
-          <button class="hint" onclick={() => { input = 'How does gradient descent work?'; handleSend(); }}>How does gradient descent work?</button>
-          <button class="hint" onclick={() => { input = 'What are transformers in AI?'; handleSend(); }}>What are transformers in AI?</button>
+  <div class="chat-body">
+    <!-- History Sidebar -->
+    {#if showHistory}
+      <aside class="history-panel">
+        <div class="history-header">
+          <span class="history-title">History</span>
+          <button class="btn-icon btn-sm" onclick={newSession} title="New Chat">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
         </div>
-      </div>
-    {:else}
-      <div class="messages">
-        {#each messages as msg (msg.id)}
-          <div class="msg-row" class:user={msg.role === 'user'} class:assistant={msg.role === 'assistant'}>
-            {#if msg.role === 'user'}
-              <div class="msg-bubble user-bubble">
-                <p>{msg.text}</p>
+        <div class="history-list">
+          {#if histSessions.length === 0}
+            <p class="history-empty">No conversations yet</p>
+          {:else}
+            {#each histSessions as sess (sess.session_id)}
+              <div
+                class="history-item"
+                class:active={sess.session_id === sessionId}
+                onclick={() => loadSession(sess.session_id)}
+                role="button"
+                tabindex="0"
+              >
+                <div class="history-item-text">
+                  <span class="history-item-title">{sess.title}</span>
+                  <span class="history-item-meta">{formatDate(sess.updated_at)} · {sess.message_count} msgs</span>
+                </div>
+                <button class="history-delete" onclick={(e) => removeSession(sess.session_id, e)} title="Delete">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
               </div>
-            {:else}
-              <div class="msg-bubble assistant-bubble">
-                {#if msg.meta}
-                  <div class="meta-bar">
-                    <span class="meta-badge" class:hit={msg.meta.hit} class:miss={!msg.meta.hit}>
-                      {msg.meta.hit ? `Cache Hit · Tier ${msg.meta.tier}` : 'Cache Miss · LLM'}
-                    </span>
-                    <span class="meta-latency">{msg.meta.latency_ms.toFixed(0)}ms</span>
-                    {#if msg.meta.hit && msg.meta.similarity > 0}
-                      <span class="meta-sim">sim {msg.meta.similarity.toFixed(3)}</span>
+            {/each}
+          {/if}
+        </div>
+      </aside>
+    {/if}
+
+    <!-- Chat Area -->
+    <div class="chat-main">
+      <div class="chat-scroll" bind:this={chatContainer}>
+        {#if messages.length === 0}
+          <div class="empty-state">
+            <div class="empty-icon">💬</div>
+            <h2>Start a Conversation</h2>
+            <p>Ask anything — responses are cached semantically so similar questions get instant answers.</p>
+            <div class="hint-grid">
+              <button class="hint" onclick={() => { input = 'What is machine learning?'; handleSend(); }}>What is machine learning?</button>
+              <button class="hint" onclick={() => { input = 'Explain neural networks'; handleSend(); }}>Explain neural networks</button>
+              <button class="hint" onclick={() => { input = 'How does gradient descent work?'; handleSend(); }}>How does gradient descent work?</button>
+              <button class="hint" onclick={() => { input = 'What are transformers in AI?'; handleSend(); }}>What are transformers in AI?</button>
+            </div>
+          </div>
+        {:else}
+          <div class="messages">
+            {#each messages as msg (msg.id)}
+              <div class="msg-row" class:user={msg.role === 'user'} class:assistant={msg.role === 'assistant'}>
+                {#if msg.role === 'user'}
+                  <div class="msg-bubble user-bubble">
+                    <p>{msg.text}</p>
+                  </div>
+                {:else}
+                  <div class="msg-bubble assistant-bubble">
+                    {#if msg.meta}
+                      <div class="meta-bar">
+                        <span class="meta-badge" class:hit={msg.meta.hit} class:miss={!msg.meta.hit}>
+                          {msg.meta.hit ? `Cache Hit · Tier ${msg.meta.tier}` : 'Cache Miss · LLM'}
+                        </span>
+                        <span class="meta-latency">{msg.meta.latency_ms.toFixed(0)}ms</span>
+                        {#if msg.meta.hit && msg.meta.similarity > 0}
+                          <span class="meta-sim">sim {msg.meta.similarity.toFixed(3)}</span>
+                        {/if}
+                        {#if msg.meta.tokens != null && msg.meta.tokens > 0}
+                          <span class="meta-tokens">{msg.meta.tokens} tok</span>
+                        {/if}
+                      </div>
                     {/if}
+                    <p class="response-text">{msg.text}</p>
                   </div>
                 {/if}
-                <p class="response-text">{msg.text}</p>
+              </div>
+            {/each}
+            {#if sending}
+              <div class="msg-row assistant">
+                <div class="msg-bubble assistant-bubble typing">
+                  <span class="dot-one">·</span><span class="dot-two">·</span><span class="dot-three">·</span>
+                </div>
               </div>
             {/if}
           </div>
-        {/each}
-        {#if sending}
-          <div class="msg-row assistant">
-            <div class="msg-bubble assistant-bubble typing">
-              <span class="dot-one">·</span><span class="dot-two">·</span><span class="dot-three">·</span>
-            </div>
-          </div>
         {/if}
       </div>
-    {/if}
-  </div>
 
-  <!-- Input Bar -->
-  <div class="input-bar">
-    <input
-      type="text"
-      class="chat-input"
-      placeholder="Type a message…"
-      bind:value={input}
-      onkeydown={handleKeydown}
-      disabled={sending}
-    />
-    <button class="send-btn" onclick={handleSend} disabled={sending || !input.trim()} aria-label="Send message">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
+      <!-- Input Bar -->
+      <div class="input-bar">
+        <input
+          type="text"
+          class="chat-input"
+          placeholder="Type a message…"
+          bind:value={input}
+          onkeydown={handleKeydown}
+          disabled={sending}
+        />
+        <button class="send-btn" onclick={handleSend} disabled={sending || !input.trim()} aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -321,6 +418,131 @@
     color: #c7d2fe;
   }
 
+  .btn-sm { width: 28px; height: 28px; }
+
+  /* ── Chat Body (history + main) ────────────────────────── */
+  .chat-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── History Panel ─────────────────────────────────────── */
+  .history-panel {
+    width: 260px;
+    min-width: 260px;
+    background: #0f0f1a;
+    border-right: 1px solid rgba(99, 102, 241, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+  }
+
+  .history-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #94a3b8;
+  }
+
+  .history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+  }
+
+  .history-list::-webkit-scrollbar { width: 4px; }
+  .history-list::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.15); border-radius: 2px; }
+
+  .history-empty {
+    font-size: 12px;
+    color: #475569;
+    text-align: center;
+    padding: 24px 8px;
+  }
+
+  .history-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    color: #94a3b8;
+    font-family: inherit;
+    transition: all 0.15s;
+    margin-bottom: 2px;
+  }
+
+  .history-item:hover {
+    background: rgba(99, 102, 241, 0.06);
+    border-color: rgba(99, 102, 241, 0.1);
+  }
+
+  .history-item.active {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.2);
+    color: #c7d2fe;
+  }
+
+  .history-item-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .history-item-title {
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .history-item-meta {
+    font-size: 10px;
+    color: #475569;
+  }
+
+  .history-delete {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: #475569;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .history-item:hover .history-delete { opacity: 1; }
+  .history-delete:hover { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+
   /* ── Chat Area ──────────────────────────────────────────── */
   .chat-scroll {
     flex: 1;
@@ -395,10 +617,7 @@
     width: 100%;
   }
 
-  .msg-row {
-    display: flex;
-  }
-
+  .msg-row { display: flex; }
   .msg-row.user { justify-content: flex-end; }
   .msg-row.assistant { justify-content: flex-start; }
 
@@ -465,6 +684,12 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     color: #a78bfa;
+  }
+
+  .meta-tokens {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #f59e0b;
   }
 
   .response-text {

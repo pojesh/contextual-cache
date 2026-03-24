@@ -138,9 +138,9 @@
           <span class="kpi-sub">{stats?.aggregate.total_hits ?? 0} / {stats?.aggregate.total_queries ?? 0} queries</span>
         </div>
         <div class="kpi" style="--accent: #34d399;">
-          <span class="kpi-label">Avg Latency</span>
-          <span class="kpi-val">{stats ? stats.aggregate.avg_latency_ms.toFixed(1) : '—'}<small>ms</small></span>
-          <span class="kpi-sub">Hit avg {stats ? stats.aggregate.avg_hit_latency_ms.toFixed(1) : '—'}ms</span>
+          <span class="kpi-label">Hit Avg Latency</span>
+          <span class="kpi-val">{stats ? stats.aggregate.avg_hit_latency_ms.toFixed(1) : '—'}<small>ms</small></span>
+          <span class="kpi-sub">Overall avg {stats ? stats.aggregate.avg_latency_ms.toFixed(1) : '—'}ms</span>
         </div>
         <div class="kpi" style="--accent: #a78bfa;">
           <span class="kpi-label">Cache Size</span>

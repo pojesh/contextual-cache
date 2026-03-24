@@ -78,6 +78,24 @@ class PersistenceLayer:
                 total_updates INTEGER DEFAULT 0,
                 drift_resets INTEGER DEFAULT 0
             );
+
+            CREATE TABLE IF NOT EXISTS conversations (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                session_id TEXT NOT NULL,
+                role TEXT NOT NULL,
+                text TEXT NOT NULL,
+                meta TEXT,
+                created_at REAL NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_conv_session
+                ON conversations(session_id);
+
+            CREATE TABLE IF NOT EXISTS session_metadata (
+                session_id TEXT PRIMARY KEY,
+                title TEXT NOT NULL,
+                created_at REAL NOT NULL,
+                updated_at REAL NOT NULL
+            );
         """)
         self._conn.commit()
         logger.info("Persistence layer initialized at %s", self._db_path)
@@ -243,6 +261,110 @@ class PersistenceLayer:
         )
         self._conn.commit()
         logger.debug("Flushed %d entries to persistence.", len(data))
+
+    # ── Conversation persistence ────────────────────────────────
+
+    async def save_message(self, session_id: str, role: str, text: str,
+                           meta_json: Optional[str] = None,
+                           timestamp: Optional[float] = None) -> None:
+        """Save a chat message and upsert session metadata."""
+        if self._conn is None:
+            return
+        ts = timestamp or time.time()
+        self._conn.execute(
+            "INSERT INTO conversations (session_id, role, text, meta, created_at) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (session_id, role, text, meta_json, ts),
+        )
+        # Upsert session metadata — auto-title from first user message
+        existing = self._conn.execute(
+            "SELECT session_id FROM session_metadata WHERE session_id = ?",
+            (session_id,),
+        ).fetchone()
+        if existing is None:
+            title = text[:50] + ("…" if len(text) > 50 else "")
+            self._conn.execute(
+                "INSERT INTO session_metadata (session_id, title, created_at, updated_at) "
+                "VALUES (?, ?, ?, ?)",
+                (session_id, title, ts, ts),
+            )
+        else:
+            self._conn.execute(
+                "UPDATE session_metadata SET updated_at = ? WHERE session_id = ?",
+                (ts, session_id),
+            )
+        self._conn.commit()
+
+    async def list_sessions(self) -> List[Dict]:
+        """List all chat sessions ordered by most recent."""
+        if self._conn is None:
+            return []
+        rows = self._conn.execute(
+            """SELECT sm.session_id, sm.title, sm.created_at, sm.updated_at,
+                      COUNT(c.id) as message_count
+               FROM session_metadata sm
+               LEFT JOIN conversations c ON sm.session_id = c.session_id
+               GROUP BY sm.session_id
+               ORDER BY sm.updated_at DESC"""
+        ).fetchall()
+        return [
+            {
+                "session_id": r[0],
+                "title": r[1],
+                "created_at": r[2],
+                "updated_at": r[3],
+                "message_count": r[4],
+            }
+            for r in rows
+        ]
+
+    async def get_session_messages(self, session_id: str) -> List[Dict]:
+        """Get all messages for a session, ordered by time."""
+        if self._conn is None:
+            return []
+        rows = self._conn.execute(
+            "SELECT role, text, meta, created_at FROM conversations "
+            "WHERE session_id = ? ORDER BY created_at ASC, id ASC",
+            (session_id,),
+        ).fetchall()
+        results = []
+        for r in rows:
+            msg: Dict = {
+                "role": r[0],
+                "text": r[1],
+                "created_at": r[3],
+            }
+            if r[2]:
+                try:
+                    msg["meta"] = json.loads(r[2])
+                except (json.JSONDecodeError, TypeError):
+                    msg["meta"] = None
+            else:
+                msg["meta"] = None
+            results.append(msg)
+        return results
+
+    async def delete_session(self, session_id: str) -> None:
+        """Delete a session and all its messages."""
+        if self._conn is None:
+            return
+        self._conn.execute(
+            "DELETE FROM conversations WHERE session_id = ?", (session_id,)
+        )
+        self._conn.execute(
+            "DELETE FROM session_metadata WHERE session_id = ?", (session_id,)
+        )
+        self._conn.commit()
+
+    async def update_session_title(self, session_id: str, title: str) -> None:
+        """Rename a session."""
+        if self._conn is None:
+            return
+        self._conn.execute(
+            "UPDATE session_metadata SET title = ? WHERE session_id = ?",
+            (title, session_id),
+        )
+        self._conn.commit()
 
     async def close(self) -> None:
         """Close the database connection."""

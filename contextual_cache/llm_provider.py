@@ -86,6 +86,8 @@ class LLMProvider:
 
         # Stats
         self.total_calls = 0
+        self.total_input_tokens = 0
+        self.total_output_tokens = 0
         self.total_tokens = 0
         self.total_cost_usd = 0.0
         self.total_latency_ms = 0.0
@@ -115,7 +117,9 @@ class LLMProvider:
         latency_ms = (time.monotonic() - t0) * 1000
 
         self.total_calls += 1
-        self.total_tokens += result.output_tokens
+        self.total_input_tokens += result.input_tokens
+        self.total_output_tokens += result.output_tokens
+        self.total_tokens += result.input_tokens + result.output_tokens
         self.total_cost_usd += result.cost_usd
         self.total_latency_ms += latency_ms
         result.latency_ms = latency_ms
@@ -201,10 +205,12 @@ class LLMProvider:
 
         text = data.get("response", "")
         eval_count = data.get("eval_count", len(text.split()))
+        prompt_eval_count = data.get("prompt_eval_count", 0)
 
         return LLMResponse(
             text=text,
             output_tokens=eval_count,
+            input_tokens=prompt_eval_count,
             cost_usd=0.0,
         )
 
@@ -242,6 +248,7 @@ class LLMProvider:
         text = choice.get("message", {}).get("content", "")
         usage = data.get("usage", {})
         output_tokens = usage.get("completion_tokens", len(text.split()))
+        input_tokens = usage.get("prompt_tokens", 0)
 
         cost_per_1k = self.COST_PER_1K_TOKENS.get(self.backend, 0.01)
         cost = (output_tokens / 1000) * cost_per_1k
@@ -249,6 +256,7 @@ class LLMProvider:
         return LLMResponse(
             text=text,
             output_tokens=output_tokens,
+            input_tokens=input_tokens,
             cost_usd=cost,
         )
 
@@ -260,6 +268,8 @@ class LLMProvider:
             "backend": self.backend.value,
             "model": self.model,
             "total_calls": self.total_calls,
+            "total_input_tokens": self.total_input_tokens,
+            "total_output_tokens": self.total_output_tokens,
             "total_tokens": self.total_tokens,
             "total_cost_usd": round(self.total_cost_usd, 6),
             "avg_latency_ms": round(
@@ -273,11 +283,12 @@ class LLMProvider:
 class LLMResponse:
     """Response from an LLM call."""
 
-    __slots__ = ("text", "output_tokens", "cost_usd", "latency_ms")
+    __slots__ = ("text", "input_tokens", "output_tokens", "cost_usd", "latency_ms")
 
     def __init__(self, text: str, output_tokens: int, cost_usd: float,
-                 latency_ms: float = 0.0) -> None:
+                 latency_ms: float = 0.0, input_tokens: int = 0) -> None:
         self.text = text
+        self.input_tokens = input_tokens
         self.output_tokens = output_tokens
         self.cost_usd = cost_usd
         self.latency_ms = latency_ms

@@ -250,6 +250,10 @@ class TwoTierLookupEngine:
                 self._id_map.pop(faiss_id, None)
                 self._removals_since_rebuild += 1
 
+                # Auto-rebuild when too many stale vectors accumulate
+                if self._removals_since_rebuild >= settings.index_rebuild_interval:
+                    self.rebuild_index()
+
     # ── Info ──────────────────────────────────────────────────
 
     @property

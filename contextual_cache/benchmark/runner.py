@@ -212,6 +212,7 @@ class BenchmarkRunner:
                         embedding=emb,
                         response=llm_resp,
                         llm_latency_ms=llm_lat,
+                        gold_answer=q.answer,
                     )
 
                     if result.hit:
@@ -370,7 +371,8 @@ class _ContextualCacheWrapper(BaseCache):
         self._CacheEntry = CacheEntry
 
     async def query(self, text: str, embedding: Optional[np.ndarray],
-                    response: str, llm_latency_ms: float) -> CacheResult:
+                    response: str, llm_latency_ms: float,
+                    gold_answer: Optional[str] = None) -> CacheResult:
         import uuid as _uuid
         t0 = time.monotonic()
         self.total_queries += 1
@@ -388,7 +390,8 @@ class _ContextualCacheWrapper(BaseCache):
             ms = (time.monotonic() - t0) * 1000
             self.total_hits += 1
             self.hit_latencies.append(ms)
-            correct = self._check_correctness(response, result.response)
+            ref = gold_answer or response
+            correct = _check_hit_correctness(ref, result.response)
             if result.entry_id:
                 await self._threshold_store.update(result.entry_id, 1.0, correct)
             self._bandit.update(best_arm, 1.0 if correct else 0.0)
@@ -407,7 +410,8 @@ class _ContextualCacheWrapper(BaseCache):
                 ms = (time.monotonic() - t0) * 1000
                 self.total_hits += 1
                 self.hit_latencies.append(ms)
-                correct = self._check_correctness(response, result.response)
+                ref = gold_answer or response
+                correct = _check_hit_correctness(ref, result.response)
                 if result.entry_id:
                     await self._threshold_store.update(result.entry_id, result.similarity, correct)
                 self._bandit.update(best_arm, 1.0 if correct else 0.0)
@@ -439,21 +443,6 @@ class _ContextualCacheWrapper(BaseCache):
             self._evictor.register(entry)
 
         return CacheResult(hit=False, response=response, tier=0, latency_ms=ms)
-
-    @staticmethod
-    def _check_correctness(expected: str, cached: str) -> bool:
-        stopwords = {
-            "the", "a", "an", "is", "are", "was", "were",
-            "in", "on", "at", "to", "of", "and", "or",
-            "for", "it", "its", "this", "that", "with",
-            "as", "by", "be", "has", "had", "have", "from",
-        }
-        expected_words = set(expected.lower().split()) - stopwords
-        cached_words = set(cached.lower().split()) - stopwords
-        if not expected_words:
-            return True
-        overlap = len(expected_words & cached_words) / len(expected_words)
-        return overlap >= 0.4
 
     def reset(self):
         from ..admission_policy import SemanticWTinyLFUAdmission

@@ -22,6 +22,9 @@ export interface QueryResponse {
   llm_latency_ms?: number;
   error?: boolean;
   fallback?: boolean;
+  input_tokens?: number;
+  output_tokens?: number;
+  total_tokens?: number;
 }
 
 export interface FeedbackRequest {
@@ -137,6 +140,66 @@ export async function getHealth(): Promise<any> {
 
 export async function clearCache(): Promise<any> {
   return request('/api/clear-cache', { method: 'POST' });
+}
+
+// ── Conversation History API ─────────────────────────────────────
+
+export interface ConversationSummary {
+  session_id: string;
+  title: string;
+  created_at: number;
+  updated_at: number;
+  message_count: number;
+}
+
+export interface ConversationMessage {
+  role: 'user' | 'assistant';
+  text: string;
+  meta?: {
+    hit?: boolean;
+    tier?: number;
+    latency_ms?: number;
+    similarity?: number;
+    entry_id?: string;
+    tokens?: number;
+  } | null;
+  created_at: number;
+}
+
+export async function listConversations(): Promise<{ sessions: ConversationSummary[] }> {
+  return request('/api/conversations');
+}
+
+export async function getConversation(sessionId: string): Promise<{ session_id: string; messages: ConversationMessage[] }> {
+  return request(`/api/conversations/${sessionId}`);
+}
+
+export async function deleteConversation(sessionId: string): Promise<void> {
+  await request(`/api/conversations/${sessionId}`, { method: 'DELETE' });
+}
+
+export async function renameConversation(sessionId: string, title: string): Promise<void> {
+  await request(`/api/conversations/${sessionId}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ title }),
+  });
+}
+
+// ── Direct LLM Query (cache bypass) ────────────────────────────
+
+export interface DirectQueryResponse {
+  response: string;
+  latency_ms: number;
+  input_tokens: number;
+  output_tokens: number;
+  total_tokens: number;
+}
+
+export async function sendDirectQuery(query: string): Promise<DirectQueryResponse> {
+  return request<DirectQueryResponse>('/api/query-direct', {
+    method: 'POST',
+    body: JSON.stringify({ query }),
+  });
 }
 
 // ── Benchmark API ────────────────────────────────────────────────

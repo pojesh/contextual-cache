@@ -6,7 +6,9 @@ All endpoints are async and use the global CacheManager instance.
 
 from __future__ import annotations
 
+import json
 import logging
+import time
 from typing import Optional
 
 from fastapi import APIRouter, HTTPException
@@ -39,6 +41,9 @@ class QueryResponse(BaseModel):
     llm_latency_ms: Optional[float] = None
     error: Optional[bool] = None
     fallback: Optional[bool] = None
+    input_tokens: Optional[int] = None
+    output_tokens: Optional[int] = None
+    total_tokens: Optional[int] = None
 
 
 class FeedbackRequest(BaseModel):
@@ -65,11 +70,17 @@ class BulkQueryRequest(BaseModel):
 
 # The cache_manager is injected by the main app on startup
 _cache_manager = None
+_persistence = None
 
 
 def set_cache_manager(cm) -> None:
     global _cache_manager
     _cache_manager = cm
+
+
+def set_persistence_layer(p) -> None:
+    global _persistence
+    _persistence = p
 
 
 def _get_cm():
@@ -82,7 +93,7 @@ def _get_cm():
 async def query_endpoint(req: QueryRequest):
     """
     Main cache-fronted LLM query endpoint.
-    
+
     - Checks Tier 1 (exact hash) and Tier 2 (semantic ANN)
     - Falls back to LLM on cache miss
     - Automatically admits new entries via W-TinyLFU
@@ -93,6 +104,29 @@ async def query_endpoint(req: QueryRequest):
         session_id=req.session_id,
         tenant_id=req.tenant_id,
     )
+
+    # Auto-save conversation messages to persistence
+    if _persistence is not None and req.session_id:
+        try:
+            now = time.time()
+            await _persistence.save_message(
+                req.session_id, "user", req.query, None, now,
+            )
+            meta = {
+                "hit": result.get("hit", False),
+                "tier": result.get("tier", 0),
+                "latency_ms": result.get("latency_ms", 0),
+                "similarity": result.get("similarity", 0),
+                "entry_id": result.get("entry_id"),
+                "tokens": result.get("total_tokens", 0),
+            }
+            await _persistence.save_message(
+                req.session_id, "assistant", result.get("response", ""),
+                json.dumps(meta), now + 0.001,
+            )
+        except Exception as e:
+            logger.warning("Failed to save conversation: %s", e)
+
     return QueryResponse(**result)
 
 
@@ -245,3 +279,80 @@ async def get_benchmark_result(run_id: str):
     if result is None:
         raise HTTPException(404, f"Benchmark result {run_id} not found")
     return result
+
+
+# ── Conversation history endpoints ───────────────────────────
+
+
+@router.get("/api/conversations")
+async def list_conversations():
+    """List all chat sessions."""
+    if _persistence is None:
+        return {"sessions": []}
+    sessions = await _persistence.list_sessions()
+    return {"sessions": sessions}
+
+
+@router.get("/api/conversations/{session_id}")
+async def get_conversation(session_id: str):
+    """Get all messages for a session."""
+    if _persistence is None:
+        raise HTTPException(503, "Persistence not available")
+    messages = await _persistence.get_session_messages(session_id)
+    return {"session_id": session_id, "messages": messages}
+
+
+@router.delete("/api/conversations/{session_id}")
+async def delete_conversation(session_id: str):
+    """Delete a session and all its messages."""
+    if _persistence is None:
+        raise HTTPException(503, "Persistence not available")
+    await _persistence.delete_session(session_id)
+    return {"status": "ok"}
+
+
+class RenameRequest(BaseModel):
+    title: str = Field(..., min_length=1, max_length=200)
+
+
+@router.patch("/api/conversations/{session_id}")
+async def rename_conversation(session_id: str, req: RenameRequest):
+    """Rename a session."""
+    if _persistence is None:
+        raise HTTPException(503, "Persistence not available")
+    await _persistence.update_session_title(session_id, req.title)
+    return {"status": "ok"}
+
+
+# ── Direct LLM query (cache bypass for comparison) ──────────
+
+
+class DirectQueryRequest(BaseModel):
+    query: str = Field(..., min_length=1, max_length=10000)
+
+
+class DirectQueryResponse(BaseModel):
+    response: str
+    latency_ms: float
+    input_tokens: int = 0
+    output_tokens: int = 0
+    total_tokens: int = 0
+
+
+@router.post("/api/query-direct", response_model=DirectQueryResponse)
+async def direct_query_endpoint(req: DirectQueryRequest):
+    """Bypass cache, call LLM directly. For comparison demos."""
+    cm = _get_cm()
+    t0 = time.monotonic()
+    try:
+        llm_resp = await cm.llm_provider.generate(req.query)
+    except Exception as e:
+        raise HTTPException(502, f"LLM call failed: {e}")
+    latency = (time.monotonic() - t0) * 1000
+    return DirectQueryResponse(
+        response=llm_resp.text,
+        latency_ms=round(latency, 2),
+        input_tokens=llm_resp.input_tokens,
+        output_tokens=llm_resp.output_tokens,
+        total_tokens=llm_resp.input_tokens + llm_resp.output_tokens,
+    )

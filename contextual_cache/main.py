@@ -16,7 +16,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .api.routes import router, set_cache_manager, set_benchmark_runner
+from .api.routes import router, set_cache_manager, set_benchmark_runner, set_persistence_layer
 from .benchmark.runner import BenchmarkRunner
 from .cache_manager import ContextualCacheManager
 from .config import settings
@@ -69,11 +69,13 @@ async def lifespan(app: FastAPI):
     await cm.embedding_service._ensure_model()
     logger.info("  ✓ Embedding model ready.")
 
-    # Optional persistence: load saved state
-    persistence: PersistenceLayer | None = None
+    # Always initialize persistence for conversation history;
+    # cache entry persistence is gated by persistence_enabled.
+    persistence = PersistenceLayer()
+    await persistence.initialize()
+    set_persistence_layer(persistence)
+
     if settings.persistence_enabled:
-        persistence = PersistenceLayer()
-        await persistence.initialize()
         entries = await persistence.load_all_entries()
         for entry in entries:
             await cm.lookup_engine.store(entry)
@@ -114,13 +116,13 @@ async def lifespan(app: FastAPI):
         logger.info("  ✓ TTL cleanup task started (every %.0fs).",
                      settings.ttl_cleanup_interval_s)
 
-    # Periodic persistence flush
+    # Periodic persistence flush (only for cache entries when enabled)
     async def _persistence_flush_loop():
         while True:
             await asyncio.sleep(30.0)
             try:
                 entries = list(cm.lookup_engine._entries.values())
-                if entries and persistence:
+                if entries:
                     await persistence.flush_entries(entries)
                     await persistence.save_bandit_state(
                         cm.bandit.shard_id,
@@ -132,7 +134,7 @@ async def lifespan(app: FastAPI):
             except Exception:
                 logger.exception("Persistence flush error")
 
-    if persistence:
+    if settings.persistence_enabled:
         _background_tasks.append(asyncio.create_task(_persistence_flush_loop()))
         logger.info("  ✓ Persistence flush task started (every 30s).")
 
@@ -152,7 +154,7 @@ async def lifespan(app: FastAPI):
             pass
 
     # Final persistence flush
-    if persistence:
+    if settings.persistence_enabled:
         entries = list(cm.lookup_engine._entries.values())
         if entries:
             await persistence.flush_entries(entries)
@@ -163,8 +165,9 @@ async def lifespan(app: FastAPI):
             cm.bandit.total_updates,
             cm.bandit.drift_resets,
         )
-        await persistence.close()
-        logger.info("Persistence flushed and closed.")
+        logger.info("Persistence: cache entries flushed.")
+    await persistence.close()
+    logger.info("Persistence closed.")
 
     logger.info("Shutting down ContextualCache…")
     await cm.close()
