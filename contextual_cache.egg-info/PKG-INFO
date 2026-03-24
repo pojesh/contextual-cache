@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: contextual-cache
+Version: 1.0.0
+Summary: ContextualCache: A Fault-Tolerant Adaptive Semantic Cache for LLM Serving
+Requires-Python: >=3.10
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: uvicorn[standard]>=0.30.0
+Requires-Dist: numpy>=1.26.0
+Requires-Dist: sentence-transformers>=3.0.0
+Requires-Dist: faiss-cpu>=1.8.0
+Requires-Dist: redis>=5.0.0
+Requires-Dist: httpx>=0.27.0
+Requires-Dist: prometheus-client>=0.21.0
+Requires-Dist: pydantic>=2.9.0
+Requires-Dist: pydantic-settings>=2.5.0
+Requires-Dist: python-dotenv>=1.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.24.0; extra == "dev"
