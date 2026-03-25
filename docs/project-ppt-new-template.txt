@@ -1,0 +1,22 @@
+1. Introduction & Objectives (1-2 slides)
+
+2. System Design & Architecture (2-3 slides)
+- Architecture diagram in mermaid js code 
+- Architecture explanation as components
+3. Implementation Details (4-5 slides)
+Modules developed and integrated
+Algorithms implemented
+Code snippets (if applicable)
+
+4. Results & Analysis (5-7slides) 
+
+85~90% implementation results
+Performance metrics/comparison
+Testing outcomes
+(graphs and interpretations)
+
+5. Challenges & Solutions (1-2 slides)
+
+6. Remaining Work (1 slide)
+
+7. References
