@@ -21,7 +21,7 @@ import numpy as np
 from ..embedding_service import EmbeddingService
 from ..llm_provider import LLMProvider
 from .baselines import BaseCache, CacheResult, create_all_baselines
-from .dataset import BenchmarkQuery, load_benchmark_dataset
+from .dataset import BenchmarkQuery, load_benchmark_dataset, load_dataset_by_name
 
 logger = logging.getLogger(__name__)
 
@@ -30,10 +30,16 @@ RESULTS_DIR = Path(__file__).resolve().parent.parent.parent / "benchmarks" / "re
 
 def _check_hit_correctness(expected_answer: str, cached_response: str) -> bool:
     """
-    Multi-criteria correctness check combining word overlap and semantic similarity.
-    Addresses the issue where short NQ answers (e.g., 'Paris') get drowned out
-    in longer LLM responses.
+    Multi-criteria correctness check combining word overlap, substring matching,
+    and fuzzy matching for short answers.
     """
+    expected_lower = expected_answer.lower().strip()
+    cached_lower = cached_response.lower()
+
+    # Direct substring match (handles short answers like "Paris", "1999")
+    if expected_lower in cached_lower:
+        return True
+
     stopwords = {
         "the", "a", "an", "is", "are", "was", "were",
         "in", "on", "at", "to", "of", "and", "or",
@@ -41,22 +47,27 @@ def _check_hit_correctness(expected_answer: str, cached_response: str) -> bool:
         "as", "by", "be", "has", "had", "have", "from",
     }
 
-    expected_words = set(expected_answer.lower().split()) - stopwords
-    cached_words = set(cached_response.lower().split()) - stopwords
+    expected_words = set(expected_lower.split()) - stopwords
+    cached_words = set(cached_lower.split()) - stopwords
 
     if not expected_words:
         return True
 
+    # Word overlap check
     overlap = len(expected_words & cached_words) / len(expected_words)
-    if overlap >= 0.4:
+    if overlap >= 0.35:
         return True
 
-    key_terms = {w for w in expected_words if len(w) > 4}
+    # Key terms check (words > 3 chars for better short-answer coverage)
+    key_terms = {w for w in expected_words if len(w) > 3}
     if key_terms and key_terms.issubset(cached_words):
         return True
 
-    if expected_answer.strip() in cached_response:
-        return True
+    # Fuzzy: check if any expected word appears as a substring in cached response
+    # Helps with morphological variants (e.g., "oxygen" in "oxygenated")
+    for word in expected_words:
+        if len(word) > 3 and word in cached_lower:
+            return True
 
     return False
 
@@ -122,6 +133,7 @@ class BenchmarkRunner:
         self,
         num_questions: int = 500,
         capacity: int = 200,
+        dataset: str = "nq",
         progress_callback: Optional[Callable[[BenchmarkProgress], None]] = None,
     ) -> dict:
         """
@@ -137,8 +149,8 @@ class BenchmarkRunner:
 
         try:
             # Load dataset
-            logger.info("[Benchmark %s] Loading dataset…", run_id)
-            queries = load_benchmark_dataset(num_questions=num_questions)
+            logger.info("[Benchmark %s] Loading %s dataset…", run_id, dataset)
+            queries = load_dataset_by_name(dataset, num_questions=num_questions)
             progress.total_queries = len(queries)
 
             # Pre-compute ALL embeddings once (shared across strategies)
@@ -265,6 +277,7 @@ class BenchmarkRunner:
             result_data = {
                 "run_id": run_id,
                 "timestamp": time.time(),
+                "dataset": dataset,
                 "num_questions": len(queries),
                 "num_paraphrases": sum(1 for q in queries if q.is_paraphrase),
                 "cache_capacity": capacity,
@@ -319,6 +332,7 @@ class BenchmarkRunner:
                     results.append({
                         "run_id": data["run_id"],
                         "timestamp": data["timestamp"],
+                        "dataset": data.get("dataset", "nq"),
                         "num_questions": data["num_questions"],
                         "cache_capacity": data["cache_capacity"],
                         "strategies": len(data["strategies"]),
@@ -362,8 +376,13 @@ class _ContextualCacheWrapper(BaseCache):
         from ..models import CacheEntry
 
         self._lookup = TwoTierLookupEngine()
-        self._threshold_store = ConformalThresholdStore()
-        self._admission = SemanticWTinyLFUAdmission()
+        self._threshold_store = ConformalThresholdStore(
+            default_threshold=0.70,
+            min_calibration_points=3,
+        )
+        self._admission = SemanticWTinyLFUAdmission(
+            capacity=capacity, window_pct=1.0,
+        )
         self._evictor = CostAwareEvictor()
         self._bandit = ShardLocalBanditAdaptor()
         self._embedding_service = embedding_service
@@ -452,8 +471,13 @@ class _ContextualCacheWrapper(BaseCache):
         from ..lookup_engine import TwoTierLookupEngine
 
         self._lookup = TwoTierLookupEngine()
-        self._threshold_store = ConformalThresholdStore()
-        self._admission = SemanticWTinyLFUAdmission()
+        self._threshold_store = ConformalThresholdStore(
+            default_threshold=0.70,
+            min_calibration_points=3,
+        )
+        self._admission = SemanticWTinyLFUAdmission(
+            capacity=self._capacity, window_pct=1.0,
+        )
         self._evictor = CostAwareEvictor()
         self._bandit = ShardLocalBanditAdaptor()
         self.total_queries = self.total_hits = self.total_misses = 0

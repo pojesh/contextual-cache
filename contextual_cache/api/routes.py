@@ -216,9 +216,10 @@ def _get_br():
 
 class BenchmarkRunRequest(BaseModel):
     num_questions: int = Field(500, ge=10, le=2000,
-                               description="Number of NQ questions to benchmark")
+                               description="Number of questions to benchmark")
     capacity: int = Field(200, ge=10, le=5000,
                           description="Cache capacity for all strategies")
+    dataset: str = Field("nq", description="Dataset: 'nq' or 'squad'")
 
 
 @router.post("/api/benchmark/run")
@@ -238,6 +239,7 @@ async def start_benchmark(req: BenchmarkRunRequest):
         result = await br.run_benchmark(
             num_questions=req.num_questions,
             capacity=req.capacity,
+            dataset=req.dataset,
         )
         return result
 

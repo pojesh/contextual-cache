@@ -37,7 +37,7 @@ class ConformalThresholdStore:
         self,
         target_error_rate: float = settings.target_error_rate,
         default_threshold: float = settings.default_threshold,
-        min_calibration_points: int = 10,
+        min_calibration_points: int = 3,
         max_calibration_points: int = 200,
         min_threshold: float = 0.60,
         max_threshold: float = 0.99,

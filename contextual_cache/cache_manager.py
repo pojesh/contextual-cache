@@ -294,11 +294,12 @@ class ContextualCacheManager:
     async def close(self) -> None:
         """Cleanup resources."""
         await self.llm_provider.close()
+        await self.lookup_engine.close_redis()
 
     # ── Internal helpers ──────────────────────────────────────
 
     def _on_hit(self, result: LookupResult) -> None:
-        """Update eviction stats and admission frequency on cache hit."""
+        """Update eviction stats, admission frequency, and bandit on cache hit."""
         if result.entry_id:
             self.evictor.record_access(result.entry_id)
             entry = self.lookup_engine.get_entry(result.entry_id)
@@ -306,6 +307,19 @@ class ContextualCacheManager:
                 entry.frequency += 1
                 entry.last_access = time.time()
                 self.admission_policy.on_access(result.entry_id, entry.embedding)
+
+        # Implicit bandit feedback from similarity score
+        arm, _ = self.bandit.get_current_best()
+        if result.tier == 2 and result.similarity > 0:
+            if result.similarity >= 0.85:
+                reward = 1.0
+            elif result.similarity < 0.65:
+                reward = 0.0
+            else:
+                reward = (result.similarity - 0.65) / 0.20
+            self.bandit.update(arm, reward)
+        elif result.tier == 1:
+            self.bandit.update(arm, 1.0)
 
     def _record_metrics(
         self,
@@ -322,7 +336,7 @@ class ContextualCacheManager:
             similarity=result.similarity,
             was_admission_rejected=was_admission_rejected,
             was_eviction_triggered=was_eviction_triggered,
-            threshold_used=0.0,
+            threshold_used=result.threshold_used,
         )
         self.metrics.record_query(qm)
 

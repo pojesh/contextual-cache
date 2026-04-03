@@ -23,6 +23,7 @@ import numpy as np
 from .config import settings
 from .conformal_thresholds import ConformalThresholdStore
 from .models import CacheEntry, LookupResult
+from .redis_store import RedisStore
 from .session_context import SessionContextAccumulator
 from .utils import normalize_text
 
@@ -48,6 +49,9 @@ class TwoTierLookupEngine:
 
         # Tier 1: exact hash → (entry_id, response_text)
         self._exact_store: Dict[str, Tuple[str, str]] = {}
+
+        # Optional Redis-backed Tier 1 enhancement
+        self._redis = RedisStore()
 
         # Tier 2: FAISS HNSW index wrapped in IndexIDMap2 for explicit
         # ID management and true vector removal support.
@@ -130,6 +134,18 @@ class TwoTierLookupEngine:
         t0 = time.monotonic()
         ek = self.exact_key(query, tenant_id)
 
+        # Check Redis first (if available)
+        if self._redis.available:
+            redis_result = await self._redis.get(ek)
+            if redis_result:
+                entry_id, response = redis_result
+                latency = (time.monotonic() - t0) * 1000
+                return LookupResult(
+                    hit=True, tier=1, response=response,
+                    entry_id=entry_id, similarity=1.0,
+                    latency_ms=latency, threshold_used=1.0,
+                )
+
         if ek in self._exact_store:
             entry_id, response = self._exact_store[ek]
             latency = (time.monotonic() - t0) * 1000
@@ -140,6 +156,7 @@ class TwoTierLookupEngine:
                 entry_id=entry_id,
                 similarity=1.0,
                 latency_ms=latency,
+                threshold_used=1.0,
             )
 
         # ── Tier 2: Semantic search ──────────────────────────
@@ -198,6 +215,7 @@ class TwoTierLookupEngine:
                     similarity=similarity,
                     latency_ms=latency,
                     query_embedding=fused,
+                    threshold_used=tau_i,
                 )
 
         latency = (time.monotonic() - t0) * 1000
@@ -220,6 +238,11 @@ class TwoTierLookupEngine:
             ek = self.exact_key(entry.query_text, tenant_id)
             self._exact_store[ek] = (entry.entry_id, entry.response_text)
 
+            # Redis Tier 1 (if available)
+            if self._redis.available:
+                ttl = settings.default_ttl_s if settings.default_ttl_s > 0 else 0
+                await self._redis.set(ek, entry.entry_id, entry.response_text, ttl)
+
             # Tier 2: add to FAISS with explicit ID
             vec = entry.embedding.reshape(1, -1).astype(np.float32)
             faiss_id = self._next_faiss_id
@@ -241,6 +264,9 @@ class TwoTierLookupEngine:
             if entry is not None:
                 ek = self.exact_key(entry.query_text, tenant_id)
                 self._exact_store.pop(ek, None)
+                # Remove from Redis too
+                if self._redis.available:
+                    await self._redis.delete(ek)
 
             # Soft-delete from FAISS: remove from mappings so search skips it.
             # HNSW doesn't support true vector removal; vectors are cleaned
@@ -281,10 +307,16 @@ class TwoTierLookupEngine:
             if entry.is_expired
         ]
 
+    async def close_redis(self) -> None:
+        """Shutdown Redis connection if active."""
+        if self._redis.available:
+            await self._redis.close()
+
     def get_stats(self) -> dict:
         return {
             "total_entries": len(self._entries),
             "exact_store_size": len(self._exact_store),
             "faiss_index_size": self._index.ntotal,
             "embedding_dim": self._embed_dim,
+            "redis_enabled": self._redis.available,
         }

@@ -207,6 +207,7 @@ export async function sendDirectQuery(query: string): Promise<DirectQueryRespons
 export interface BenchmarkRunRequest {
   num_questions: number;
   capacity: number;
+  dataset?: string;
 }
 
 export interface BenchmarkStrategyResult {
@@ -231,6 +232,7 @@ export interface BenchmarkStrategyResult {
 export interface BenchmarkResult {
   run_id: string;
   timestamp: number;
+  dataset?: string;
   num_questions: number;
   num_paraphrases: number;
   cache_capacity: number;

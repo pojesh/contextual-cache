@@ -100,7 +100,7 @@ class SemanticWTinyLFUAdmission:
         else:
             victim_freq = 0
 
-        if new_freq > victim_freq:
+        if new_freq >= victim_freq:
             # Evict window LRU victim → promote to main cache
             self.window_cache.remove(_victim_key)
             if isinstance(victim_entry, CacheEntry):

@@ -36,7 +36,7 @@ class Settings(BaseSettings):
     # ── Cache ─────────────────────────────────────────────────
     cache_capacity: int = 50_000
     window_pct: float = 0.05          # W-TinyLFU window fraction
-    default_threshold: float = 0.75   # conformal default τ
+    default_threshold: float = 0.70   # conformal default τ
     target_error_rate: float = 0.05   # conformal ε
     session_timeout_s: int = 1800     # 30 min
     context_alpha: float = 0.85       # query-dominant fusion weight

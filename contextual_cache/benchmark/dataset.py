@@ -189,3 +189,115 @@ def load_benchmark_dataset(
     logger.info("Cached %d benchmark queries to %s", len(all_queries), cache_file)
 
     return all_queries
+
+
+def load_squad_dataset(
+    num_questions: int = 500,
+    paraphrase_ratio: float = 0.3,
+    seed: int = 42,
+) -> List[BenchmarkQuery]:
+    """
+    Load SQuAD validation questions and generate paraphrased variants.
+
+    Uses the same BenchmarkQuery format and paraphrase logic as NQ.
+    """
+    cache_file = CACHE_DIR / f"squad_{num_questions}_p{int(paraphrase_ratio*100)}_s{seed}.json"
+
+    if cache_file.exists():
+        logger.info("Loading cached SQuAD dataset from %s", cache_file)
+        with open(cache_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return [BenchmarkQuery(**d) for d in data]
+
+    logger.info("Downloading SQuAD dataset from HuggingFace (first run only)…")
+    try:
+        from datasets import load_dataset
+    except ImportError:
+        raise ImportError(
+            "Please install the 'datasets' package: pip install datasets"
+        )
+
+    ds = load_dataset("rajpurkar/squad", split="validation")
+
+    rng = random.Random(seed)
+    indices = list(range(len(ds)))
+    rng.shuffle(indices)
+
+    queries: List[BenchmarkQuery] = []
+    seen_questions: set = set()
+    for idx in indices:
+        if len(queries) >= num_questions:
+            break
+        row = ds[idx]
+        question = row.get("question", "").strip()
+        answers = row.get("answers", {})
+        answer_texts = answers.get("text", []) if isinstance(answers, dict) else []
+        answer_text = answer_texts[0].strip() if answer_texts else ""
+
+        if not question or not answer_text or question in seen_questions:
+            continue
+        seen_questions.add(question)
+
+        qid = hashlib.md5(question.encode()).hexdigest()[:12]
+        queries.append(BenchmarkQuery(
+            id=qid,
+            question=question,
+            answer=answer_text,
+        ))
+
+    # Generate paraphrases
+    num_paraphrases = int(len(queries) * paraphrase_ratio)
+    paraphrase_indices = rng.sample(range(len(queries)), min(num_paraphrases, len(queries)))
+
+    paraphrased: List[BenchmarkQuery] = []
+    for pi in paraphrase_indices:
+        orig = queries[pi]
+        para_q = _paraphrase(orig.question, seed + pi)
+        para_id = hashlib.md5(para_q.encode()).hexdigest()[:12]
+        paraphrased.append(BenchmarkQuery(
+            id=para_id,
+            question=para_q,
+            answer=orig.answer,
+            is_paraphrase=True,
+            original_id=orig.id,
+        ))
+
+    all_queries = queries + paraphrased
+    rng2 = random.Random(seed + 1)
+    rng2.shuffle(all_queries)
+
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    with open(cache_file, "w", encoding="utf-8") as f:
+        json.dump([{
+            "id": q.id,
+            "question": q.question,
+            "answer": q.answer,
+            "is_paraphrase": q.is_paraphrase,
+            "original_id": q.original_id,
+        } for q in all_queries], f, indent=2)
+    logger.info("Cached %d SQuAD benchmark queries to %s", len(all_queries), cache_file)
+
+    return all_queries
+
+
+def load_dataset_by_name(
+    name: str = "nq",
+    num_questions: int = 500,
+    paraphrase_ratio: float = 0.3,
+    seed: int = 42,
+) -> List[BenchmarkQuery]:
+    """Dispatcher for loading benchmark datasets by name."""
+    if name == "nq":
+        return load_benchmark_dataset(
+            num_questions=num_questions,
+            paraphrase_ratio=paraphrase_ratio,
+            seed=seed,
+        )
+    elif name == "squad":
+        return load_squad_dataset(
+            num_questions=num_questions,
+            paraphrase_ratio=paraphrase_ratio,
+            seed=seed,
+        )
+    else:
+        raise ValueError(f"Unknown dataset: {name}. Supported: nq, squad")

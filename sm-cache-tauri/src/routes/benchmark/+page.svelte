@@ -13,6 +13,7 @@
   // State
   let numQuestions = $state(500);
   let cacheCapacity = $state(200);
+  let selectedDataset = $state('nq');
   let isRunning = $state(false);
   let progress = $state<BenchmarkProgress | null>(null);
   let pollInterval: ReturnType<typeof setInterval>;
@@ -20,6 +21,7 @@
   let resultsHistory = $state<any[]>([]);
   let currentResult = $state<BenchmarkResult | null>(null);
   let selectedRunId = $state<string | null>(null);
+  let historyFilter = $state<string>('all');
 
   // Chart instances
   let hitRateChart: Chart | null = null;
@@ -65,7 +67,8 @@
     try {
       const res = await startBenchmark({
         num_questions: numQuestions,
-        capacity: cacheCapacity
+        capacity: cacheCapacity,
+        dataset: selectedDataset,
       });
 
       if (res.run_id) {
@@ -233,6 +236,16 @@
       month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
     });
   }
+
+  function datasetLabel(ds?: string): string {
+    if (ds === 'squad') return 'SQuAD';
+    return 'Natural Questions';
+  }
+
+  function filteredHistory(): any[] {
+    if (historyFilter === 'all') return resultsHistory;
+    return resultsHistory.filter((r: any) => (r.dataset || 'nq') === historyFilter);
+  }
 </script>
 
 <div class="benchmark-container">
@@ -240,7 +253,7 @@
   <header class="page-header">
     <div class="title-section">
       <h1>Cache Benchmark Suite</h1>
-      <p class="subtitle">Evaluate ContextualCache against 6 research baselines on the Natural Questions dataset</p>
+      <p class="subtitle">Evaluate ContextualCache against 6 research baselines on public QA datasets</p>
     </div>
   </header>
 
@@ -252,7 +265,7 @@
         <h3>New Benchmark Run</h3>
         
         <div class="input-group">
-          <label for="numQs">Number of Questions (NQ Subset)</label>
+          <label for="numQs">Number of Questions</label>
           <div class="slider-wrapper">
             <input type="range" id="numQs" min="10" max="1000" step="10" bind:value={numQuestions} disabled={isRunning} />
             <span class="val-display">{numQuestions}</span>
@@ -266,6 +279,14 @@
             <input type="range" id="capacity" min="50" max="1000" step="50" bind:value={cacheCapacity} disabled={isRunning} />
             <span class="val-display">{cacheCapacity}</span>
           </div>
+        </div>
+
+        <div class="input-group">
+          <label for="dataset">Dataset</label>
+          <select id="dataset" class="select-input" bind:value={selectedDataset} disabled={isRunning}>
+            <option value="nq">Natural Questions (NQ)</option>
+            <option value="squad">SQuAD</option>
+          </select>
         </div>
 
         <button 
@@ -317,12 +338,17 @@
       <!-- History -->
       <div class="card history-list">
         <h3>Benchmark History</h3>
-        {#if resultsHistory.length === 0}
+        <div class="dataset-tabs">
+          <button class="tab-btn {historyFilter === 'all' ? 'active' : ''}" onclick={() => historyFilter = 'all'}>All</button>
+          <button class="tab-btn {historyFilter === 'nq' ? 'active' : ''}" onclick={() => historyFilter = 'nq'}>NQ</button>
+          <button class="tab-btn {historyFilter === 'squad' ? 'active' : ''}" onclick={() => historyFilter = 'squad'}>SQuAD</button>
+        </div>
+        {#if filteredHistory().length === 0}
           <div class="empty-state">No past runs found.</div>
         {:else}
           <div class="run-items">
-            {#each resultsHistory as run}
-              <button 
+            {#each filteredHistory() as run}
+              <button
                 class="history-item {selectedRunId === run.run_id ? 'active' : ''}"
                 onclick={() => selectResult(run.run_id)}
                 disabled={isRunning}
@@ -332,6 +358,7 @@
                   <span class="date">{formatDate(run.timestamp)}</span>
                 </div>
                 <div class="history-sub">
+                  <span class="dataset-badge">{(run.dataset || 'nq').toUpperCase()}</span>
                   <span>{run.num_questions} Qs</span>
                   <span>Cap: {run.cache_capacity}</span>
                 </div>
@@ -348,7 +375,7 @@
         <div class="results-header">
           <h2>Results: Run #{currentResult.run_id}</h2>
           <div class="run-meta">
-            <span class="meta-pill">Dataset: Natural Questions ({currentResult.num_questions} unique, {currentResult.num_paraphrases} paraphrases)</span>
+            <span class="meta-pill">Dataset: {datasetLabel(currentResult.dataset)} ({currentResult.num_questions} unique, {currentResult.num_paraphrases} paraphrases)</span>
             <span class="meta-pill">Capacity: {currentResult.cache_capacity} entries</span>
           </div>
         </div>
@@ -779,5 +806,62 @@
     font-size: 20px;
     color: #e2e8f0;
     margin-bottom: 8px;
+  }
+
+  /* Dataset selector */
+  .select-input {
+    width: 100%;
+    background: #1e1e2e;
+    color: #e2e8f0;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    appearance: auto;
+  }
+
+  .select-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Dataset filter tabs */
+  .dataset-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .tab-btn.active {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #a5b4fc;
+  }
+
+  .dataset-badge {
+    background: rgba(99, 102, 241, 0.15);
+    color: #a5b4fc;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
   }
 </style>

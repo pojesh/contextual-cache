@@ -25,6 +25,7 @@ class LookupResult:
     similarity: float = 0.0
     latency_ms: float = 0.0
     query_embedding: Optional[np.ndarray] = None
+    threshold_used: float = 0.0
 
 
 # ── Cache Entry ───────────────────────────────────────────────
