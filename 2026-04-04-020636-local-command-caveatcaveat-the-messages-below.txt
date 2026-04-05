@@ -1,0 +1,322 @@
+ ▐▛███▜▌   Claude Code v2.1.89
+▝▜█████▛▘  Opus 4.6 (1M context) · Claude Max
+  ▘▘ ▝▝    ~\Documents\Capstone\working\sem-cache-c2
+
+● Update(docs\report-draft.md)
+  ⎿  Added 2 lines, removed 2 lines
+      772  
+      773  ---
+      774  
+      775 -## CHAPTER 8: CONCLUSION AND FUTURE WORK                      
+      775 +## CHAPTER 6: CONCLUSION AND FUTURE WORK                      
+      776  
+      777 -### 8.1 CONCLUSION                                            
+      777 +### 6.1 CONCLUSION                                            
+      778  
+      779  This project presented a fault-tolerant adaptive semantic cach
+           e for LLM serving that advances the state of the art in severa
+           l ways. The per-entry conformal threshold mechanism provides f
+           ormally guaranteed bounds on the false positive rate while all
+           owing each cached entry to learn its own optimal similarity bo
+           undary from feedback signals. The Thompson Sampling bandit wit
+           h ADWIN drift detection enables continuous exploration of the 
+           threshold parameter space with automatic adaptation to distrib
+           ution shifts. The Semantic W-TinyLFU admission policy and Cost
+           GDSF eviction ensure intelligent cache management that maximiz
+           es the utility of limited cache capacity.
+      780  
+
+● Update(docs\report-draft.md)
+  ⎿  Added 1 line, removed 1 line
+      782  
+      783  The full-stack implementation provides a production-ready syst
+           em with a Python FastAPI backend supporting multiple LLM provi
+           ders, optional Redis backing for distributed deployments, and 
+           a polished Tauri SvelteKit analytics dashboard for real-time m
+           onitoring, cache comparison, and integrated benchmarking.
+      784  
+      785 -### 8.2 FUTURE WORK                                           
+      785 +### 6.2 FUTURE WORK                                           
+      786  
+      787  Several directions for future research and development are ide
+           ntified:
+      788  
+
+● Now move the configuration parameters section (currently 4.7) into Chapter 3
+  since it's about system design, not results. Let me also move the frontend
+  screenshots from Chapter 3 into Chapter 4 as implementation results:
+
+  Read 1 file (ctrl+o to expand)
+
+● The config parameters section (4.7) should be moved to be section 3.17. Let me
+   find it and move it:
+
+● Update(docs\report-draft.md)
+  ⎿  Added 1 line, removed 1 line
+      717  
+      718  **>> IMAGE NEEDED: Screenshot of the analytics dashboard showi
+           ng the Thompson Sampling bar chart after running several chat 
+           queries**
+      719  
+      720 -### 4.7 CONFIGURATION PARAMETERS                              
+      720 +### 4.7 IMPLEMENTATION SCREENSHOTS                            
+      721  
+      722  | Parameter | Value | Description |
+      723  |---|---|---|
+
+● Actually, the config table is design content, not results. Let me read the
+  current structure around that area to handle this properly:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Good structure. Now let me fix the 4.7 section — it currently has the config
+  parameter table which should stay in Chapter 3. Let me read what's actually
+  there:
+
+  Read 1 file (ctrl+o to expand)
+
+● I need to move the config table into Chapter 3 and replace 4.7 with proper
+  implementation screenshots content:
+
+● Update(docs\report-draft.md)
+  ⎿  Added 17 lines, removed 16 lines
+      717  
+      718  **>> IMAGE NEEDED: Screenshot of the analytics dashboard showi
+           ng the Thompson Sampling bar chart after running several chat 
+           queries**
+      719  
+      720 -### 4.7 IMPLEMENTATION SCREENSHOTS                            
+      720 +### 4.7 IMPLEMENTATION DEMONSTRATION                          
+      721  
+      722 -| Parameter | Value | Description |                           
+      723 -|---|---|---|                                                 
+      724 -| CC_CACHE_CAPACITY | 50,000 | Maximum cached entries (300 for
+          - benchmark) |                                                 
+      725 -| CC_DEFAULT_THRESHOLD | 0.70 | Initial conformal threshold fo
+          -r new entries |                                               
+      726 -| CC_TARGET_ERROR_RATE | 0.05 | Conformal error bound (epsilon
+          -) |                                                           
+      727 -| CC_EMBEDDING_MODEL | paraphrase-MiniLM-L6-v2 | 384-dimension
+          -al embeddings |                                               
+      728 -| CC_ANN_K | 10 | FAISS top-k neighbors |                     
+      729 -| CC_HNSW_M | 32 | HNSW links per node |                      
+      730 -| CC_HNSW_EF_SEARCH | 64 | HNSW search expansion |            
+      731 -| CC_WINDOW_PCT | 0.05 | W-TinyLFU window fraction |          
+      732 -| CC_CMS_WIDTH | 4096 | Count-Min Sketch columns |            
+      733 -| CC_BANDIT_N_ARMS | 10 | Thompson Sampling arms |            
+      734 -| CC_DRIFT_DELTA | 0.002 | ADWIN sensitivity |                
+      735 -| CC_DEFAULT_TTL_S | 3600 | Entry time-to-live (seconds) |    
+      722 +The implemented system was tested through interactive usage to
+          + validate the end-to-end functionality of all components. The 
+          +chat interface demonstrates the cache operating in real time, 
+          +showing cache hit and miss indicators alongside token savings 
+          +and latency improvements. The comparison view provides a direc
+          +t side-by-side visualization of cached responses versus fresh 
+          +LLM responses, clearly showing the latency advantage of cache 
+          +hits (sub-millisecond) over direct LLM calls (1-2 seconds). Th
+          +e analytics dashboard displays real-time Thompson Sampling arm
+          + distributions, hit rate trends, and latency percentile breakd
+          +owns, confirming that the adaptive learning components functio
+          +n as designed.                                                
+      723  
+      737 -*Table 3.6: Configuration Parameters*                         
+      724 +[IMAGE PLACEHOLDER: Figure 4.1 - Chat Interface demonstrating 
+          +cache hit/miss behavior]                                      
+      725  
+      726 +**>> IMAGE NEEDED: Screenshot of the chat page showing a conve
+          +rsation with visible cache hit/miss indicators**              
+      727 +                                                              
+      728 +[IMAGE PLACEHOLDER: Figure 4.2 - Comparison view showing cache
+          +d vs direct LLM response]                                     
+      729 +                                                              
+      730 +**>> IMAGE NEEDED: Screenshot of the compare page with side-by
+          +-side cached and direct responses**                           
+      731 +                                                              
+      732 +[IMAGE PLACEHOLDER: Figure 4.3 - Analytics dashboard with real
+          +-time monitoring]                                             
+      733 +                                                              
+      734 +**>> IMAGE NEEDED: Screenshot of the analytics page showing KP
+          +Is, charts, and Thompson Sampling distribution**              
+      735 +                                                              
+      736 +[IMAGE PLACEHOLDER: Figure 4.4 - Benchmark suite with dataset 
+          +selection and results]                                        
+      737 +                                                              
+      738 +**>> IMAGE NEEDED: Screenshot of the benchmark page showing la
+          +test results with dataset selector**                          
+      739 +                                                              
+      740  ---
+      741  
+      742  ## CHAPTER 5: CHALLENGES AND SOLUTIONS
+
+● Now add the config table at the end of Chapter 3 (before Chapter 4):
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(docs\report-draft.md)
+  ⎿  Added 21 lines
+      610  - Token bucket rate limiter
+      611  - Consistent hash ring, vector clock, and write-ahead log
+      612  
+      613 +### 3.17 CONFIGURATION PARAMETERS                             
+      614 +                                                              
+      615 +All settings are managed through a centralized Pydantic BaseSe
+          +ttings module. Every parameter can be overridden via environme
+          +nt variables with the CC_ prefix or through a .env file in the
+          + project root.                                                
+      616 +                                                              
+      617 +| Parameter | Value | Description |                           
+      618 +|---|---|---|                                                 
+      619 +| CC_CACHE_CAPACITY | 50,000 | Maximum cached entries (300 for
+          + benchmark) |                                                 
+      620 +| CC_DEFAULT_THRESHOLD | 0.70 | Initial conformal threshold fo
+          +r new entries |                                               
+      621 +| CC_TARGET_ERROR_RATE | 0.05 | Conformal error bound (epsilon
+          +) |                                                           
+      622 +| CC_EMBEDDING_MODEL | paraphrase-MiniLM-L6-v2 | 384-dimension
+          +al embeddings |                                               
+      623 +| CC_ANN_K | 10 | FAISS top-k neighbors |                     
+      624 +| CC_HNSW_M | 32 | HNSW links per node |                      
+      625 +| CC_HNSW_EF_SEARCH | 64 | HNSW search expansion |            
+      626 +| CC_WINDOW_PCT | 0.05 | W-TinyLFU window fraction |          
+      627 +| CC_CMS_WIDTH | 4096 | Count-Min Sketch columns |            
+      628 +| CC_BANDIT_N_ARMS | 10 | Thompson Sampling arms |            
+      629 +| CC_DRIFT_DELTA | 0.002 | ADWIN sensitivity |                
+      630 +| CC_DEFAULT_TTL_S | 3600 | Entry time-to-live (seconds) |    
+      631 +                                                              
+      632 +*Table 3.6: Configuration Parameters*                         
+      633 +                                                              
+      634  ---
+      635  
+      636  ## CHAPTER 4: RESULTS AND DISCUSSION
+
+● Now let me also remove the duplicate frontend screenshot placeholders that
+  were in the old Chapter 3 (now section 3.14), since they're now in Chapter 4:
+
+  Read 1 file (ctrl+o to expand)
+
+● Remove the image placeholders from section 3.14 since they now live in section
+   4.7. Replace them with just text descriptions:
+
+● Update(docs\report-draft.md)
+  ⎿  Added 5 lines, removed 19 lines
+      553  
+      554  The frontend is built as a cross-platform desktop application 
+           using Tauri (Rust runtime) with SvelteKit (Svelte 5) and Chart
+           .js for visualization. It features a dark-themed interface wit
+           h four main pages:
+      555  
+      556 -**Chat Interface:** A conversational interface with session ma
+          -nagement, cache hit/miss metadata display, token usage trackin
+          -g, and a collapsible conversation history sidebar. Sessions ar
+          -e persisted via the backend SQLite database.                  
+      556 +**Chat Interface:** A conversational interface with session ma
+          +nagement, cache hit/miss metadata display, token usage trackin
+          +g, and a collapsible conversation history sidebar. Sessions ar
+          +e persisted via the backend SQLite database. Each response dis
+          +plays whether it was served from cache (with tier and similari
+          +ty information) or generated fresh by the LLM (with token coun
+          +t).                                                           
+      557  
+      558 -[IMAGE PLACEHOLDER: Figure 4.1 - Chat Interface Screenshot]   
+      558 +**Cache Comparison View:** A side-by-side comparison tool that
+          + simultaneously queries the cache and the LLM directly, displa
+          +ying the cached response alongside the direct LLM response wit
+          +h latency, token count, and speedup metrics. This allows users
+          + to verify cache response quality and observe the latency adva
+          +ntage of cache hits.                                          
+      559  
+      560 -**>> IMAGE NEEDED: Screenshot of the chat page showing a conve
+          -rsation with cache hit/miss indicators**                      
+      560 +**Analytics Dashboard:** A real-time analytics page displaying
+          + six key performance indicators (hit rate, average latency, ca
+          +che size, LLM calls saved, precision, Tier 1 rate), hit rate t
+          +rend over time, query tier breakdown, latency time series, Tho
+          +mpson Sampling arm distribution, and similarity distribution. 
+          +The dashboard polls the backend every three seconds for live u
+          +pdates.                                                       
+      561  
+      562 -**Cache Comparison View:** A side-by-side comparison tool that
+          - simultaneously queries the cache and the LLM directly, displa
+          -ying the cached response alongside the direct LLM response wit
+          -h latency, token count, and speedup metrics.                  
+      562 +**Benchmark Suite:** An integrated benchmark runner with confi
+          +gurable parameters (number of questions, cache capacity, datas
+          +et selection between NQ and SQuAD), real-time progress trackin
+          +g with strategy-level granularity, and results visualization i
+          +ncluding hit rate and precision comparison charts alongside a 
+          +detailed metrics table. Historical benchmark runs are preserve
+          +d and can be filtered by dataset.                             
+      563  
+      564 -[IMAGE PLACEHOLDER: Figure 4.2 - Cache Hit Comparison View]   
+      564 +Screenshots of all four dashboard pages are presented in Secti
+          +on 4.7.                                                       
+      565  
+      566 -**>> IMAGE NEEDED: Screenshot from March PPT slide 10 showing 
+          -the comparison page with biryani query example**              
+      567 -                                                              
+      568 -**Analytics Dashboard:** A real-time analytics page displaying
+          - six key performance indicators (hit rate, average latency, ca
+          -che size, LLM calls saved, precision, Tier 1 rate), hit rate t
+          -rend over time, query tier breakdown, latency time series, Tho
+          -mpson Sampling arm distribution, and similarity distribution. 
+      569 -                                                              
+      570 -[IMAGE PLACEHOLDER: Figure 4.3 - Analytics Dashboard Screensho
+          -t]                                                            
+      571 -                                                              
+      572 -**>> IMAGE NEEDED: Screenshot from March PPT slide 11 showing 
+          -the analytics dashboard**                                     
+      573 -                                                              
+      574 -**Benchmark Suite:** An integrated benchmark runner with confi
+          -gurable parameters (number of questions, cache capacity, datas
+          -et selection), real-time progress tracking, and results visual
+          -ization with hit rate, precision, and latency comparison chart
+          -s alongside a detailed metrics table.                         
+      575 -                                                              
+      576 -[IMAGE PLACEHOLDER: Figure 4.4 - Benchmark Suite Interface]   
+      577 -                                                              
+      578 -**>> IMAGE NEEDED: Screenshot from March PPT slide 12 showing 
+          -the benchmark page, or take a new screenshot showing the updat
+          -ed UI with dataset selector**                                 
+      579 -                                                              
+      566  ### 3.15 BENCHMARK FRAMEWORK
+      567  
+      568  The benchmark system provides a standardized evaluation framew
+           ork that compares the proposed ContextualCache against six bas
+           eline strategies under identical conditions:
+
+● Now let me verify the final structure looks correct:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● The structure is clean now:
+
+  - Chapter 1: Introduction (1.1-1.6)
+  - Chapter 2: Literature Review (2.1-2.5)
+  - Chapter 3: System Design (3.1-3.17 — architecture, algorithms, methods,
+  implementation, tech stack, API, frontend, benchmark framework, testing,
+  config)
+  - Chapter 4: Results and Discussion (4.1-4.7 — experimental setup, NQ results,
+   SQuAD results, precision analysis, latency analysis, Thompson Sampling,
+  implementation screenshots)
+  - Chapter 5: Challenges and Solutions (5.1-5.5)
+  - Chapter 6: Conclusion and Future Work (6.1-6.2)
+
+  Done. The restructured report draft is at docs/report-draft.md. All
+  architecture, algorithms, methodologies, implementation, and tech details are
+  under Chapter 3: System Design. All benchmark results, comparisons, precision
+  analysis, latency analysis, and implementation demonstration screenshots are
+  under Chapter 4: Results and Discussion.
+
+✻ Baked for 20m 42s
+
+❯ /usage 
+  ⎿  Status dialog dismissed
+
+❯ /login                                                                        
+  ⎿  Login interrupted
+
+❯ /login                                                                        
+  ⎿  Login successful
+
+❯ /usage 
+  ⎿  Status dialog dismissed

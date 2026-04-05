@@ -1,0 +1,1565 @@
+ ▐▛███▜▌   Claude Code v2.1.91
+▝▜█████▛▘  Opus 4.6 (1M context) · Claude Max
+  ▘▘ ▝▝    ~\Documents\Capstone\working\sem-cache-c2
+
+❯ /usage 
+  ⎿  Stats dialog dismissed
+
+❯ hey we are continuing work from                                               
+2026-04-04-020636-local-command-caveatcaveat-the-messages-below.txt. we are now 
+ going to modify the tex file i will tell you updates need to be done. the      
+roman numeral page number should start from abstract. i will tell further       
+updates in future prompts.                                                      
+
+● Let me read the current state of the tex file first.
+
+  Read 1 file (ctrl+o to expand)
+
+● Now I can see the structure. Currently \pagenumbering{roman} is at line 81,
+  right at the start of the document (before the title page). The title page,
+  declaration, certificate, and acknowledgement all get roman numerals. You want
+   roman numbering to start from the abstract instead.
+
+  The approach: suppress page numbers on the front matter pages before abstract,
+   then start roman numbering at the abstract.
+
+● Update(docs\report.tex)
+  ⎿  Added 3 lines, removed 3 lines
+      77  % ════════════════════════════════════════════════════════════
+      78  \begin{document}
+      79  
+      80 -% ── Roman numeral pages for front matter ─────────────────    
+      81 -\pagenumbering{roman}                                          
+      82 -\fancyfoot[C]{\thepage}                                        
+      80 +% ── No page numbers on title / declaration / certificate / ack
+         +nowledgement                                                   
+      81 +\pagenumbering{gobble}                                         
+      82 +\fancyfoot[C]{}                                                
+      83  
+      84  % ════════════════════════════════════════════════════════════
+      85  % TITLE PAGE
+
+● Now add the roman numeral start right before the abstract:
+
+● Update(docs\report.tex)
+  ⎿  Added 2 lines
+      202  % ABSTRACT
+      203  % ════════════════════════════════════════════════════════════
+      204  \newpage
+      205 +\pagenumbering{roman}                                         
+      206 +\fancyfoot[C]{\thepage}                                       
+      207  \begin{center}
+      208  {\fontsize{14}{17}\selectfont\bfseries\underline{ABSTRACT}}
+      209  \end{center}
+
+● Done. Now:
+  - Title page, declaration, certificate, and acknowledgement have no page 
+  numbers (\pagenumbering{gobble})
+  - Roman numeral page numbering (i, ii, iii, ...) starts from the abstract page
+
+  Let me know the next updates.
+
+✻ Crunched for 41s
+
+❯ do you have image analytics tool ? if yes , make a paragraph description of   
+each image in implementation demonstration section. explain what is there in    
+the image. make it human written form.                                          
+
+● Let me first check what images are in the report-assets folder and read the
+  implementation/demonstration section of the tex file.
+
+  Searched for 2 patterns, read 1 file, listed 1 directory (ctrl+o to expand)
+
+● Yes, I can read images. Let me view all four screenshots to write accurate
+  descriptions.
+
+  Read 4 files (ctrl+o to expand)
+
+● Now I have a clear view of all four screenshots. Let me add descriptive
+  paragraphs after each figure.
+
+● Update(docs\report.tex)
+  ⎿  Added 8 lines
+      917  \label{fig:chat}
+      918  \end{figure}
+      919  
+      920 +Figure~\ref{fig:chat} shows the main chat interface of the Con
+          +textualCache dashboard. The left sidebar provides navigation a
+          +cross the four pages --- Chat, Analytics, and Benchmark --- al
+          +ong with a backend connectivity indicator at the bottom. At th
+          +e top of the screen, key performance indicators are displayed 
+          +in real time, including the current hit rate of 50.0\%, hit la
+          +tency of 7.5 milliseconds, total queries processed, and the nu
+          +mber of cached entries. In this demonstration, the user has as
+          +ked for a biryani recipe. The response is tagged with a green 
+          +``Cache Hit -- Tier 2'' label, indicating that it was served f
+          +rom the FAISS semantic search tier rather than being generated
+          + fresh by the LLM. The metadata alongside the tag shows a simi
+          +larity score of 0.817 and a response time of 15 milliseconds, 
+          +confirming that the system successfully matched the query to a
+          + semantically similar cached entry and returned the result wit
+          +h minimal latency.                                            
+      921 +                                                              
+      922  \begin{figure}[H]
+      923  \centering
+      924  \includegraphics[width=1.0\textwidth]{fig-comparison-view.png}
+     ...
+      926  \label{fig:compare}
+      927  \end{figure}
+      928  
+      929 +Figure~\ref{fig:compare} presents the side-by-side comparison 
+          +page, which allows users to evaluate the quality of cached res
+          +ponses against fresh LLM-generated ones. Summary statistics at
+          + the top show two queries have been compared, with a time save
+          +d of 10.05 seconds, 793 tokens saved, and an average speedup o
+          +f 144.9 times. The page displays two query examples. In the fi
+          +rst, the user asked for cooking instructions for biryani --- t
+          +he cached response on the left was served in 0.77 seconds as a
+          + Tier 2 semantic hit, while the direct LLM response on the rig
+          +ht took over 100 seconds. A green banner below the cached resp
+          +onse highlights the savings: 970 milliseconds faster, 793 toke
+          +ns saved, and a 285.3 times speedup. The second query, ``how d
+          +o I make biryani,'' demonstrates a similar pattern where the c
+          +ached version is again served rapidly from the semantic tier. 
+          +This view makes it straightforward for users to verify that ca
+          +ched responses maintain comparable quality while delivering su
+          +bstantially lower latency.                                    
+      930 +                                                              
+      931  \begin{figure}[H]
+      932  \centering
+      933  \includegraphics[width=1.0\textwidth]{fig-analytics-dashboard.
+           png}
+     ...
+      935  \label{fig:analytics}
+      936  \end{figure}
+      937  
+      938 +Figure~\ref{fig:analytics} displays the analytics dashboard, w
+          +hich provides a comprehensive overview of system performance t
+          +hrough several visualizations. The top row presents six key pe
+          +rformance indicators: the overall hit rate (50.0\%), average h
+          +it latency (15.5 milliseconds), current cache size (4 entries 
+          +out of a 50,000-entry capacity), the percentage of LLM calls s
+          +aved (50\%), precision (0.0\%, reflecting the absence of user 
+          +feedback in this demo session), and the Tier 1 exact-match rat
+          +e (25\%). Below the KPIs, the Cache Performance section contai
+          +ns two charts. The hit rate over time line chart traces how th
+          +e cache hit ratio evolved as queries were submitted, starting 
+          +at zero and climbing to a steady state around 50\%. The query 
+          +breakdown doughnut chart segments queries into Tier 1 exact hi
+          +ts, Tier 2 semantic hits, and cache misses that required a ful
+          +l LLM call. Further down, the Latency Analysis section shows a
+          + per-query latency scatter chart where cache misses appear as 
+          +high-latency spikes in the thousands of milliseconds while cac
+          +he hits cluster near the baseline. Alongside it, a latency per
+          +centile breakdown reports the P50 median at 765.5 milliseconds
+          + and the P99 tail latency at approximately 12.9 seconds, illus
+          +trating the dramatic difference between cached and uncached re
+          +sponse times.                                                 
+      939 +                                                              
+      940  \begin{figure}[H]
+      941  \centering
+      942  \includegraphics[width=0.9\textwidth]{fig-benchmark-suite.png}
+     ...
+      944  \label{fig:benchmark}
+      945  \end{figure}
+      946  
+      947 +Figure~\ref{fig:benchmark} shows the integrated benchmark suit
+          +e page, which enables reproducible evaluation of the cache aga
+          +inst six research baselines. On the left, the configuration pa
+          +nel allows users to set the number of questions (here 500, whi
+          +ch includes 150 semantic paraphrase variants), the cache capac
+          +ity (300 entries), and the dataset (Natural Questions). A ``St
+          +art Benchmark'' button launches the evaluation. Below the conf
+          +iguration, the benchmark history panel lists previous runs wit
+          +h their identifiers, timestamps, datasets, and capacity settin
+          +gs, making it easy to revisit past experiments. The main resul
+          +ts area on the right displays the outcome of a selected run. T
+          +wo bar charts at the top compare all seven strategies across h
+          +it rate and precision (left chart) and average hit latency ver
+          +sus overall latency on a logarithmic scale (right chart). The 
+          +detailed metrics comparison table beneath provides exact figur
+          +es for each strategy: ContextualCache achieves a 20.8\% hit ra
+          +te with 62.2\% precision and an F1 score of 0.214, outperformi
+          +ng GPTCache (19.4\% hit rate, 0.201 F1), vCache (18.6\%, 0.197
+          + F1), and the remaining baselines. The table also reports per-
+          +strategy hit latency, overall latency, total LLM calls saved, 
+          +and wall-clock time taken, giving a complete picture of the co
+          +st--performance trade-off for each approach.                  
+      948  
+      949 +                                                              
+      950  % ════════════════════════════════════════════════════════════
+      951  % CHAPTER 5: CHALLENGES AND SOLUTIONS
+      952  % ════════════════════════════════════════════════════════════
+
+● Done. I've added a descriptive paragraph below each of the four figures in the
+   Implementation Demonstration section:
+
+  1. Chat Interface -- describes the sidebar navigation, real-time KPIs, the
+  biryani recipe query, the Tier 2 cache hit tag, similarity score, and response
+   latency.
+  2. Comparison View -- describes the side-by-side layout, summary stats
+  (time/tokens saved, speedup), and two query examples showing cached vs direct
+  LLM responses.
+  3. Analytics Dashboard -- describes the six KPIs, hit rate over time chart,
+  query breakdown doughnut, per-query latency scatter plot, and P50/P99
+  percentile breakdown.
+  4. Benchmark Suite -- describes the configuration panel, benchmark history,
+  bar charts comparing strategies, and the detailed metrics table with exact
+  figures.
+
+  Let me know the next updates.
+
+✻ Churned for 1m 15s
+
+❯ add more appendix. for every figures, tables and algorithms as well.          
+
+● Let me first read the full tex file to understand all figures, tables, and
+  algorithms, and see the current appendix section.
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● Now I have the full picture. Let me also view the two remaining images I
+  haven't seen yet.
+
+  Read 3 files (ctrl+o to expand)
+
+● Now I have all the information. Let me compile the complete inventory:
+
+  Figures: fig:architecture, fig:hitrate, fig:latency, fig:chat, fig:compare,
+  fig:analytics, fig:benchmark (7 figures)
+  Tables: tab:litsurvey, tab:pipeline, tab:components, tab:arms, tab:techstack,
+  tab:api, tab:config, tab:nq, tab:squad, tab:precision, tab:latency (11 tables)
+  Algorithms: Algorithm 1 (Conformal Threshold Update), Algorithm 2 (Thompson
+  Sampling Update)
+
+  Now I'll add appendices for all of them.
+
+● Update(docs\report.tex)
+  ⎿  Added 76 lines
+      1113  }
+      1114  \end{lstlisting}
+      1115  
+      1116 +% ═══════════════════════════════════════════════════════════
+           +═                                                            
+      1117 +% Appendix B: List of Figures with Descriptions              
+      1118 +% ═══════════════════════════════════════════════════════════
+           +═                                                            
+      1119 +\newpage                                                     
+      1120 +\chapter*{Appendix B: List of Figures with Descriptions}     
+      1121 +\addcontentsline{toc}{section}{Appendix B: List of Figures wi
+           +th Descriptions}                                             
+      1122 +                                                             
+      1123 +\begin{enumerate}[label=\textbf{Figure \arabic*:}, leftmargin
+           +=3cm, labelsep=0.5cm]                                        
+      1124 +                                                             
+      1125 +\item \textbf{System Architecture Diagram} (Figure~\ref{fig:a
+           +rchitecture}, Chapter 3) --- This diagram illustrates the com
+           +plete data flow through the ContextualCache system. A user qu
+           +ery enters from the top left and first passes through the Tie
+           +r 1 exact hash lookup. On a miss, the query is encoded using 
+           +the MiniLM-L6-v2 embedding model and forwarded to the Tier 2 
+           +FAISS HNSW index for approximate nearest-neighbor search. If 
+           +a candidate exceeds its per-entry conformal threshold ($\tau_
+           +i$), the cached response is returned directly. Otherwise, the
+           + query falls through to the LLM backend (Ollama LLaMA 3.2:3b)
+           +, and the generated response passes through the W-TinyLFU adm
+           +ission gate before being stored with CostGDSF eviction metada
+           +ta. The diagram also shows the feedback loop where user corre
+           +ctness signals flow back to the conformal threshold calibrato
+           +r, the Thompson Sampling bandit that learns the optimal defau
+           +lt threshold across 10 arms with Beta posteriors, and the ADW
+           +IN drift detector that resets the bandit when the query distr
+           +ibution shifts. On the left side, the distributed components 
+           +are shown: Redis for shared exact-match storage, FedAvg for b
+           +andit posterior synchronization across nodes, and SQLite for 
+           +local persistence.                                           
+      1126 +                                                             
+      1127 +\item \textbf{Hit Rate and Precision Comparison across Strate
+           +gies} (Figure~\ref{fig:hitrate}, Chapter 4) --- This grouped 
+           +bar chart compares the hit rate and precision of all seven ca
+           +ching strategies evaluated on the Natural Questions dataset. 
+           +Each strategy has two bars: a blue bar representing the hit r
+           +ate percentage and a purple bar representing precision. Conte
+           +xtualCache leads with a 20.77\% hit rate paired with 62.2\% p
+           +recision. GPTCache follows with 19.38\% hit rate and 61.9\% p
+           +recision, then vCache at 18.62\% with 62.8\% precision. No-Ad
+           +mission and RAGCache cluster around 17--18\% hit rate with sl
+           +ightly higher precision. MeanCache shows the lowest semantic 
+           +hit rate at 13.23\% but achieves the highest precision at 66.
+           +28\%, reflecting its conservative threshold strategy. Exact-M
+           +atch LRU records zero hits as expected, since no queries in t
+           +he benchmark are textually identical to cached entries. The c
+           +hart makes it visually clear that ContextualCache achieves th
+           +e best balance between hit rate and precision.               
+      1128 +                                                             
+      1129 +\item \textbf{Latency Analysis across Strategies (Log Scale)}
+           + (Figure~\ref{fig:latency}, Chapter 4) --- This bar chart use
+           +s a logarithmic y-axis to display two latency metrics for eac
+           +h strategy: average hit latency (green bars) and average over
+           +all latency (purple bars). The logarithmic scale is necessary
+           + because hit latencies are in the sub-millisecond range while
+           + overall latencies exceed 1000 milliseconds, creating a diffe
+           +rence of several orders of magnitude. All strategies show nea
+           +rly identical overall latencies around 1600--2000 millisecond
+           +s, since this metric is dominated by the LLM inference time o
+           +n cache misses. The green hit latency bars are visible only f
+           +or GPTCache, No-Admission, and RAGCache at fractions of a mil
+           +lisecond, while ContextualCache, vCache, and MeanCache report
+           + effectively zero hit latency. The chart confirms that cache 
+           +lookup overhead is negligible regardless of strategy, and the
+           + primary benefit of a higher hit rate is the reduction of exp
+           +ensive LLM calls.                                            
+      1130 +                                                             
+      1131 +\item \textbf{Chat Interface demonstrating cache hit/miss beh
+           +avior} (Figure~\ref{fig:chat}, Chapter 4) --- This screenshot
+           + shows the main conversational interface of the ContextualCac
+           +he dashboard. The left sidebar contains navigation links to t
+           +he Chat, Analytics, and Benchmark pages, with a green backend
+           + connectivity indicator at the bottom. The top header bar dis
+           +plays live key performance indicators including a 50.0\% hit 
+           +rate, 7.5 millisecond hit latency, 4 queries processed, and 2
+           + cached entries. The main content area shows a user message a
+           +sking for biryani cooking instructions. The system response i
+           +s annotated with a green ``Cache Hit -- Tier 2'' badge, a sim
+           +ilarity score of 0.817, and a 15 millisecond response time, c
+           +onfirming that the answer was retrieved from the FAISS semant
+           +ic index rather than generated by the LLM.                   
+      1132 +                                                             
+      1133 +\item \textbf{Comparison view showing cached vs direct LLM re
+           +sponse} (Figure~\ref{fig:compare}, Chapter 4) --- This screen
+           +shot presents the side-by-side cache comparison page. Summary
+           + statistics across the top report 2 queries compared, 10.05 s
+           +econds of time saved, 793 tokens saved, and a 144.9 times ave
+           +rage speedup. Two query pairs are displayed below. The first 
+           +query about biryani cooking instructions shows the cached res
+           +ponse on the left (served in 0.77 seconds via Tier 2 semantic
+           + hit) alongside the direct LLM response on the right (taking 
+           +over 100 seconds). A green savings banner reports 970 millise
+           +conds faster, 793 tokens saved, and a 285.3 times speedup. Th
+           +e second query, ``how do I make biryani,'' shows a similar pa
+           +ttern with the cached response arriving almost instantly. Bot
+           +h responses contain comparable content, demonstrating that ca
+           +ched answers maintain quality while delivering dramatically l
+           +ower latency.                                                
+      1134 +                                                             
+      1135 +\item \textbf{Analytics dashboard with real-time monitoring} 
+           +(Figure~\ref{fig:analytics}, Chapter 4) --- This screenshot c
+           +aptures the full analytics dashboard. The overview section at
+           + the top displays six KPI cards: hit rate (50.0\%), average h
+           +it latency (15.5 ms), cache size (4 of 50,000), LLM calls sav
+           +ed (50\%), precision (0.0\% due to no feedback in this sessio
+           +n), and Tier 1 rate (25\%). The Cache Performance section con
+           +tains a line chart tracking hit rate over time as it climbs f
+           +rom zero to around 50\%, and a doughnut chart breaking down q
+           +ueries into Tier 1 exact hits, Tier 2 semantic hits, and miss
+           +es. The Latency Analysis section features a scatter plot of p
+           +er-query response times where cache misses spike into the tho
+           +usands of milliseconds while hits remain near the baseline, a
+           +longside a horizontal bar chart showing latency percentiles: 
+           +P50 at 765.5 ms, P90 at 11,732.9 ms, P95 at 12,405.95 ms, and
+           + P99 at 12,944.39 ms.                                        
+      1136 +                                                             
+      1137 +\item \textbf{Benchmark suite with dataset selection and resu
+           +lts} (Figure~\ref{fig:benchmark}, Chapter 4) --- This screens
+           +hot shows the benchmark runner interface. The left panel prov
+           +ides configuration controls for the number of questions (500 
+           +with 150 paraphrase variants), cache capacity (300), and data
+           +set selection (Natural Questions or SQuAD), along with a Star
+           +t Benchmark button. Below it, the benchmark history panel lis
+           +ts previous runs with their run identifiers, timestamps, data
+           +set names, query counts, and capacity settings. The main resu
+           +lts area on the right displays the selected run outcome throu
+           +gh two grouped bar charts --- one for hit rate and precision,
+           + another for latency on a log scale --- and a detailed metric
+           +s comparison table listing all seven strategies with their ex
+           +act hit rate, precision, F1 score, hit latency, overall laten
+           +cy, LLM calls saved, and total time taken.                   
+      1138 +                                                             
+      1139 +\end{enumerate}                                              
+      1140 +                                                             
+      1141 +                                                             
+      1142 +% ═══════════════════════════════════════════════════════════
+           +═                                                            
+      1143 +% Appendix C: List of Tables with Descriptions               
+      1144 +% ═══════════════════════════════════════════════════════════
+           +═                                                            
+      1145 +\newpage                                                     
+      1146 +\chapter*{Appendix C: List of Tables with Descriptions}      
+      1147 +\addcontentsline{toc}{section}{Appendix C: List of Tables wit
+           +h Descriptions}                                              
+      1148 +                                                             
+      1149 +\begin{enumerate}[label=\textbf{Table \arabic*:}, leftmargin=
+           +3cm, labelsep=0.5cm]                                         
+      1150 +                                                             
+      1151 +\item \textbf{Literature Survey Summary} (Table~\ref{tab:lits
+           +urvey}, Chapter 2) --- This table presents a structured summa
+           +ry of the 15 works reviewed in the literature survey. Each ro
+           +w contains a serial number, author names and year, the approa
+           +ch or system name, its key contribution to the field of seman
+           +tic caching or related algorithms, and the gap identified tha
+           +t the proposed ContextualCache system aims to address. The ta
+           +ble covers systems ranging from MinCache and MeanCache to fou
+           +ndational algorithms like conformal prediction, Thompson Samp
+           +ling, ADWIN, TinyLFU, GDSF, and FedAvg.                      
+      1152 +                                                             
+      1153 +\item \textbf{Query Pipeline Complexity Analysis} (Table~\ref
+           +{tab:pipeline}, Chapter 3) --- This table breaks down the que
+           +ry processing pipeline into its constituent stages, listing t
+           +he component responsible, the algorithmic time complexity, an
+           +d the typical latency range for each stage. Tier 1 exact hash
+           + lookup operates in $O(1)$ time with sub-millisecond latency.
+           + Tier 2 FAISS HNSW semantic search runs in $O(\log n)$ with 2
+           +--15 millisecond latency. Embedding generation using MiniLM-L
+           +6-v2 is $O(d)$ at 5--20 milliseconds. The per-entry conformal
+           + threshold check is $O(k \log k)$ at under 0.1 milliseconds. 
+           +An LLM miss incurs network-dependent latency of 500--6000 mil
+           +liseconds.                                                   
+      1154 +                                                             
+      1155 +\item \textbf{Cache Management Component Summary} (Table~\ref
+           +{tab:components}, Chapter 3) --- This table lists the six mai
+           +n cache management components alongside their underlying algo
+           +rithms and purposes. Admission uses Semantic W-TinyLFU to rej
+           +ect infrequent queries via LSH-bucketed frequency estimation.
+           + Eviction uses CostGDSF with the priority formula $H = f \tim
+           +es c / s + L$ to retain expensive entries. Threshold learning
+           + uses Thompson Sampling with 10 arms to explore optimal defau
+           +lt thresholds. Drift detection uses ADWIN to reset bandit pos
+           +teriors on distribution shifts. Session context uses EMA fusi
+           +on with $\alpha = 0.85$ for multi-turn awareness. Fault isola
+           +tion uses a circuit breaker pattern for per-dependency resili
+           +ence.                                                        
+      1156 +                                                             
+      1157 +\item \textbf{Thompson Sampling Threshold Arms Configuration}
+           + (Table~\ref{tab:arms}, Chapter 3) --- This table enumerates 
+           +the 10 arms of the Thompson Sampling multi-armed bandit along
+           + with their corresponding threshold values. The arms are line
+           +arly spaced from 0.650 (arm 0) to 0.950 (arm 9), with each su
+           +ccessive arm increasing by approximately 0.033. Each arm main
+           +tains independent Beta posterior parameters that are updated 
+           +based on cache hit rewards, and the arm with the highest expe
+           +cted reward determines the default threshold assigned to newl
+           +y cached entries.                                            
+      1158 +                                                             
+      1159 +\item \textbf{Technology Stack} (Table~\ref{tab:techstack}, C
+           +hapter 3) --- This table summarizes the technologies used acr
+           +oss the full stack. The backend is written in Python 3.10 wit
+           +h FastAPI and Uvicorn ASGI server, using paraphrase-MiniLM-L6
+           +-v2 for embeddings, FAISS with HNSW for vector indexing, and 
+           +Ollama with LLaMA 3.2:3b as the default LLM backend (with Gro
+           +q and OpenAI as alternatives). Redis provides optional distri
+           +buted caching and SQLite handles local persistence. The front
+           +end uses SvelteKit with Svelte 5, Tauri as the desktop runtim
+           +e, and Chart.js for data visualization. PyTorch with CUDA 12.
+           +6 provides the deep learning infrastructure, and 120 automate
+           +d tests run through pytest with pytest-asyncio.              
+      1160 +                                                             
+      1161 +\item \textbf{API Endpoint Summary} (Table~\ref{tab:api}, Cha
+           +pter 3) --- This table lists the 11 REST API endpoints expose
+           +d by the FastAPI backend. The primary endpoint is POST /query
+           +, which accepts a user query and returns the response along w
+           +ith cache hit/miss metadata. Other endpoints include POST /fe
+           +edback for correctness signals, POST /bulk-query for batch pr
+           +ocessing, POST /api/query-direct for bypassing the cache, GET
+           + /health for health checks, GET /api/stats for dashboard anal
+           +ytics, POST /api/clear-cache for cache reset, GET /api/conver
+           +sations for session listing, and the benchmark endpoints for 
+           +running and retrieving evaluation results.                   
+      1162 +                                                             
+      1163 +\item \textbf{Configuration Parameters} (Table~\ref{tab:confi
+           +g}, Chapter 3) --- This table documents the 12 key configurat
+           +ion parameters that govern system behavior. Each entry shows 
+           +the parameter name (with the CC\_ environment variable prefix
+           +), its default value, and a description. Notable parameters i
+           +nclude cache capacity (50,000 entries, reduced to 300 for ben
+           +chmarks), default threshold (0.70), target error rate ($\vare
+           +psilon = 0.05$) for conformal calibration, HNSW index paramet
+           +ers ($M = 32$, efSearch = 64), Count-Min Sketch width (4096),
+           + bandit arm count (10), ADWIN sensitivity ($\delta = 0.002$),
+           + and default TTL of 3600 seconds.                            
+      1164 +                                                             
+      1165 +\item \textbf{Benchmark Results on Natural Questions Dataset}
+           + (Table~\ref{tab:nq}, Chapter 4) --- This table presents the 
+           +primary benchmark results comparing all seven strategies on t
+           +he Natural Questions dataset with 650 queries and a cache cap
+           +acity of 300 entries. ContextualCache achieves the highest hi
+           +t rate at 20.77\% with 84 correct hits and 51 incorrect hits,
+           + yielding a precision of 62.22\% and an F1 score of 0.214. It
+           + requires only 515 LLM calls, saving 135 inference requests. 
+           +GPTCache follows with 19.38\% hit rate, vCache at 18.62\%, No
+           +-Admission at 17.69\%, RAGCache at 17.23\%, and MeanCache at 
+           +13.23\%. Exact-Match LRU serves as the lower bound with 0\% h
+           +it rate.                                                     
+      1166 +                                                             
+      1167 +\item \textbf{Benchmark Results on SQuAD Dataset} (Table~\ref
+           +{tab:squad}, Chapter 4) --- This table reports the same seven
+           +-strategy comparison on the SQuAD dataset with 650 queries. C
+           +ontextualCache achieves a 23.69\% hit rate with 55 correct hi
+           +ts, the highest F1 score of 0.137, and saves 154 LLM calls. P
+           +recision is lower across all strategies on SQuAD (35.71\% for
+           + ContextualCache) compared to NQ, reflecting the difficulty o
+           +f matching short factual SQuAD answers within longer generate
+           +d responses. GPTCache reaches 19.54\% hit rate, vCache and No
+           +-Admission tie at 17.85\%, and MeanCache drops to 5.23\%.    
+      1168 +                                                             
+      1169 +\item \textbf{Precision Analysis on NQ --- Top Three Strategi
+           +es} (Table~\ref{tab:precision}, Chapter 4) --- This table pro
+           +vides a detailed precision breakdown for the three best-perfo
+           +rming strategies on Natural Questions. ContextualCache record
+           +s 135 total hits (84 correct, 51 incorrect) for 62.22\% preci
+           +sion and a 37.78\% false positive rate. vCache achieves the h
+           +ighest precision among the three at 62.81\% with 121 total hi
+           +ts (76 correct, 45 incorrect). GPTCache lands at 61.90\% prec
+           +ision with 126 total hits (78 correct, 48 incorrect). The mar
+           +ginal precision differences of less than one percentage point
+           + are offset by ContextualCache's significantly higher total c
+           +orrect hits.                                                 
+      1170 +                                                             
+      1171 +\item \textbf{Latency Comparison on NQ} (Table~\ref{tab:laten
+           +cy}, Chapter 4) --- This table compares the average hit laten
+           +cy, average overall latency, and total LLM calls saved for ea
+           +ch strategy. All strategies achieve sub-millisecond hit laten
+           +cy (ranging from 0.00 to 0.28 ms), confirming that cache look
+           +up overhead is negligible. ContextualCache achieves the lowes
+           +t overall latency at 1610.17 ms and saves the most LLM calls 
+           +(135). GPTCache follows at 1613.17 ms with 126 calls saved. M
+           +eanCache has the highest overall latency at 1736.22 ms due to
+           + its low hit rate, requiring 564 out of 650 queries to be for
+           +warded to the LLM.                                           
+      1172 +                                                             
+      1173 +\end{enumerate}                                              
+      1174 +                                                             
+      1175 +                                                             
+      1176 +% ═══════════════════════════════════════════════════════════
+           +═                                                            
+      1177 +% Appendix D: List of Algorithms with Descriptions           
+      1178 +% ═══════════════════════════════════════════════════════════
+           +═                                                            
+      1179 +\newpage                                                     
+      1180 +\chapter*{Appendix D: List of Algorithms with Descriptions}  
+      1181 +\addcontentsline{toc}{section}{Appendix D: List of Algorithms
+           + with Descriptions}                                          
+      1182 +                                                             
+      1183 +\begin{enumerate}[label=\textbf{Algorithm \arabic*:}, leftmar
+           +gin=3.5cm, labelsep=0.5cm]                                   
+      1184 +                                                             
+      1185 +\item \textbf{Conformal Threshold Update} (Chapter 3, Section
+           + 3.5) --- This algorithm describes the online calibration pro
+           +cedure for per-entry conformal similarity thresholds. When a 
+           +feedback signal is received for a cached entry, the algorithm
+           + first computes a nonconformity score based on the similarity
+           + value and whether the cache hit was correct or incorrect. Fo
+           +r correct hits, the nonconformity score is simply $1 - \text{
+           +similarity}$, reflecting how far the match was from perfect s
+           +imilarity. For incorrect hits, the score is inflated using th
+           +e formula $\min(1.0, \max(1.0 - \text{similarity} + 0.1, 0.5)
+           +)$, which penalizes false positives by assigning them higher 
+           +nonconformity values. The score is appended to the entry's sl
+           +iding window of historical scores (capped at 200 entries). On
+           +ce the window contains at least 3 scores (the minimum calibra
+           +tion threshold), the algorithm sorts the scores and computes 
+           +the $(1 - \varepsilon)$ quantile, where $\varepsilon = 0.05$ 
+           +is the target error rate. The conformal threshold $\tau_i$ is
+           + then set to $1.0$ minus this quantile value, clamped to the 
+           +range $[0.60, 0.99]$ to prevent degenerate thresholds. Entrie
+           +s with fewer than 3 scores continue using the default thresho
+           +ld provided by the Thompson Sampling bandit. This procedure p
+           +rovides the formal guarantee that $P(\text{false positive}) \
+           +leq \varepsilon$ under the exchangeability assumption of conf
+           +ormal prediction.                                            
+      1186 +                                                             
+      1187 +\item \textbf{Thompson Sampling Update} (Chapter 3, Section 3
+           +.6) --- This algorithm governs how the multi-armed bandit lea
+           +rns the optimal default threshold for newly cached entries. O
+           +n each cache hit event, the algorithm identifies the current 
+           +best arm (the arm with the highest expected reward $\alpha_i 
+           +/ (\alpha_i + \beta_i)$) and computes a reward based on the s
+           +imilarity score of the hit. If the similarity exceeds 0.85, t
+           +he reward is 1.0 (full success). If it falls below 0.65, the 
+           +reward is 0.0 (failure). For similarities between 0.65 and 0.
+           +85, the reward is linearly interpolated as $(\text{similarity
+           +} - 0.65) / 0.20$, providing a smooth gradient signal. The re
+           +ward updates the selected arm's Beta posterior: $\alpha$ is i
+           +ncremented by the reward and $\beta$ by $(1 - \text{reward})$
+           +. The reward is also fed to the ADWIN drift detector, which m
+           +onitors the stream for distributional shifts using Hoeffding 
+           +bounds. If ADWIN detects a drift, all arm posteriors are rese
+           +t to weakly informative priors ($\alpha = 2, \beta = 2$), for
+           +cing the bandit to re-explore the threshold space from scratc
+           +h. This mechanism ensures that the bandit adapts to changing 
+           +query patterns rather than remaining anchored to a threshold 
+           +that was optimal under a previous distribution.              
+      1188 +                                                             
+      1189 +\end{enumerate}                                              
+      1190 +                                                             
+      1191 +                                                             
+      1192  \end{document}
+
+● Done. I've added three new appendices:
+
+  - Appendix B: List of Figures with Descriptions -- Detailed paragraphs for all
+   7 figures (architecture diagram, hit rate/precision chart, latency chart,
+  chat interface, comparison view, analytics dashboard, benchmark suite)
+  - Appendix C: List of Tables with Descriptions -- Detailed paragraphs for all
+  11 tables (literature survey, pipeline complexity, components, bandit arms,
+  tech stack, API endpoints, config parameters, NQ results, SQuAD results,
+  precision analysis, latency comparison)
+  - Appendix D: List of Algorithms with Descriptions -- Detailed paragraphs for
+  both algorithms (Conformal Threshold Update and Thompson Sampling Update)
+
+  Each description explains what the figure/table/algorithm contains, how to
+  read it, and what the key takeaways are. Let me know the next updates.
+
+✻ Cogitated for 2m 32s
+
+❯ in appendix, put the exact figures, tables and algorithms as it is. not their 
+ descriptions. you can put the description in the main body of the report.      
+
+● Let me understand the plan: you want the appendices to contain the actual
+  figures/tables/algorithms (moved there), and the descriptive paragraphs should
+   be in the main body where the figures/tables/algorithms originally were. Let
+  me re-read the current state to be precise about what's where.
+
+  Actually, wait -- do you want to move the figures/tables/algorithms from the
+  main body to the appendix? Or do you want to duplicate them in the appendix
+  (keep them in the main body too)?
+
+  Let me re-read your request: "put the exact figures, tables and algorithms as
+  it is" in appendix, and "put the description in the main body."
+
+  This sounds like you want to move them to the appendix and leave descriptions
+  in the main body referencing them. But that would be unusual for a report --
+  typically figures and tables stay in the main body near the discussion.
+
+  Could you clarify: should the figures/tables/algorithms remain in the main
+  chapters as well, or should they only appear in the appendix?
+
+❯ the main body should have the figures and descriptions. same for tables and   
+algorithms. in the appendix, you just duplicate them.                           
+
+● Got it -- keep everything as-is in the main body (figures, tables, algorithms
+  with their descriptions), and in the appendices just duplicate the actual
+  figures/tables/algorithms without the descriptive paragraphs. Let me also
+  check what descriptions are currently missing in the main body for the
+  figures/tables that don't have description paragraphs yet (the ones outside
+  the Implementation Demonstration section).
+
+  Let me first check which figures/tables in the main body already have
+  description paragraphs and which don't.
+
+  From what I've read:
+  - Implementation Demonstration figures (chat, compare, analytics, benchmark)
+  -- already have description paragraphs ✓
+  - fig:architecture -- no description paragraph after it
+  - fig:hitrate -- text discussion follows but not a dedicated description of
+  the figure itself
+  - fig:latency -- brief text follows
+  - Tables -- most have contextual text around them but not dedicated
+  figure-description paragraphs
+  - Algorithms -- have explanatory text around them
+
+  Now let me update the appendices to contain duplicated
+  figures/tables/algorithms, and add description paragraphs in the main body
+  where missing.
+
+  Let me first read the sections around the figures/tables that lack
+  descriptions to know where to add them.
+
+  Read 1 file (ctrl+o to expand)
+
+● Now I have a clear picture. I need to:
+
+  1. Add description paragraphs in the main body after figures/tables/algorithms
+   that don't have them yet
+  2. Replace the current appendices B, C, D with versions that just duplicate
+  the actual figures/tables/algorithms
+
+  Let me now do this. First, add description paragraphs in the main body for the
+   architecture figure, hit rate chart, and latency chart. Then rewrite the
+  appendices.
+● Update(docs\report.tex)
+  ⎿  Added 2 lines
+      447  \label{fig:architecture}
+      448  \end{figure}
+      449  
+      450 +Figure~\ref{fig:architecture} illustrates the complete data fl
+          +ow through the ContextualCache system. A user query enters fro
+          +m the top left and first passes through the Tier 1 exact hash 
+          +lookup. On a miss, the query is encoded using the MiniLM-L6-v2
+          + embedding model and forwarded to the Tier 2 FAISS HNSW index 
+          +for semantic search. If a candidate exceeds its per-entry conf
+          +ormal threshold, the cached response is returned. Otherwise, t
+          +he query falls through to the LLM backend, and the generated r
+          +esponse passes through the W-TinyLFU admission gate before bei
+          +ng stored with CostGDSF eviction metadata. The diagram also sh
+          +ows the feedback loop where correctness signals flow back to t
+          +he conformal threshold calibrator, the Thompson Sampling bandi
+          +t that learns optimal default thresholds, and the ADWIN drift 
+          +detector that triggers bandit resets. On the left side, the di
+          +stributed components are depicted: Redis for shared exact-matc
+          +h storage, FedAvg for bandit posterior synchronization, and SQ
+          +Lite for local persistence.                                   
+      451 +                                                              
+      452  The central orchestrator is the ContextualCacheManager which c
+           oordinates all cache operations. When a query arrives, it flow
+           s through the following pipeline:
+      453  
+      454  \begin{enumerate}[leftmargin=2cm]
+
+● Update(docs\report.tex)
+  ⎿  Added 2 lines
+      825  \label{fig:hitrate}
+      826  \end{figure}
+      827  
+      828 +Figure~\ref{fig:hitrate} presents a grouped bar chart comparin
+          +g the hit rate and precision of all seven strategies on the Na
+          +tural Questions dataset. Each strategy has two bars: a blue ba
+          +r for hit rate and a purple bar for precision. ContextualCache
+          + leads with a 20.77\% hit rate paired with 62.2\% precision, f
+          +ollowed by GPTCache at 19.38\% and vCache at 18.62\%. MeanCach
+          +e shows the lowest semantic hit rate at 13.23\% but achieves t
+          +he highest precision at 66.28\%, reflecting its conservative t
+          +hreshold. Exact-Match LRU records zero hits, confirming that n
+          +o benchmark queries are textually identical to cached entries.
+      829 +                                                              
+      830  The results demonstrate that ContextualCache achieves the high
+           est hit rate (20.77\%) and the highest F1 score (0.214) among 
+           all strategies. Compared to GPTCache, ContextualCache serves 6
+            additional correct cache hits (84 vs 78) while saving 9 more 
+           LLM calls (515 vs 524). The precision of 62.22\% is competitiv
+           e with GPTCache's 61.90\%, indicating that the higher hit rate
+            does not come at the cost of increased false positives.
+      831  
+      832  The lower default threshold (0.70) allows ContextualCache to c
+           apture paraphrase matches that GPTCache (threshold 0.75) and R
+           AGCache (threshold 0.85) miss. The per-entry conformal calibra
+           tion then tightens individual thresholds based on feedback, pr
+           eventing the lower default from degrading precision.
+
+● Update(docs\report.tex)
+  ⎿  Added 2 lines
+      904  \label{fig:latency}
+      905  \end{figure}
+      906  
+      907 +Figure~\ref{fig:latency} uses a logarithmic y-axis to display 
+          +two latency metrics for each strategy: average hit latency (gr
+          +een bars) and average overall latency (purple bars). The log s
+          +cale is necessary because hit latencies are sub-millisecond wh
+          +ile overall latencies exceed 1000 milliseconds. All strategies
+          + show similar overall latencies around 1600--2000 milliseconds
+          +, since this metric is dominated by LLM inference time on cach
+          +e misses. The green hit latency bars are visible only for GPTC
+          +ache, No-Admission, and RAGCache at fractions of a millisecond
+          +, while the remaining strategies report effectively zero hit l
+          +atency.                                                       
+      908 +                                                              
+      909  All strategies achieve sub-millisecond hit latency, confirming
+            that cache lookup overhead is negligible compared to LLM infe
+           rence. ContextualCache achieves the lowest overall latency (16
+           10.17 ms) due to its highest hit rate.
+      910  
+      911  \section{Thompson Sampling Arm Distribution}
+
+● Now let me replace the appendices B, C, D with duplicated
+  figures/tables/algorithms. Let me read the current appendix section to find
+  the exact text to replace.
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● Now I'll replace all three appendices with duplicated
+  figures/tables/algorithms.
+
+● Now I'll replace all three appendices with the duplicated content. I need to
+  read the exact table content from the main body for some tables I haven't
+  fully captured yet.
+
+  Read 1 file (ctrl+o to expand)
+
+● Now I have everything I need. Let me replace the three appendices with the
+  duplicated content.
+
+● Now I have everything I need. Let me replace the entire appendix B, C, D block
+   with the duplicated content.
+
+● Update(docs\report.tex)
+  ⎿  Added 337 lines, removed 37 lines
+      1120  \end{lstlisting}
+      1121  
+      1122  % ═══════════════════════════════════════════════════════════
+            ═
+      1123 -% Appendix B: List of Figures with Descriptions              
+      1123 +% Appendix B: Figures                                        
+      1124  % ═══════════════════════════════════════════════════════════
+            ═
+      1125  \newpage
+      1126 -\chapter*{Appendix B: List of Figures with Descriptions}     
+      1127 -\addcontentsline{toc}{section}{Appendix B: List of Figures wi
+           -th Descriptions}                                             
+      1126 +\chapter*{Appendix B: Figures}                               
+      1127 +\addcontentsline{toc}{section}{Appendix B: Figures}          
+      1128  
+      1129 -\begin{enumerate}[label=\textbf{Figure \arabic*:}, leftmargin
+           -=3cm, labelsep=0.5cm]                                        
+      1129 +\begin{figure}[H]                                            
+      1130 +\centering                                                   
+      1131 +\includegraphics[width=\textwidth]{fig-architecture.png}     
+      1132 +\caption*{Figure~\ref{fig:architecture}: System Architecture 
+           +Diagram}                                                     
+      1133 +\end{figure}                                                 
+      1134  
+      1131 -\item \textbf{System Architecture Diagram} (Figure~\ref{fig:a
+           -rchitecture}, Chapter 3) --- This diagram illustrates the com
+           -plete data flow through the ContextualCache system. A user qu
+           -ery enters from the top left and first passes through the Tie
+           -r 1 exact hash lookup. On a miss, the query is encoded using 
+           -the MiniLM-L6-v2 embedding model and forwarded to the Tier 2 
+           -FAISS HNSW index for approximate nearest-neighbor search. If 
+           -a candidate exceeds its per-entry conformal threshold ($\tau_
+           -i$), the cached response is returned directly. Otherwise, the
+           - query falls through to the LLM backend (Ollama LLaMA 3.2:3b)
+           -, and the generated response passes through the W-TinyLFU adm
+           -ission gate before being stored with CostGDSF eviction metada
+           -ta. The diagram also shows the feedback loop where user corre
+           -ctness signals flow back to the conformal threshold calibrato
+           -r, the Thompson Sampling bandit that learns the optimal defau
+           -lt threshold across 10 arms with Beta posteriors, and the ADW
+           -IN drift detector that resets the bandit when the query distr
+           -ibution shifts. On the left side, the distributed components 
+           -are shown: Redis for shared exact-match storage, FedAvg for b
+           -andit posterior synchronization across nodes, and SQLite for 
+           -local persistence.                                           
+      1135 +\begin{figure}[H]                                            
+      1136 +\centering                                                   
+      1137 +\includegraphics[width=0.85\textwidth]{fig-hit-rate-precision
+           +-chart.png}                                                  
+      1138 +\caption*{Figure~\ref{fig:hitrate}: Hit Rate and Precision Co
+           +mparison across Strategies (NQ Dataset)}                     
+      1139 +\end{figure}                                                 
+      1140  
+      1133 -\item \textbf{Hit Rate and Precision Comparison across Strate
+           -gies} (Figure~\ref{fig:hitrate}, Chapter 4) --- This grouped 
+           -bar chart compares the hit rate and precision of all seven ca
+           -ching strategies evaluated on the Natural Questions dataset. 
+           -Each strategy has two bars: a blue bar representing the hit r
+           -ate percentage and a purple bar representing precision. Conte
+           -xtualCache leads with a 20.77\% hit rate paired with 62.2\% p
+           -recision. GPTCache follows with 19.38\% hit rate and 61.9\% p
+           -recision, then vCache at 18.62\% with 62.8\% precision. No-Ad
+           -mission and RAGCache cluster around 17--18\% hit rate with sl
+           -ightly higher precision. MeanCache shows the lowest semantic 
+           -hit rate at 13.23\% but achieves the highest precision at 66.
+           -28\%, reflecting its conservative threshold strategy. Exact-M
+           -atch LRU records zero hits as expected, since no queries in t
+           -he benchmark are textually identical to cached entries. The c
+           -hart makes it visually clear that ContextualCache achieves th
+           -e best balance between hit rate and precision.               
+      1141 +\begin{figure}[H]                                            
+      1142 +\centering                                                   
+      1143 +\includegraphics[width=0.85\textwidth]{fig-latency-chart.png}
+      1144 +\caption*{Figure~\ref{fig:latency}: Latency Analysis across S
+           +trategies (Log Scale)}                                       
+      1145 +\end{figure}                                                 
+      1146  
+      1135 -\item \textbf{Latency Analysis across Strategies (Log Scale)}
+           - (Figure~\ref{fig:latency}, Chapter 4) --- This bar chart use
+           -s a logarithmic y-axis to display two latency metrics for eac
+           -h strategy: average hit latency (green bars) and average over
+           -all latency (purple bars). The logarithmic scale is necessary
+           - because hit latencies are in the sub-millisecond range while
+           - overall latencies exceed 1000 milliseconds, creating a diffe
+           -rence of several orders of magnitude. All strategies show nea
+           -rly identical overall latencies around 1600--2000 millisecond
+           -s, since this metric is dominated by the LLM inference time o
+           -n cache misses. The green hit latency bars are visible only f
+           -or GPTCache, No-Admission, and RAGCache at fractions of a mil
+           -lisecond, while ContextualCache, vCache, and MeanCache report
+           - effectively zero hit latency. The chart confirms that cache 
+           -lookup overhead is negligible regardless of strategy, and the
+           - primary benefit of a higher hit rate is the reduction of exp
+           -ensive LLM calls.                                            
+      1147 +\begin{figure}[H]                                            
+      1148 +\centering                                                   
+      1149 +\includegraphics[width=1.0\textwidth]{fig-chat-interface.png}
+      1150 +\caption*{Figure~\ref{fig:chat}: Chat Interface demonstrating
+           + cache hit/miss behavior}                                    
+      1151 +\end{figure}                                                 
+      1152  
+      1137 -\item \textbf{Chat Interface demonstrating cache hit/miss beh
+           -avior} (Figure~\ref{fig:chat}, Chapter 4) --- This screenshot
+           - shows the main conversational interface of the ContextualCac
+           -he dashboard. The left sidebar contains navigation links to t
+           -he Chat, Analytics, and Benchmark pages, with a green backend
+           - connectivity indicator at the bottom. The top header bar dis
+           -plays live key performance indicators including a 50.0\% hit 
+           -rate, 7.5 millisecond hit latency, 4 queries processed, and 2
+           - cached entries. The main content area shows a user message a
+           -sking for biryani cooking instructions. The system response i
+           -s annotated with a green ``Cache Hit -- Tier 2'' badge, a sim
+           -ilarity score of 0.817, and a 15 millisecond response time, c
+           -onfirming that the answer was retrieved from the FAISS semant
+           -ic index rather than generated by the LLM.                   
+      1153 +\begin{figure}[H]                                            
+      1154 +\centering                                                   
+      1155 +\includegraphics[width=1.0\textwidth]{fig-comparison-view.png
+           +}                                                            
+      1156 +\caption*{Figure~\ref{fig:compare}: Comparison view showing c
+           +ached vs direct LLM response}                                
+      1157 +\end{figure}                                                 
+      1158  
+      1139 -\item \textbf{Comparison view showing cached vs direct LLM re
+           -sponse} (Figure~\ref{fig:compare}, Chapter 4) --- This screen
+           -shot presents the side-by-side cache comparison page. Summary
+           - statistics across the top report 2 queries compared, 10.05 s
+           -econds of time saved, 793 tokens saved, and a 144.9 times ave
+           -rage speedup. Two query pairs are displayed below. The first 
+           -query about biryani cooking instructions shows the cached res
+           -ponse on the left (served in 0.77 seconds via Tier 2 semantic
+           - hit) alongside the direct LLM response on the right (taking 
+           -over 100 seconds). A green savings banner reports 970 millise
+           -conds faster, 793 tokens saved, and a 285.3 times speedup. Th
+           -e second query, ``how do I make biryani,'' shows a similar pa
+           -ttern with the cached response arriving almost instantly. Bot
+           -h responses contain comparable content, demonstrating that ca
+           -ched answers maintain quality while delivering dramatically l
+           -ower latency.                                                
+      1159 +\begin{figure}[H]                                            
+      1160 +\centering                                                   
+      1161 +\includegraphics[width=1.0\textwidth]{fig-analytics-dashboard
+           +.png}                                                        
+      1162 +\caption*{Figure~\ref{fig:analytics}: Analytics dashboard wit
+           +h real-time monitoring}                                      
+      1163 +\end{figure}                                                 
+      1164  
+      1141 -\item \textbf{Analytics dashboard with real-time monitoring} 
+           -(Figure~\ref{fig:analytics}, Chapter 4) --- This screenshot c
+           -aptures the full analytics dashboard. The overview section at
+           - the top displays six KPI cards: hit rate (50.0\%), average h
+           -it latency (15.5 ms), cache size (4 of 50,000), LLM calls sav
+           -ed (50\%), precision (0.0\% due to no feedback in this sessio
+           -n), and Tier 1 rate (25\%). The Cache Performance section con
+           -tains a line chart tracking hit rate over time as it climbs f
+           -rom zero to around 50\%, and a doughnut chart breaking down q
+           -ueries into Tier 1 exact hits, Tier 2 semantic hits, and miss
+           -es. The Latency Analysis section features a scatter plot of p
+           -er-query response times where cache misses spike into the tho
+           -usands of milliseconds while hits remain near the baseline, a
+           -longside a horizontal bar chart showing latency percentiles: 
+           -P50 at 765.5 ms, P90 at 11,732.9 ms, P95 at 12,405.95 ms, and
+           - P99 at 12,944.39 ms.                                        
+      1165 +\begin{figure}[H]                                            
+      1166 +\centering                                                   
+      1167 +\includegraphics[width=0.9\textwidth]{fig-benchmark-suite.png
+           +}                                                            
+      1168 +\caption*{Figure~\ref{fig:benchmark}: Benchmark suite with da
+           +taset selection and results}                                 
+      1169 +\end{figure}                                                 
+      1170  
+      1143 -\item \textbf{Benchmark suite with dataset selection and resu
+           -lts} (Figure~\ref{fig:benchmark}, Chapter 4) --- This screens
+           -hot shows the benchmark runner interface. The left panel prov
+           -ides configuration controls for the number of questions (500 
+           -with 150 paraphrase variants), cache capacity (300), and data
+           -set selection (Natural Questions or SQuAD), along with a Star
+           -t Benchmark button. Below it, the benchmark history panel lis
+           -ts previous runs with their run identifiers, timestamps, data
+           -set names, query counts, and capacity settings. The main resu
+           -lts area on the right displays the selected run outcome throu
+           -gh two grouped bar charts --- one for hit rate and precision,
+           - another for latency on a log scale --- and a detailed metric
+           -s comparison table listing all seven strategies with their ex
+           -act hit rate, precision, F1 score, hit latency, overall laten
+           -cy, LLM calls saved, and total time taken.                   
+      1171  
+      1145 -\end{enumerate}                                              
+      1146 -                                                             
+      1147 -                                                             
+      1172  % ═══════════════════════════════════════════════════════════
+            ═
+      1149 -% Appendix C: List of Tables with Descriptions               
+      1173 +% Appendix C: Tables                                         
+      1174  % ═══════════════════════════════════════════════════════════
+            ═
+      1175  \newpage
+      1152 -\chapter*{Appendix C: List of Tables with Descriptions}      
+      1153 -\addcontentsline{toc}{section}{Appendix C: List of Tables wit
+           -h Descriptions}                                              
+      1176 +\chapter*{Appendix C: Tables}                                
+      1177 +\addcontentsline{toc}{section}{Appendix C: Tables}           
+      1178  
+      1155 -\begin{enumerate}[label=\textbf{Table \arabic*:}, leftmargin=
+           -3cm, labelsep=0.5cm]                                         
+      1179 +\vspace{0.3cm}                                               
+      1180 +\noindent\textbf{Table~\ref{tab:litsurvey}: Literature Survey
+           + Summary}                                                    
+      1181 +\vspace{0.3cm}                                               
+      1182  
+      1157 -\item \textbf{Literature Survey Summary} (Table~\ref{tab:lits
+           -urvey}, Chapter 2) --- This table presents a structured summa
+           -ry of the 15 works reviewed in the literature survey. Each ro
+           -w contains a serial number, author names and year, the approa
+           -ch or system name, its key contribution to the field of seman
+           -tic caching or related algorithms, and the gap identified tha
+           -t the proposed ContextualCache system aims to address. The ta
+           -ble covers systems ranging from MinCache and MeanCache to fou
+           -ndational algorithms like conformal prediction, Thompson Samp
+           -ling, ADWIN, TinyLFU, GDSF, and FedAvg.                      
+      1183 +\begin{longtable}{|c|p{2.5cm}|p{3cm}|p{3.5cm}|p{3.5cm}|}     
+      1184 +\hline                                                       
+      1185 +\textbf{S.No.} & \textbf{Author} & \textbf{Approach} & \textb
+           +f{Key Contribution} & \textbf{Gap Identified} \\             
+      1186 +\hline                                                       
+      1187 +\endfirsthead                                                
+      1188 +\hline                                                       
+      1189 +\textbf{S.No.} & \textbf{Author} & \textbf{Approach} & \textb
+           +f{Key Contribution} & \textbf{Gap Identified} \\             
+      1190 +\hline                                                       
+      1191 +\endhead                                                     
+      1192 +1 & Haqiq et al., 2025 & MinCache: Hybrid Cache & Three-tier 
+           +hierarchy; 4.5$\times$ speedup vs GPTCache & MinHash misses n
+           +uanced semantics \\                                          
+      1193 +\hline                                                       
+      1194 +2 & Gill et al., 2024 & MeanCache: User-Centric Caching & Fed
+           +erated learning for similarity models & No adaptive threshold
+           +s; fixed metrics \\                                          
+      1195 +\hline                                                       
+      1196 +3 & Gao et al., 2025 & Online Context Caching & KV cache plac
+           +ement + request scheduling & Does not address semantic simila
+           +rity \\                                                      
+      1197 +\hline                                                       
+      1198 +4 & Li et al., 2024 & SCALM: Semantic Caching & Vector quanti
+           +zation; semantic clustering & Semantic analysis overhead; no 
+           +adaptation \\                                                
+      1199 +\hline                                                       
+      1200 +5 & Li et al., 2024 & Context-based Semantic Caching & Contex
+           +t embedding + attention weighting & Increased memory footprin
+           +t \\                                                         
+      1201 +\hline                                                       
+      1202 +6 & Liu et al., 2024 & Lost in the Middle & Position bias ana
+           +lysis in transformers & Affects compression, not caching \\  
+      1203 +\hline                                                       
+      1204 +7 & Regmi \& Pun, 2024 & GPT Semantic Cache & Redis-based wit
+           +h HNSW ANN & Fixed threshold; lacks adaptability \\          
+      1205 +\hline                                                       
+      1206 +8 & Jin et al., 2024 & RAGCache & Cost-aware GDSF eviction & 
+           +No per-entry threshold adaptation \\                         
+      1207 +\hline                                                       
+      1208 +9 & Schroeder et al., 2025 & vCache & Per-entry conformal thr
+           +esholds & High default; no bandit exploration \\             
+      1209 +\hline                                                       
+      1210 +10 & Zha et al., 2023 & Online Optimization for Cache & Bayes
+           +ian optimization for thresholds & Single query type; manual i
+           +nit \\                                                       
+      1211 +\hline                                                       
+      1212 +11 & Zhu et al., 2023 & Semantic Caching for LLM Cost & Embed
+           +ding-based lookup & Fixed threshold $\tau$=0.8; no adaptation
+           + \\                                                          
+      1213 +\hline                                                       
+      1214 +12 & Einziger et al., 2017 & TinyLFU & Frequency-gated admiss
+           +ion & Not designed for semantic caching \\                   
+      1215 +\hline                                                       
+      1216 +13 & Bifet \& Gavalda, 2007 & ADWIN & Adaptive windowing for 
+           +drift & General-purpose; needs integration \\                
+      1217 +\hline                                                       
+      1218 +14 & Vovk et al., 2005 & Conformal Prediction & Guaranteed pr
+           +ediction sets & Theoretical; per-entry adaptation needed \\  
+      1219 +\hline                                                       
+      1220 +15 & McMahan et al., 2017 & FedAvg & Federated model averagin
+           +g & Not applied to cache threshold learning \\               
+      1221 +\hline                                                       
+      1222 +\end{longtable}                                              
+      1223  
+      1159 -\item \textbf{Query Pipeline Complexity Analysis} (Table~\ref
+           -{tab:pipeline}, Chapter 3) --- This table breaks down the que
+           -ry processing pipeline into its constituent stages, listing t
+           -he component responsible, the algorithmic time complexity, an
+           -d the typical latency range for each stage. Tier 1 exact hash
+           - lookup operates in $O(1)$ time with sub-millisecond latency.
+           - Tier 2 FAISS HNSW semantic search runs in $O(\log n)$ with 2
+           ---15 millisecond latency. Embedding generation using MiniLM-L
+           -6-v2 is $O(d)$ at 5--20 milliseconds. The per-entry conformal
+           - threshold check is $O(k \log k)$ at under 0.1 milliseconds. 
+           -An LLM miss incurs network-dependent latency of 500--6000 mil
+           -liseconds.                                                   
+      1224 +\vspace{0.5cm}                                               
+      1225 +\noindent\textbf{Table~\ref{tab:pipeline}: Query Pipeline Com
+           +plexity Analysis}                                            
+      1226 +\vspace{0.3cm}                                               
+      1227  
+      1161 -\item \textbf{Cache Management Component Summary} (Table~\ref
+           -{tab:components}, Chapter 3) --- This table lists the six mai
+           -n cache management components alongside their underlying algo
+           -rithms and purposes. Admission uses Semantic W-TinyLFU to rej
+           -ect infrequent queries via LSH-bucketed frequency estimation.
+           - Eviction uses CostGDSF with the priority formula $H = f \tim
+           -es c / s + L$ to retain expensive entries. Threshold learning
+           - uses Thompson Sampling with 10 arms to explore optimal defau
+           -lt thresholds. Drift detection uses ADWIN to reset bandit pos
+           -teriors on distribution shifts. Session context uses EMA fusi
+           -on with $\alpha = 0.85$ for multi-turn awareness. Fault isola
+           -tion uses a circuit breaker pattern for per-dependency resili
+           -ence.                                                        
+      1228 +\begin{table}[H]                                             
+      1229 +\centering                                                   
+      1230 +\begin{tabular}{llll}                                        
+      1231 +\toprule                                                     
+      1232 +\textbf{Stage} & \textbf{Component} & \textbf{Complexity} & \
+           +textbf{Latency} \\                                           
+      1233 +\midrule                                                     
+      1234 +Tier 1 & Exact Hash Lookup (SHA-256) & $O(1)$ & $<$1 ms \\   
+      1235 +Tier 2 & FAISS HNSW Semantic Search & $O(\log n)$ & 2--15 ms 
+           +\\                                                           
+      1236 +Embedding & paraphrase-MiniLM-L6-v2 & $O(d)$ & 5--20 ms \\   
+      1237 +Threshold & Per-entry conformal $\tau_i$ & $O(k \log k)$ & $<
+           +$0.1 ms \\                                                   
+      1238 +Miss & LLM Provider (Ollama/Groq) & Network & 500--6000 ms \\
+      1239 +\bottomrule                                                  
+      1240 +\end{tabular}                                                
+      1241 +\end{table}                                                  
+      1242  
+      1163 -\item \textbf{Thompson Sampling Threshold Arms Configuration}
+           - (Table~\ref{tab:arms}, Chapter 3) --- This table enumerates 
+           -the 10 arms of the Thompson Sampling multi-armed bandit along
+           - with their corresponding threshold values. The arms are line
+           -arly spaced from 0.650 (arm 0) to 0.950 (arm 9), with each su
+           -ccessive arm increasing by approximately 0.033. Each arm main
+           -tains independent Beta posterior parameters that are updated 
+           -based on cache hit rewards, and the arm with the highest expe
+           -cted reward determines the default threshold assigned to newl
+           -y cached entries.                                            
+      1243 +\vspace{0.5cm}                                               
+      1244 +\noindent\textbf{Table~\ref{tab:components}: Cache Management
+           + Component Summary}                                          
+      1245 +\vspace{0.3cm}                                               
+      1246  
+      1165 -\item \textbf{Technology Stack} (Table~\ref{tab:techstack}, C
+           -hapter 3) --- This table summarizes the technologies used acr
+           -oss the full stack. The backend is written in Python 3.10 wit
+           -h FastAPI and Uvicorn ASGI server, using paraphrase-MiniLM-L6
+           --v2 for embeddings, FAISS with HNSW for vector indexing, and 
+           -Ollama with LLaMA 3.2:3b as the default LLM backend (with Gro
+           -q and OpenAI as alternatives). Redis provides optional distri
+           -buted caching and SQLite handles local persistence. The front
+           -end uses SvelteKit with Svelte 5, Tauri as the desktop runtim
+           -e, and Chart.js for data visualization. PyTorch with CUDA 12.
+           -6 provides the deep learning infrastructure, and 120 automate
+           -d tests run through pytest with pytest-asyncio.              
+      1247 +\begin{table}[H]                                             
+      1248 +\centering                                                   
+      1249 +\begin{tabular}{p{3cm}p{4.5cm}p{6cm}}                        
+      1250 +\toprule                                                     
+      1251 +\textbf{Component} & \textbf{Algorithm} & \textbf{Purpose} \\
+      1252 +\midrule                                                     
+      1253 +Admission & Semantic W-TinyLFU & Reject one-hit-wonders based
+           + on LSH-bucketed frequency \\                                
+      1254 +Eviction & CostGDSF & $H = f \times c / s + L$ (keeps expensi
+           +ve entries) \\                                               
+      1255 +Threshold Learning & Thompson Sampling (10 arms) & Learn opti
+           +mal default $\tau$ for new entries \\                        
+      1256 +Drift Detection & ADWIN & Reset bandit posteriors on distribu
+           +tion shift \\                                                
+      1257 +Session Context & EMA fusion ($\alpha$=0.85) & Multi-turn con
+           +versational awareness \\                                     
+      1258 +Fault Isolation & Circuit Breaker & Per-dependency isolation 
+           +(CLOSED/OPEN/HALF\_OPEN) \\                                  
+      1259 +\bottomrule                                                  
+      1260 +\end{tabular}                                                
+      1261 +\end{table}                                                  
+      1262  
+      1167 -\item \textbf{API Endpoint Summary} (Table~\ref{tab:api}, Cha
+           -pter 3) --- This table lists the 11 REST API endpoints expose
+           -d by the FastAPI backend. The primary endpoint is POST /query
+           -, which accepts a user query and returns the response along w
+           -ith cache hit/miss metadata. Other endpoints include POST /fe
+           -edback for correctness signals, POST /bulk-query for batch pr
+           -ocessing, POST /api/query-direct for bypassing the cache, GET
+           - /health for health checks, GET /api/stats for dashboard anal
+           -ytics, POST /api/clear-cache for cache reset, GET /api/conver
+           -sations for session listing, and the benchmark endpoints for 
+           -running and retrieving evaluation results.                   
+      1263 +\vspace{0.5cm}                                               
+      1264 +\noindent\textbf{Table~\ref{tab:arms}: Thompson Sampling Thre
+           +shold Arms Configuration}                                    
+      1265 +\vspace{0.3cm}                                               
+      1266  
+      1169 -\item \textbf{Configuration Parameters} (Table~\ref{tab:confi
+           -g}, Chapter 3) --- This table documents the 12 key configurat
+           -ion parameters that govern system behavior. Each entry shows 
+           -the parameter name (with the CC\_ environment variable prefix
+           -), its default value, and a description. Notable parameters i
+           -nclude cache capacity (50,000 entries, reduced to 300 for ben
+           -chmarks), default threshold (0.70), target error rate ($\vare
+           -psilon = 0.05$) for conformal calibration, HNSW index paramet
+           -ers ($M = 32$, efSearch = 64), Count-Min Sketch width (4096),
+           - bandit arm count (10), ADWIN sensitivity ($\delta = 0.002$),
+           - and default TTL of 3600 seconds.                            
+      1267 +\begin{table}[H]                                             
+      1268 +\centering                                                   
+      1269 +\begin{tabular}{cc}                                          
+      1270 +\toprule                                                     
+      1271 +\textbf{Arm} & \textbf{Threshold Value} \\                   
+      1272 +\midrule                                                     
+      1273 +0 & 0.650 \\                                                 
+      1274 +1 & 0.683 \\                                                 
+      1275 +2 & 0.717 \\                                                 
+      1276 +3 & 0.750 \\                                                 
+      1277 +4 & 0.783 \\                                                 
+      1278 +5 & 0.817 \\                                                 
+      1279 +6 & 0.850 \\                                                 
+      1280 +7 & 0.883 \\                                                 
+      1281 +8 & 0.917 \\                                                 
+      1282 +9 & 0.950 \\                                                 
+      1283 +\bottomrule                                                  
+      1284 +\end{tabular}                                                
+      1285 +\end{table}                                                  
+      1286  
+      1171 -\item \textbf{Benchmark Results on Natural Questions Dataset}
+           - (Table~\ref{tab:nq}, Chapter 4) --- This table presents the 
+           -primary benchmark results comparing all seven strategies on t
+           -he Natural Questions dataset with 650 queries and a cache cap
+           -acity of 300 entries. ContextualCache achieves the highest hi
+           -t rate at 20.77\% with 84 correct hits and 51 incorrect hits,
+           - yielding a precision of 62.22\% and an F1 score of 0.214. It
+           - requires only 515 LLM calls, saving 135 inference requests. 
+           -GPTCache follows with 19.38\% hit rate, vCache at 18.62\%, No
+           --Admission at 17.69\%, RAGCache at 17.23\%, and MeanCache at 
+           -13.23\%. Exact-Match LRU serves as the lower bound with 0\% h
+           -it rate.                                                     
+      1287 +\vspace{0.5cm}                                               
+      1288 +\noindent\textbf{Table~\ref{tab:techstack}: Technology Stack}
+      1289 +\vspace{0.3cm}                                               
+      1290  
+      1173 -\item \textbf{Benchmark Results on SQuAD Dataset} (Table~\ref
+           -{tab:squad}, Chapter 4) --- This table reports the same seven
+           --strategy comparison on the SQuAD dataset with 650 queries. C
+           -ontextualCache achieves a 23.69\% hit rate with 55 correct hi
+           -ts, the highest F1 score of 0.137, and saves 154 LLM calls. P
+           -recision is lower across all strategies on SQuAD (35.71\% for
+           - ContextualCache) compared to NQ, reflecting the difficulty o
+           -f matching short factual SQuAD answers within longer generate
+           -d responses. GPTCache reaches 19.54\% hit rate, vCache and No
+           --Admission tie at 17.85\%, and MeanCache drops to 5.23\%.    
+      1291 +\begin{table}[H]                                             
+      1292 +\centering                                                   
+      1293 +\begin{tabular}{ll}                                          
+      1294 +\toprule                                                     
+      1295 +\textbf{Category} & \textbf{Technology} \\                   
+      1296 +\midrule                                                     
+      1297 +Language & Python 3.10 \\                                    
+      1298 +Backend Framework & FastAPI with Uvicorn ASGI \\             
+      1299 +Embedding Model & paraphrase-MiniLM-L6-v2 (384d) \\          
+      1300 +Vector Index & FAISS (faiss-cpu) with HNSW \\                
+      1301 +LLM Backend & Ollama (LLaMA 3.2:3b) / Groq / OpenAI \\       
+      1302 +Optional Cache Store & Redis (redis-py async) \\             
+      1303 +Persistence & SQLite \\                                      
+      1304 +Frontend Framework & SvelteKit (Svelte 5) \\                 
+      1305 +Desktop Runtime & Tauri (Rust) \\                            
+      1306 +Charting & Chart.js \\                                       
+      1307 +Deep Learning & PyTorch (CUDA 12.6) \\                       
+      1308 +Testing & pytest with pytest-asyncio (120 tests) \\          
+      1309 +\bottomrule                                                  
+      1310 +\end{tabular}                                                
+      1311 +\end{table}                                                  
+      1312  
+      1175 -\item \textbf{Precision Analysis on NQ --- Top Three Strategi
+           -es} (Table~\ref{tab:precision}, Chapter 4) --- This table pro
+           -vides a detailed precision breakdown for the three best-perfo
+           -rming strategies on Natural Questions. ContextualCache record
+           -s 135 total hits (84 correct, 51 incorrect) for 62.22\% preci
+           -sion and a 37.78\% false positive rate. vCache achieves the h
+           -ighest precision among the three at 62.81\% with 121 total hi
+           -ts (76 correct, 45 incorrect). GPTCache lands at 61.90\% prec
+           -ision with 126 total hits (78 correct, 48 incorrect). The mar
+           -ginal precision differences of less than one percentage point
+           - are offset by ContextualCache's significantly higher total c
+           -orrect hits.                                                 
+      1313 +\vspace{0.5cm}                                               
+      1314 +\noindent\textbf{Table~\ref{tab:api}: API Endpoint Summary}  
+      1315 +\vspace{0.3cm}                                               
+      1316  
+      1177 -\item \textbf{Latency Comparison on NQ} (Table~\ref{tab:laten
+           -cy}, Chapter 4) --- This table compares the average hit laten
+           -cy, average overall latency, and total LLM calls saved for ea
+           -ch strategy. All strategies achieve sub-millisecond hit laten
+           -cy (ranging from 0.00 to 0.28 ms), confirming that cache look
+           -up overhead is negligible. ContextualCache achieves the lowes
+           -t overall latency at 1610.17 ms and saves the most LLM calls 
+           -(135). GPTCache follows at 1613.17 ms with 126 calls saved. M
+           -eanCache has the highest overall latency at 1736.22 ms due to
+           - its low hit rate, requiring 564 out of 650 queries to be for
+           -warded to the LLM.                                           
+      1317 +\begin{table}[H]                                             
+      1318 +\centering                                                   
+      1319 +\begin{tabular}{lll}                                         
+      1320 +\toprule                                                     
+      1321 +\textbf{Method} & \textbf{Path} & \textbf{Description} \\    
+      1322 +\midrule                                                     
+      1323 +POST & /query & Main cache-fronted LLM query \\              
+      1324 +POST & /feedback & Correctness feedback for calibration \\   
+      1325 +POST & /bulk-query & Batch queries \\                        
+      1326 +POST & /api/query-direct & Bypass cache, call LLM directly \\
+      1327 +GET & /health & Health check \\                              
+      1328 +GET & /api/stats & Full analytics for dashboard \\           
+      1329 +POST & /api/clear-cache & Clear all cache entries \\         
+      1330 +GET & /api/conversations & List chat sessions \\             
+      1331 +POST & /api/benchmark/run & Start benchmark run \\           
+      1332 +GET & /api/benchmark/status/\{id\} & Poll benchmark progress 
+           +\\                                                           
+      1333 +GET & /api/benchmark/results & List benchmark results \\     
+      1334 +\bottomrule                                                  
+      1335 +\end{tabular}                                                
+      1336 +\end{table}                                                  
+      1337  
+      1179 -\end{enumerate}                                              
+      1338 +\vspace{0.5cm}                                               
+      1339 +\noindent\textbf{Table~\ref{tab:config}: Configuration Parame
+           +ters}                                                        
+      1340 +\vspace{0.3cm}                                               
+      1341  
+      1342 +\begin{table}[H]                                             
+      1343 +\centering                                                   
+      1344 +\begin{tabular}{lll}                                         
+      1345 +\toprule                                                     
+      1346 +\textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
+      1347 +\midrule                                                     
+      1348 +CC\_CACHE\_CAPACITY & 50,000 & Max cached entries (300 for be
+           +nchmark) \\                                                  
+      1349 +CC\_DEFAULT\_THRESHOLD & 0.70 & Initial conformal threshold \
+           +\                                                            
+      1350 +CC\_TARGET\_ERROR\_RATE & 0.05 & Conformal error bound ($\var
+           +epsilon$) \\                                                 
+      1351 +CC\_EMBEDDING\_MODEL & MiniLM-L6-v2 & 384-dimensional embeddi
+           +ngs \\                                                       
+      1352 +CC\_ANN\_K & 10 & FAISS top-$k$ neighbors \\                 
+      1353 +CC\_HNSW\_M & 32 & HNSW links per node \\                    
+      1354 +CC\_HNSW\_EF\_SEARCH & 64 & HNSW search expansion \\         
+      1355 +CC\_WINDOW\_PCT & 0.05 & W-TinyLFU window fraction \\        
+      1356 +CC\_CMS\_WIDTH & 4096 & Count-Min Sketch columns \\          
+      1357 +CC\_BANDIT\_N\_ARMS & 10 & Thompson Sampling arms \\         
+      1358 +CC\_DRIFT\_DELTA & 0.002 & ADWIN sensitivity \\              
+      1359 +CC\_DEFAULT\_TTL\_S & 3600 & Entry time-to-live (seconds) \\ 
+      1360 +\bottomrule                                                  
+      1361 +\end{tabular}                                                
+      1362 +\end{table}                                                  
+      1363  
+      1364 +\newpage                                                     
+      1365 +                                                             
+      1366 +\noindent\textbf{Table~\ref{tab:nq}: Benchmark Results on Nat
+           +ural Questions Dataset (650 queries, 300 capacity)}          
+      1367 +\vspace{0.3cm}                                               
+      1368 +                                                             
+      1369 +\begin{table}[H]                                             
+      1370 +\centering                                                   
+      1371 +\begin{tabular}{lcccccc}                                     
+      1372 +\toprule                                                     
+      1373 +\textbf{Strategy} & \textbf{Hit Rate} & \textbf{Precision} & 
+           +\textbf{F1} & \textbf{Correct} & \textbf{Incorrect} & \textbf
+           +{LLM Calls} \\                                               
+      1374 +\midrule                                                     
+      1375 +\textbf{Ours} & \textbf{20.77\%} & \textbf{62.22\%} & \textbf
+           +{0.214} & \textbf{84} & \textbf{51} & \textbf{515} \\        
+      1376 +GPTCache & 19.38\% & 61.90\% & 0.201 & 78 & 48 & 524 \\      
+      1377 +vCache & 18.62\% & 62.81\% & 0.197 & 76 & 45 & 529 \\        
+      1378 +No-Admission & 17.69\% & 63.48\% & 0.191 & 73 & 42 & 535 \\  
+      1379 +RAGCache & 17.23\% & 64.29\% & 0.189 & 72 & 40 & 538 \\      
+      1380 +MeanCache & 13.23\% & 66.28\% & 0.155 & 57 & 29 & 564 \\     
+      1381 +Exact-Match LRU & 0.00\% & --- & 0.000 & 0 & 0 & 650 \\      
+      1382 +\bottomrule                                                  
+      1383 +\end{tabular}                                                
+      1384 +\end{table}                                                  
+      1385 +                                                             
+      1386 +\vspace{0.5cm}                                               
+      1387 +\noindent\textbf{Table~\ref{tab:squad}: Benchmark Results on 
+           +SQuAD Dataset (650 queries, 300 capacity)}                   
+      1388 +\vspace{0.3cm}                                               
+      1389 +                                                             
+      1390 +\begin{table}[H]                                             
+      1391 +\centering                                                   
+      1392 +\begin{tabular}{lcccccc}                                     
+      1393 +\toprule                                                     
+      1394 +\textbf{Strategy} & \textbf{Hit Rate} & \textbf{Precision} & 
+           +\textbf{F1} & \textbf{Correct} & \textbf{Incorrect} & \textbf
+           +{LLM Calls} \\                                               
+      1395 +\midrule                                                     
+      1396 +\textbf{Ours} & \textbf{23.69\%} & 35.71\% & \textbf{0.137} &
+           + \textbf{55} & 99 & \textbf{496} \\                          
+      1397 +GPTCache & 19.54\% & 38.58\% & 0.126 & 49 & 78 & 523 \\      
+      1398 +vCache & 17.85\% & 38.79\% & 0.118 & 45 & 71 & 534 \\        
+      1399 +No-Admission & 17.85\% & 37.07\% & 0.112 & 43 & 73 & 534 \\  
+      1400 +RAGCache & 17.38\% & 36.28\% & 0.108 & 41 & 72 & 537 \\      
+      1401 +MeanCache & 5.23\% & 47.06\% & 0.047 & 16 & 18 & 616 \\      
+      1402 +Exact-Match LRU & 0.00\% & --- & 0.000 & 0 & 0 & 650 \\      
+      1403 +\bottomrule                                                  
+      1404 +\end{tabular}                                                
+      1405 +\end{table}                                                  
+      1406 +                                                             
+      1407 +\vspace{0.5cm}                                               
+      1408 +\noindent\textbf{Table~\ref{tab:precision}: Precision Analysi
+           +s on NQ --- Top Three Strategies}                            
+      1409 +\vspace{0.3cm}                                               
+      1410 +                                                             
+      1411 +\begin{table}[H]                                             
+      1412 +\centering                                                   
+      1413 +\begin{tabular}{lccc}                                        
+      1414 +\toprule                                                     
+      1415 +\textbf{Metric} & \textbf{GPTCache} & \textbf{vCache} & \text
+           +bf{Ours} \\                                                  
+      1416 +\midrule                                                     
+      1417 +Total Hits & 126 & 121 & 135 \\                              
+      1418 +Correct Hits & 78 & 76 & 84 \\                               
+      1419 +Incorrect Hits & 48 & 45 & 51 \\                             
+      1420 +Precision & 61.90\% & 62.81\% & 62.22\% \\                   
+      1421 +False Positive Rate & 38.10\% & 37.19\% & 37.78\% \\         
+      1422 +\bottomrule                                                  
+      1423 +\end{tabular}                                                
+      1424 +\end{table}                                                  
+      1425 +                                                             
+      1426 +\vspace{0.5cm}                                               
+      1427 +\noindent\textbf{Table~\ref{tab:latency}: Latency Comparison 
+           +on NQ}                                                       
+      1428 +\vspace{0.3cm}                                               
+      1429 +                                                             
+      1430 +\begin{table}[H]                                             
+      1431 +\centering                                                   
+      1432 +\begin{tabular}{lccc}                                        
+      1433 +\toprule                                                     
+      1434 +\textbf{Strategy} & \textbf{Hit Latency (ms)} & \textbf{Overa
+           +ll Latency (ms)} & \textbf{LLM Saved} \\                     
+      1435 +\midrule                                                     
+      1436 +Ours & 0.00 & 1610.17 & 135 \\                               
+      1437 +GPTCache & 0.13 & 1613.17 & 126 \\                           
+      1438 +vCache & 0.00 & 1632.40 & 121 \\                             
+      1439 +No-Admission & 0.13 & 1662.86 & 115 \\                       
+      1440 +RAGCache & 0.28 & 1675.60 & 112 \\                           
+      1441 +MeanCache & 0.00 & 1736.22 & 86 \\                           
+      1442 +\bottomrule                                                  
+      1443 +\end{tabular}                                                
+      1444 +\end{table}                                                  
+      1445 +                                                             
+      1446 +                                                             
+      1447  % ═══════════════════════════════════════════════════════════
+            ═
+      1183 -% Appendix D: List of Algorithms with Descriptions           
+      1448 +% Appendix D: Algorithms                                     
+      1449  % ═══════════════════════════════════════════════════════════
+            ═
+      1450  \newpage
+      1186 -\chapter*{Appendix D: List of Algorithms with Descriptions}  
+      1187 -\addcontentsline{toc}{section}{Appendix D: List of Algorithms
+           - with Descriptions}                                          
+      1451 +\chapter*{Appendix D: Algorithms}                            
+      1452 +\addcontentsline{toc}{section}{Appendix D: Algorithms}       
+      1453  
+      1189 -\begin{enumerate}[label=\textbf{Algorithm \arabic*:}, leftmar
+           -gin=3.5cm, labelsep=0.5cm]                                   
+      1454 +\vspace{0.5cm}                                               
+      1455 +\noindent\textbf{Algorithm 1: Conformal Threshold Update}    
+      1456 +\vspace{0.3cm}                                               
+      1457  
+      1191 -\item \textbf{Conformal Threshold Update} (Chapter 3, Section
+           - 3.5) --- This algorithm describes the online calibration pro
+           -cedure for per-entry conformal similarity thresholds. When a 
+           -feedback signal is received for a cached entry, the algorithm
+           - first computes a nonconformity score based on the similarity
+           - value and whether the cache hit was correct or incorrect. Fo
+           -r correct hits, the nonconformity score is simply $1 - \text{
+           -similarity}$, reflecting how far the match was from perfect s
+           -imilarity. For incorrect hits, the score is inflated using th
+           -e formula $\min(1.0, \max(1.0 - \text{similarity} + 0.1, 0.5)
+           -)$, which penalizes false positives by assigning them higher 
+           -nonconformity values. The score is appended to the entry's sl
+           -iding window of historical scores (capped at 200 entries). On
+           -ce the window contains at least 3 scores (the minimum calibra
+           -tion threshold), the algorithm sorts the scores and computes 
+           -the $(1 - \varepsilon)$ quantile, where $\varepsilon = 0.05$ 
+           -is the target error rate. The conformal threshold $\tau_i$ is
+           - then set to $1.0$ minus this quantile value, clamped to the 
+           -range $[0.60, 0.99]$ to prevent degenerate thresholds. Entrie
+           -s with fewer than 3 scores continue using the default thresho
+           -ld provided by the Thompson Sampling bandit. This procedure p
+           -rovides the formal guarantee that $P(\text{false positive}) \
+           -leq \varepsilon$ under the exchangeability assumption of conf
+           -ormal prediction.                                            
+      1458 +\begin{lstlisting}                                           
+      1459 +Input: entry_id, similarity, was_correct                     
+      1460 +If was_correct:                                              
+      1461 +    nonconformity = 1.0 - similarity                         
+      1462 +Else:                                                        
+      1463 +    nonconformity = min(1.0, max(1.0 - similarity + 0.1, 0.5)
+           +)                                                            
+      1464  
+      1193 -\item \textbf{Thompson Sampling Update} (Chapter 3, Section 3
+           -.6) --- This algorithm governs how the multi-armed bandit lea
+           -rns the optimal default threshold for newly cached entries. O
+           -n each cache hit event, the algorithm identifies the current 
+           -best arm (the arm with the highest expected reward $\alpha_i 
+           -/ (\alpha_i + \beta_i)$) and computes a reward based on the s
+           -imilarity score of the hit. If the similarity exceeds 0.85, t
+           -he reward is 1.0 (full success). If it falls below 0.65, the 
+           -reward is 0.0 (failure). For similarities between 0.65 and 0.
+           -85, the reward is linearly interpolated as $(\text{similarity
+           -} - 0.65) / 0.20$, providing a smooth gradient signal. The re
+           -ward updates the selected arm's Beta posterior: $\alpha$ is i
+           -ncremented by the reward and $\beta$ by $(1 - \text{reward})$
+           -. The reward is also fed to the ADWIN drift detector, which m
+           -onitors the stream for distributional shifts using Hoeffding 
+           -bounds. If ADWIN detects a drift, all arm posteriors are rese
+           -t to weakly informative priors ($\alpha = 2, \beta = 2$), for
+           -cing the bandit to re-explore the threshold space from scratc
+           -h. This mechanism ensures that the bandit adapts to changing 
+           -query patterns rather than remaining anchored to a threshold 
+           -that was optimal under a previous distribution.              
+      1465 +scores[entry_id].append(nonconformity)                       
+      1466 +If len(scores) > max_window:                                 
+      1467 +    scores = scores[-max_window:]                            
+      1468  
+      1195 -\end{enumerate}                                              
+      1469 +If len(scores) >= min_calibration_points:                    
+      1470 +    sorted_scores = sort(scores)                             
+      1471 +    idx = ceil((1 - epsilon) * (len + 1)) - 1                
+      1472 +    tau_i = 1.0 - sorted_scores[idx]                         
+      1473 +    tau_i = clamp(tau_i, 0.60, 0.99)                         
+      1474 +Else:                                                        
+      1475 +    tau_i = default_threshold                                
+      1476 +\end{lstlisting}                                             
+      1477  
+      1478 +\vspace{1cm}                                                 
+      1479 +\noindent\textbf{Algorithm 2: Thompson Sampling Update}      
+      1480 +\vspace{0.3cm}                                               
+      1481  
+      1482 +\begin{lstlisting}                                           
+      1483 +On each cache hit:                                           
+      1484 +    arm* = current best arm (highest expected reward)        
+      1485 +    If similarity >= 0.85: reward = 1.0                      
+      1486 +    Else if similarity < 0.65: reward = 0.0                  
+      1487 +    Else: reward = (similarity - 0.65) / 0.20                
+      1488 +                                                             
+      1489 +    alpha[arm*] += reward                                    
+      1490 +    beta[arm*] += (1.0 - reward)                             
+      1491 +                                                             
+      1492 +    Feed reward to ADWIN drift detector                      
+      1493 +    If drift detected:                                       
+      1494 +        Reset all alpha, beta to (2, 2)                      
+      1495 +\end{lstlisting}                                             
+      1496 +                                                             
+      1497 +                                                             
+      1498  \end{document}
+
+● Done. Here's what changed:
+
+  Main body -- added description paragraphs for the 3 figures that were missing
+  them:
+  - Architecture diagram (after Figure 1 in Chapter 3)
+  - Hit rate/precision chart (after Figure 2 in Chapter 4)
+  - Latency chart (after Figure 3 in Chapter 4)
+
+  The 4 Implementation Demonstration figures already had descriptions from the
+  previous update.
+
+  Appendices -- replaced the description-based appendices with duplicated
+  content:
+  - Appendix B: Figures -- all 7 figures reproduced as-is
+  - Appendix C: Tables -- all 11 tables reproduced as-is
+  - Appendix D: Algorithms -- both algorithm listings reproduced as-is
+
+  Let me know the next updates.
+
+✻ Cooked for 8m 56s

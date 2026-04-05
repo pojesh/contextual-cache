@@ -1,0 +1,1497 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.4)  6 APR 2026 00:43
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./report.tex
+(report.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-24>
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
+Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
+File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count275
+\c@chapter=\count276
+\c@section=\count277
+\c@subsection=\count278
+\c@subsubsection=\count279
+\c@paragraph=\count280
+\c@subparagraph=\count281
+\c@figure=\count282
+\c@table=\count283
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen148
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2026/03/07 v6.0 Page Geometry
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
+\Gm@cnth=\count284
+\Gm@cntv=\count285
+\c@Gm@tempcnt=\count286
+\Gm@bindingoffset=\dimen149
+\Gm@wd@mp=\dimen150
+\Gm@odd@mp=\dimen151
+\Gm@even@mp=\dimen152
+\Gm@layoutwidth=\dimen153
+\Gm@layoutheight=\dimen154
+\Gm@layouthoffset=\dimen155
+\Gm@layoutvoffset=\dimen156
+\Gm@dimlist=\toks18
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)
+) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
+Package: setspace 2022/12/04 v6.7b set line spacing
+) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.st
+y
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.
+cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.de
+f
+File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen157
+\Gin@req@width=\dimen158
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen159
+\lightrulewidth=\dimen160
+\cmidrulewidth=\dimen161
+\belowrulesep=\dimen162
+\belowbottomsep=\dimen163
+\aboverulesep=\dimen164
+\abovetopsep=\dimen165
+\cmidrulesep=\dimen166
+\cmidrulekern=\dimen167
+\defaultaddspace=\dimen168
+\@cmidla=\count287
+\@cmidlb=\count288
+\@aboverulesep=\dimen169
+\@belowrulesep=\dimen170
+\@thisruleclass=\count289
+\@lastruleclass=\count290
+\@thisrulewidth=\dimen171
+) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
+Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
+\LTleft=\skip51
+\LTright=\skip52
+\LTpre=\skip53
+\LTpost=\skip54
+\LTchunksize=\count291
+\LTcapwidth=\dimen172
+\LT@head=\box53
+\LT@firsthead=\box54
+\LT@foot=\box55
+\LT@lastfoot=\box56
+\LT@gbox=\box57
+\LT@cols=\count292
+\LT@rows=\count293
+\c@LT@tables=\count294
+\c@LT@chunks=\count295
+\LT@p@ftn=\toks19
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen173
+\ar@mcellbox=\box58
+\extrarowheight=\dimen174
+\NC@list=\toks20
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box59
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+\TX@col@width=\dimen175
+\TX@old@table=\dimen176
+\TX@old@col=\dimen177
+\TX@target=\dimen178
+\TX@delta=\dimen179
+\TX@cols=\count296
+\TX@ftn=\toks21
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen180
+\captionmargin=\dimen181
+\caption@leftmargin=\dimen182
+\caption@rightmargin=\dimen183
+\caption@width=\dimen184
+\caption@indent=\dimen185
+\caption@parindent=\dimen186
+\caption@hangindent=\dimen187
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count297
+\c@continuedfloat=\count298
+Package caption Info: longtable package is loaded.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/caption\ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2025/07/09 v2.17z AMS math features
+\@mathmargin=\skip57
+
+For additional information on amsmath, use the `?' option.
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks22
+\ex@=\dimen188
+))
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen189
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count299
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count300
+\leftroot@=\count301
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count302
+\DOTSCASE@=\count303
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box60
+\strutbox@=\box61
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen190
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count304
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count305
+\dotsspace@=\muskip17
+\c@parentequation=\count306
+\dspbrk@lvl=\count307
+\tag@help=\toks23
+\row@=\count308
+\column@=\count309
+\maxfields@=\count310
+\andhelp@=\toks24
+\eqnshift@=\dimen191
+\alignsep@=\dimen192
+\tagshift@=\dimen193
+\tagwidth@=\dimen194
+\totwidth@=\dimen195
+\lineht@=\dimen196
+\@envbody=\toks25
+\multlinegap=\skip58
+\multlinetaggap=\skip59
+\mathdisplay@stack=\toks26
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.st
+y
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefin
+ekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.
+sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmd
+s.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.
+sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2025-06-21 v2.57 Cross-referencing by name of section
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\getti
+tlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.st
+y
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count311
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count312
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.
+sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\@linkdim=\dimen197
+\Hy@linkcounter=\count313
+\Hy@pagecounter=\count314
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count315
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4195.
+Package hyperref Info: Link nesting OFF on input line 4200.
+Package hyperref Info: Hyper index ON on input line 4203.
+Package hyperref Info: Plain pages OFF on input line 4210.
+Package hyperref Info: Backreferencing OFF on input line 4215.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4462.
+\c@Hy@tempcnt=\count316
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+\Urlmuskip=\muskip18
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4801.
+\XeTeXLinkMargin=\dimen198
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcal
+c.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count317
+\Field@Width=\dimen199
+\Fld@charsize=\dimen256
+Package hyperref Info: Hyper figures OFF on input line 6078.
+Package hyperref Info: Link nesting OFF on input line 6083.
+Package hyperref Info: Hyper index ON on input line 6086.
+Package hyperref Info: backreferencing OFF on input line 6093.
+Package hyperref Info: Link coloring OFF on input line 6098.
+Package hyperref Info: Link coloring with OCG OFF on input line 6103.
+Package hyperref Info: PDF/A mode OFF on input line 6108.
+\Hy@abspage=\count318
+\c@Item=\count319
+\c@Hfootnote=\count320
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
+\Fld@listcount=\count321
+\c@bookmark@seq@number=\count322
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfi
+lecheck.sty
+Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\unique
+counter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+84.
+)
+\Hy@SectionHShift=\skip60
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
+Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip61
+\f@nch@offset@elh=\skip62
+\f@nch@offset@erh=\skip63
+\f@nch@offset@olh=\skip64
+\f@nch@offset@orh=\skip65
+\f@nch@offset@elf=\skip66
+\f@nch@offset@erf=\skip67
+\f@nch@offset@olf=\skip68
+\f@nch@offset@orf=\skip69
+\f@nch@height=\skip70
+\f@nch@footalignment=\skip71
+\f@nch@widthL=\skip72
+\f@nch@widthC=\skip73
+\f@nch@widthR=\skip74
+\@temptokenb=\toks27
+) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.st
+y
+Package: titlesec 2025/01/04 v2.17 Sectioning titles
+\ttl@box=\box62
+\beforetitleunit=\skip75
+\aftertitleunit=\skip76
+\ttl@plus=\dimen257
+\ttl@minus=\dimen258
+\ttl@toksa=\toks28
+\titlewidth=\dimen259
+\titlewidthlast=\dimen260
+\titlewidthfirst=\dimen261
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titletoc.sty
+Package: titletoc 2025/01/04 v2.17 TOC entries
+\ttl@leftsep=\dimen262
+) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/tocloft\tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has chapter divisions on input line 51.
+\cftparskip=\skip77
+\cftbeforetoctitleskip=\skip78
+\cftaftertoctitleskip=\skip79
+\cftbeforepartskip=\skip80
+\cftpartnumwidth=\skip81
+\cftpartindent=\skip82
+\cftbeforechapskip=\skip83
+\cftchapindent=\skip84
+\cftchapnumwidth=\skip85
+\cftbeforesecskip=\skip86
+\cftsecindent=\skip87
+\cftsecnumwidth=\skip88
+\cftbeforesubsecskip=\skip89
+\cftsubsecindent=\skip90
+\cftsubsecnumwidth=\skip91
+\cftbeforesubsubsecskip=\skip92
+\cftsubsubsecindent=\skip93
+\cftsubsubsecnumwidth=\skip94
+\cftbeforeparaskip=\skip95
+\cftparaindent=\skip96
+\cftparanumwidth=\skip97
+\cftbeforesubparaskip=\skip98
+\cftsubparaindent=\skip99
+\cftsubparanumwidth=\skip100
+\cftbeforeloftitleskip=\skip101
+\cftafterloftitleskip=\skip102
+\cftbeforefigskip=\skip103
+\cftfigindent=\skip104
+\cftfignumwidth=\skip105
+\c@lofdepth=\count323
+\c@lotdepth=\count324
+\cftbeforelottitleskip=\skip106
+\cftafterlottitleskip=\skip107
+\cftbeforetabskip=\skip108
+\cfttabindent=\skip109
+\cfttabnumwidth=\skip110
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count325
+\lst@gtempboxa=\box63
+\lst@token=\toks29
+\lst@length=\count326
+\lst@currlwidth=\dimen263
+\lst@column=\count327
+\lst@pos=\count328
+\lst@lostspace=\dimen264
+\lst@width=\dimen265
+\lst@newlines=\count329
+\lst@lineno=\count330
+\lst@maxwidth=\dimen266
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
+) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+\c@lstnumber=\count331
+\lst@skipnumbers=\count332
+\lst@framebox=\box64
+) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cf
+g
+File: listings.cfg 2025/11/14 1.11b listings configuration
+))
+Package: listings 2025/11/14 1.11b (Carsten Heinz)
+
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\labelindent=\skip111
+\enit@outerparindent=\dimen267
+\enit@toks=\toks30
+\enit@inbox=\box65
+\enit@count@id=\count333
+\enitdp@description=\count334
+) (C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count335
+\float@exts=\toks31
+\float@box=\box66
+\@float@everytoks=\toks32
+\@floatcapt=\box67
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 65.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 7
+8.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pd
+ftex.def
+File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count336
+) (report.aux)
+\openout1 = `report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(108.40492pt, 416.83315pt, 72.2698pt)
+* v-part:(T,H,B)=(72.2698pt, 700.50723pt, 72.2698pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=416.83315pt
+* \textheight=700.50723pt
+* \oddsidemargin=36.13493pt
+* \evensidemargin=36.13493pt
+* \topmargin=-37.00018pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=35.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.m
+kii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count337
+\scratchdimen=\dimen268
+\scratchbox=\box68
+\nofMPsegments=\count338
+\nofMParguments=\count339
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count340
+\MPscratchDim=\dimen269
+\MPnumerator=\count341
+\makeMPintoPDFobject=\count342
+\everyMPtoPDFconversion=\toks34
+)
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-
+base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.
+cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+Package hyperref Info: Link coloring ON on input line 78.
+ (report.out) (report.out)
+\@outlinefile=\write3
+\openout3 = `report.out'.
+
+\c@lstlisting=\count343
+<report-assets/vit-logo.png, id=263, 322.95656pt x 91.84312pt>
+File: report-assets/vit-logo.png Graphic file (type png)
+<use report-assets/vit-logo.png>
+Package pdftex.def Info: report-assets/vit-logo.png  used on input line 105.
+(pdftex.def)             Requested size: 199.16928pt x 56.63942pt.
+ [1
+
+{C:/Users/Pojesh/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Poj
+esh/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <./report-assets
+/vit-logo.png>]
+File: report-assets/vit-logo.png Graphic file (type png)
+<use report-assets/vit-logo.png>
+Package pdftex.def Info: report-assets/vit-logo.png  used on input line 119.
+(pdftex.def)             Requested size: 199.16928pt x 56.63942pt.
+LaTeX Font Info:    Calculating math sizes for size <14> on input line 120.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 120
+.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 120
+.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.138 \newpage
+               [1]
+File: report-assets/vit-logo.png Graphic file (type png)
+<use report-assets/vit-logo.png>
+Package pdftex.def Info: report-assets/vit-logo.png  used on input line 140.
+(pdftex.def)             Requested size: 199.16928pt x 56.63942pt.
+
+Overfull \hbox (23.13023pt too wide) in paragraph at lines 156--161
+[][] 
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.174 \newpage
+               [2]
+Overfull \hbox (7.87975pt too wide) in paragraph at lines 184--185
+\OT1/ptm/m/n/12 Viswanathan our Hon-or-able Chan-cel-lor, Dr. Sankar Viswanatha
+n, Dr. Sekar Viswanathan,
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.206 \newpage
+               [3] [1] (report.toc [2])
+\tf@toc=\write4
+\openout4 = `report.toc'.
+
+ [3] [4] (report.lot)
+\tf@lot=\write5
+\openout5 = `report.lot'.
+
+ [5] (report.lof)
+\tf@lof=\write6
+\openout6 = `report.lof'.
+
+
+[6]
+Overfull \hbox (5.50543pt too wide) in alignment at lines 248--252
+ [] [] 
+ []
+
+
+Overfull \hbox (5.50543pt too wide) in alignment at lines 252--271
+ [] [] 
+ []
+
+[7]
+Chapter 1.
+[1
+
+] [2]
+Overfull \hbox (6.4279pt too wide) in paragraph at lines 324--325
+[]\OT1/ptm/m/n/12 Develop a Se-man-tic W-TinyLFU ad-mis-sion pol-icy that uses 
+locality-sensitive
+ []
+
+[3]
+Overfull \hbox (1.65967pt too wide) in paragraph at lines 345--346
+[]\OT1/ptm/m/n/12 Distributed de-ploy-ment com-po-nents in-clud-ing con-sis-ten
+t hash-ing with vir-tual nodes,
+ []
+
+[4]
+Chapter 2.
+
+Overfull \hbox (7.52759pt too wide) in paragraph at lines 366--367
+[]\OT1/ptm/b/n/12 MeanCache (Gill et al., 2024): \OT1/ptm/m/n/12 Mean-Cache in-
+tro-duces user-centric se-man-tic caching
+ []
+
+
+Overfull \hbox (9.6405pt too wide) in paragraph at lines 370--371
+[]\OT1/ptm/b/n/12 RAGCache (Jin et al., 2024): \OT1/ptm/m/n/12 RAG-Cache fo-cus
+es on caching for retrieval-augmented
+ []
+
+[5
+
+]
+Overfull \hbox (2.17491pt too wide) in paragraph at lines 382--383
+[]\OT1/ptm/b/n/12 ADWIN Drift De-tec-tion (Bifet and Gavalda, 2007): \OT1/ptm/m
+/n/12 AD-WIN main-tains a variable-
+ []
+
+
+Overfull \hbox (6.7503pt too wide) in paragraph at lines 384--385
+\OT1/ptm/m/n/12 ad-mis-sion pol-icy com-bines a small win-dow cache that ad-mit
+s all en-tries with a frequency-
+ []
+
+[6]
+Overfull \hbox (28.56213pt too wide) in alignment at lines 394--399
+ [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (28.56213pt too wide) in alignment at lines 399--403
+ [] [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 4156) in paragraph at lines 404--404
+[]|\OT1/ptm/m/n/12 Haqiq et al.,
+ []
+
+
+Underfull \hbox (badness 1924) in paragraph at lines 404--404
+[]|\OT1/ptm/m/n/12 MinCache: Hy-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 404--404
+\OT1/ptm/m/n/12 4.5$\OMS/cmsy/m/n/12 ^^B$ \OT1/ptm/m/n/12 speedup vs
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 406--406
+[]|\OT1/ptm/m/n/12 Gill et al.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 406--406
+[]|\OT1/ptm/m/n/12 MeanCache:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 406--406
+\OT1/ptm/m/n/12 User-Centric
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 406--406
+[]|\OT1/ptm/m/n/12 Federated learn-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 408--408
+[]|\OT1/ptm/m/n/12 Gao et al.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 408--408
+[]|\OT1/ptm/m/n/12 Online Con-text
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 410--411
+[]|\OT1/ptm/m/n/12 Semantic anal-y-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 410--411
+\OT1/ptm/m/n/12 sis over-head; no
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--412
+[]|\OT1/ptm/m/n/12 Context-based
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--412
+\OT1/ptm/m/n/12 Se-man-tic
+ []
+
+
+Underfull \hbox (badness 2744) in paragraph at lines 412--412
+[]|\OT1/ptm/m/n/12 Context em-bed-ding
+ []
+
+
+Underfull \hbox (badness 1163) in paragraph at lines 412--412
+\OT1/ptm/m/n/12 + at-ten-tion weight-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--413
+[]|\OT1/ptm/m/n/12 Increased mem-ory
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 414--415
+[]|\OT1/ptm/m/n/12 Affects com-pres-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 416--416
+[]|\OT1/ptm/m/n/12 GPT Se-man-tic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 416--416
+[]|\OT1/ptm/m/n/12 Redis-based with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 416--417
+[]|\OT1/ptm/m/n/12 Fixed thresh-old;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 418--418
+[]|\OT1/ptm/m/n/12 Cost-aware GDSF
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 420--420
+[]|\OT1/ptm/m/n/12 Schroeder et
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
+[]|\OT1/ptm/m/n/12 High de-fault; no
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--422
+[]|\OT1/ptm/m/n/12 Zha et al.,
+ []
+
+
+Underfull \hbox (badness 4913) in paragraph at lines 422--422
+[]|\OT1/ptm/m/n/12 Bayesian op-ti-miza-
+ []
+
+
+Underfull \hbox (badness 3333) in paragraph at lines 422--423
+[]|\OT1/ptm/m/n/12 Single query type;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--424
+[]|\OT1/ptm/m/n/12 Zhu et al.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--424
+[]|\OT1/ptm/m/n/12 Semantic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--424
+\OT1/ptm/m/n/12 Caching for
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--424
+[]|\OT1/ptm/m/n/12 Embedding-based
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--425
+[]|\OT1/ptm/m/n/12 Fixed thresh-old
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 428--428
+[]|\OT1/ptm/m/n/12 Bifet &
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 428--429
+[]|\OT1/ptm/m/n/12 General-purpose;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--430
+[]|\OT1/ptm/m/n/12 Vovk et al.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--430
+[]|\OT1/ptm/m/n/12 Conformal Pre-
+ []
+
+
+Underfull \hbox (badness 6641) in paragraph at lines 430--430
+[]|\OT1/ptm/m/n/12 Guaranteed pre-dic-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
+[]|\OT1/ptm/m/n/12 Theoretical; per-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
+\OT1/ptm/m/n/12 entry adap-ta-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 432--432
+[]|\OT1/ptm/m/n/12 McMahan et
+ []
+
+
+Overfull \hbox (28.56213pt too wide) in alignment at lines 403--434
+ [] [] [] [] [] 
+ []
+
+ignored error: Infinite glue shrinkage found in box being split [7]
+Overfull \hbox (11.02481pt too wide) in paragraph at lines 445--446
+[]\OT1/ptm/b/n/12 No for-mal cor-rect-ness guar-an-tees with adap-tive thresh-o
+lds: \OT1/ptm/m/n/12 While vCache
+ []
+
+[8]
+Chapter 3.
+<report-assets/fig-architecture.png, id=462, 1608.0075pt x 733.99219pt>
+File: report-assets/fig-architecture.png Graphic file (type png)
+<use report-assets/fig-architecture.png>
+Package pdftex.def Info: report-assets/fig-architecture.png  used on input line
+ 462.
+(pdftex.def)             Requested size: 416.83315pt x 190.26227pt.
+
+Overfull \hbox (1.68349pt too wide) in paragraph at lines 469--470
+[]\OT1/ptm/m/n/12 The cen-tral or-ches-tra-tor is the Con-tex-tu-al-Cache-M-an-
+ager which co-or-di-nates all cache
+ []
+
+[9
+
+ <./report-assets/fig-architecture.png>]
+Underfull \hbox (badness 1460) in paragraph at lines 516--517
+[]|\OT1/ptm/m/n/12 Reject one-hit-wonders based on
+ []
+
+
+Underfull \hbox (badness 1406) in paragraph at lines 518--518
+[]|\OT1/ptm/m/n/12 Thompson Sam-pling (10
+ []
+
+
+Underfull \hbox (badness 4752) in paragraph at lines 520--521
+[]|\OT1/ptm/m/n/12 Multi-turn con-ver-sa-tional aware-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 521--522
+[]|\OT1/ptm/m/n/12 Per-dependency iso-la-tion
+ []
+
+
+Overfull \hbox (3.27904pt too wide) in paragraph at lines 512--524
+ [][] 
+ []
+
+[10] [11]
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 5
+56.
+
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+[12] [13]
+Overfull \hbox (0.91864pt too wide) in paragraph at lines 649--650
+\OT1/ptm/m/n/12 For multi-turn con-ver-sa-tions, the sys-tem main-tains a ses-s
+ion con-text ac-cu-mu-la-tor. When
+ []
+
+[14]
+Overfull \hbox (33.8482pt too wide) in paragraph at lines 685--686
+\OT1/ptm/m/n/12 The back-end is or-ga-nized into the fol-low-ing Python mod-ule
+s within the \OT1/pcr/m/n/12 contextual[]cache
+ []
+
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 6
+88.
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+[15]
+Overfull \hbox (61.73717pt too wide) in paragraph at lines 696--697
+[]\OT1/ptm/b/n/12 circuit[]breaker.py \OT1/ptm/m/n/12 --- Per-dependency cir-cu
+it breaker (CLOSED/OPEN/HALF[]OPEN). 
+ []
+
+LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 7
+25.
+(C:\Users\Pojesh\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 725.
+
+[16]
+Overfull \hbox (3.99844pt too wide) in paragraph at lines 735--736
+[]\OT1/ptm/b/n/12 Chat In-ter-face: \OT1/ptm/m/n/12 A con-ver-sa-tional in-ter-
+face with ses-sion man-age-ment, cache hit/miss
+ []
+
+[17]
+Overfull \hbox (7.98808pt too wide) in paragraph at lines 750--751
+[]\OT1/ptm/b/n/12 Exact-Match LRU \OT1/ptm/m/n/12 --- Hash-based ex-act match-i
+ng with LRU evic-tion (lower-
+ []
+
+
+Overfull \hbox (0.93146pt too wide) in paragraph at lines 762--763
+\OT1/ptm/m/n/12 through pytest with the pytest-asyncio plu-gin run-ning in auto
+ mode so that asyn-chronous
+ []
+
+[18] [19]
+Overfull \hbox (37.41203pt too wide) in paragraph at lines 798--816
+ [][] 
+ []
+
+[20] [21]
+Chapter 4.
+
+Overfull \hbox (17.28761pt too wide) in paragraph at lines 851--864
+ [][] 
+ []
+
+[22
+
+]
+<report-assets/fig-hit-rate-precision-chart.png, id=580, 232.36812pt x 193.2218
+8pt>
+File: report-assets/fig-hit-rate-precision-chart.png Graphic file (type png)
+<use report-assets/fig-hit-rate-precision-chart.png>
+Package pdftex.def Info: report-assets/fig-hit-rate-precision-chart.png  used o
+n input line 868.
+(pdftex.def)             Requested size: 354.31071pt x 294.64964pt.
+ [23 <./report-assets/fig-hit-rate-precision-chart.png>]
+Overfull \hbox (17.28761pt too wide) in paragraph at lines 887--900
+ [][] 
+ []
+
+[24]
+<report-assets/fig-latency-chart.png, id=591, 344.78813pt x 287.57437pt>
+File: report-assets/fig-latency-chart.png Graphic file (type png)
+<use report-assets/fig-latency-chart.png>
+Package pdftex.def Info: report-assets/fig-latency-chart.png  used on input lin
+e 947.
+(pdftex.def)             Requested size: 354.31071pt x 295.52037pt.
+ [25] [26 <./report-assets/fig-latency-chart.png>] [27] [28]
+<report-assets/fig-chat-interface.png, id=611, 1907.62688pt x 928.97063pt>
+File: report-assets/fig-chat-interface.png Graphic file (type png)
+<use report-assets/fig-chat-interface.png>
+Package pdftex.def Info: report-assets/fig-chat-interface.png  used on input li
+ne 1002.
+(pdftex.def)             Requested size: 416.83315pt x 202.98503pt.
+ [29]
+<report-assets/fig-comparison-view.png, id=617, 1902.3572pt x 928.21782pt>
+File: report-assets/fig-comparison-view.png Graphic file (type png)
+<use report-assets/fig-comparison-view.png>
+Package pdftex.def Info: report-assets/fig-comparison-view.png  used on input l
+ine 1011.
+(pdftex.def)             Requested size: 416.83315pt x 203.37291pt.
+ [30 <./report-assets/fig-chat-interface.png> <./report-assets/fig-comparison-v
+iew.png>]
+<report-assets/fig-analytics-dashboard.png, id=625, 1906.87407pt x 928.21782pt>
+
+File: report-assets/fig-analytics-dashboard.png Graphic file (type png)
+<use report-assets/fig-analytics-dashboard.png>
+Package pdftex.def Info: report-assets/fig-analytics-dashboard.png  used on inp
+ut line 1020.
+(pdftex.def)             Requested size: 416.83315pt x 202.90552pt.
+
+Overfull \hbox (11.00856pt too wide) in paragraph at lines 1025--1026
+[]\OT1/ptm/m/n/12 Figure [][]4.5[][] dis-plays the an-a-lyt-ics dash-board, whi
+ch pro-vides a com-pre-hen-sive overview
+ []
+
+[31 <./report-assets/fig-analytics-dashboard.png>]
+<report-assets/fig-benchmark-suite.png, id=632, 1188.69093pt x 877.77937pt>
+File: report-assets/fig-benchmark-suite.png Graphic file (type png)
+<use report-assets/fig-benchmark-suite.png>
+Package pdftex.def Info: report-assets/fig-benchmark-suite.png  used on input l
+ine 1029.
+(pdftex.def)             Requested size: 375.14728pt x 277.02432pt.
+ [32 <./report-assets/fig-benchmark-suite.png>]
+Chapter 5.
+
+Overfull \hbox (3.78409pt too wide) in paragraph at lines 1064--1065
+[]\OT1/ptm/b/n/12 Solution: \OT1/ptm/m/n/12 The fre-quency com-par-i-son was ch
+anged from strict greater-than to greater-
+ []
+
+[33
+
+] [34] [35]
+Chapter 6.
+[36
+
+]
+Overfull \hbox (10.12505pt too wide) in paragraph at lines 1118--1119
+[]\OT1/ptm/b/n/12 Embedding model up-grades: \OT1/ptm/m/n/12 The cur-rent parap
+hrase-MiniLM-L6-v2 model
+ []
+
+[37]
+Overfull \hbox (1.86235pt too wide) in paragraph at lines 1147--1148
+\OT1/ptm/m/n/12 vices with LLMs,'' \OT1/ptm/m/it/12 Proc. IEEE/ACM Int. Symp. o
+n Qual-ity of Ser-vice (IWQoS)\OT1/ptm/m/n/12 ,
+ []
+
+
+Overfull \hbox (15.09845pt too wide) in paragraph at lines 1151--1152
+[]\OT1/ptm/m/n/12 Y. Jin, et al., ``RAG-Cache: Ef-fi-cient Knowl-edge Caching f
+or Retrieval-Augmented
+ []
+
+
+Overfull \hbox (0.79599pt too wide) in paragraph at lines 1157--1158
+[]\OT1/ptm/m/n/12 V. Vovk, A. Gam-mer-man, G. Shafer, \OT1/ptm/m/it/12 Al-go-ri
+th-mic Learn-ing in a Ran-dom World\OT1/ptm/m/n/12 ,
+ []
+
+[38] [39] [40
+
+]
+File: report-assets/fig-architecture.png Graphic file (type png)
+<use report-assets/fig-architecture.png>
+Package pdftex.def Info: report-assets/fig-architecture.png  used on input line
+ 1233.
+(pdftex.def)             Requested size: 416.83315pt x 190.26227pt.
+File: report-assets/fig-hit-rate-precision-chart.png Graphic file (type png)
+<use report-assets/fig-hit-rate-precision-chart.png>
+Package pdftex.def Info: report-assets/fig-hit-rate-precision-chart.png  used o
+n input line 1239.
+(pdftex.def)             Requested size: 354.31071pt x 294.64964pt.
+File: report-assets/fig-latency-chart.png Graphic file (type png)
+<use report-assets/fig-latency-chart.png>
+Package pdftex.def Info: report-assets/fig-latency-chart.png  used on input lin
+e 1245.
+(pdftex.def)             Requested size: 354.31071pt x 295.52037pt.
+ [41
+
+]
+File: report-assets/fig-chat-interface.png Graphic file (type png)
+<use report-assets/fig-chat-interface.png>
+Package pdftex.def Info: report-assets/fig-chat-interface.png  used on input li
+ne 1251.
+(pdftex.def)             Requested size: 416.83315pt x 202.98503pt.
+File: report-assets/fig-comparison-view.png Graphic file (type png)
+<use report-assets/fig-comparison-view.png>
+Package pdftex.def Info: report-assets/fig-comparison-view.png  used on input l
+ine 1257.
+(pdftex.def)             Requested size: 416.83315pt x 203.37291pt.
+ [42]
+File: report-assets/fig-analytics-dashboard.png Graphic file (type png)
+<use report-assets/fig-analytics-dashboard.png>
+Package pdftex.def Info: report-assets/fig-analytics-dashboard.png  used on inp
+ut line 1263.
+(pdftex.def)             Requested size: 416.83315pt x 202.90552pt.
+File: report-assets/fig-benchmark-suite.png Graphic file (type png)
+<use report-assets/fig-benchmark-suite.png>
+Package pdftex.def Info: report-assets/fig-benchmark-suite.png  used on input l
+ine 1269.
+(pdftex.def)             Requested size: 375.14728pt x 277.02432pt.
+ [43] [44]
+Overfull \hbox (28.56213pt too wide) in alignment at lines 1285--1289
+ [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (28.56213pt too wide) in alignment at lines 1289--1293
+ [] [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 4156) in paragraph at lines 1294--1294
+[]|\OT1/ptm/m/n/12 Haqiq et al.,
+ []
+
+
+Underfull \hbox (badness 1924) in paragraph at lines 1294--1294
+[]|\OT1/ptm/m/n/12 MinCache: Hy-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1294--1294
+\OT1/ptm/m/n/12 4.5$\OMS/cmsy/m/n/12 ^^B$ \OT1/ptm/m/n/12 speedup vs
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1296--1296
+[]|\OT1/ptm/m/n/12 Gill et al.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1296--1296
+[]|\OT1/ptm/m/n/12 MeanCache:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1296--1296
+\OT1/ptm/m/n/12 User-Centric
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1296--1296
+[]|\OT1/ptm/m/n/12 Federated learn-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1298--1298
+[]|\OT1/ptm/m/n/12 Gao et al.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1298--1298
+[]|\OT1/ptm/m/n/12 Online Con-text
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1300--1301
+[]|\OT1/ptm/m/n/12 Semantic anal-y-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1300--1301
+\OT1/ptm/m/n/12 sis over-head; no
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1302--1302
+[]|\OT1/ptm/m/n/12 Context-based
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1302--1302
+\OT1/ptm/m/n/12 Se-man-tic
+ []
+
+
+Underfull \hbox (badness 2744) in paragraph at lines 1302--1302
+[]|\OT1/ptm/m/n/12 Context em-bed-ding
+ []
+
+
+Underfull \hbox (badness 1163) in paragraph at lines 1302--1302
+\OT1/ptm/m/n/12 + at-ten-tion weight-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1302--1303
+[]|\OT1/ptm/m/n/12 Increased mem-ory
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1304--1305
+[]|\OT1/ptm/m/n/12 Affects com-pres-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1306--1306
+[]|\OT1/ptm/m/n/12 GPT Se-man-tic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1306--1306
+[]|\OT1/ptm/m/n/12 Redis-based with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1306--1307
+[]|\OT1/ptm/m/n/12 Fixed thresh-old;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1308--1308
+[]|\OT1/ptm/m/n/12 Cost-aware GDSF
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1310--1310
+[]|\OT1/ptm/m/n/12 Schroeder et
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1310--1311
+[]|\OT1/ptm/m/n/12 High de-fault; no
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1312--1312
+[]|\OT1/ptm/m/n/12 Zha et al.,
+ []
+
+
+Underfull \hbox (badness 4913) in paragraph at lines 1312--1312
+[]|\OT1/ptm/m/n/12 Bayesian op-ti-miza-
+ []
+
+
+Underfull \hbox (badness 3333) in paragraph at lines 1312--1313
+[]|\OT1/ptm/m/n/12 Single query type;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1314--1314
+[]|\OT1/ptm/m/n/12 Zhu et al.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1314--1314
+[]|\OT1/ptm/m/n/12 Semantic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1314--1314
+\OT1/ptm/m/n/12 Caching for
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1314--1314
+[]|\OT1/ptm/m/n/12 Embedding-based
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1314--1315
+[]|\OT1/ptm/m/n/12 Fixed thresh-old
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1318--1318
+[]|\OT1/ptm/m/n/12 Bifet &
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1318--1319
+[]|\OT1/ptm/m/n/12 General-purpose;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1320--1320
+[]|\OT1/ptm/m/n/12 Vovk et al.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1320--1320
+[]|\OT1/ptm/m/n/12 Conformal Pre-
+ []
+
+
+Underfull \hbox (badness 6641) in paragraph at lines 1320--1320
+[]|\OT1/ptm/m/n/12 Guaranteed pre-dic-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1320--1321
+[]|\OT1/ptm/m/n/12 Theoretical; per-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1320--1321
+\OT1/ptm/m/n/12 entry adap-ta-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1322--1322
+[]|\OT1/ptm/m/n/12 McMahan et
+ []
+
+
+Overfull \hbox (28.56213pt too wide) in alignment at lines 1293--1324
+ [] [] [] [] [] 
+ []
+
+ignored error: Infinite glue shrinkage found in box being split [45
+
+]
+Underfull \hbox (badness 1460) in paragraph at lines 1355--1356
+[]|\OT1/ptm/m/n/12 Reject one-hit-wonders based on
+ []
+
+
+Underfull \hbox (badness 1406) in paragraph at lines 1357--1357
+[]|\OT1/ptm/m/n/12 Thompson Sam-pling (10
+ []
+
+
+Underfull \hbox (badness 4752) in paragraph at lines 1359--1360
+[]|\OT1/ptm/m/n/12 Multi-turn con-ver-sa-tional aware-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1360--1361
+[]|\OT1/ptm/m/n/12 Per-dependency iso-la-tion
+ []
+
+
+Overfull \hbox (3.27904pt too wide) in paragraph at lines 1351--1363
+ [][] 
+ []
+
+[46] [47]
+Overfull \hbox (37.41203pt too wide) in paragraph at lines 1446--1464
+ [][] 
+ []
+
+[48]
+Overfull \hbox (17.28761pt too wide) in paragraph at lines 1473--1486
+ [][] 
+ []
+
+
+Overfull \hbox (17.28761pt too wide) in paragraph at lines 1494--1507
+ [][] 
+ []
+
+[49] [50] [51
+
+] (report.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-24>
+ ***********
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: 5B130FDCD7C081A2AACD8542D3A53FC8;11140.
+ ) 
+Here is how much of TeX's memory you used:
+ 15999 strings out of 467871
+ 249638 string characters out of 5417893
+ 852257 words of memory out of 5000000
+ 44360 multiletter control sequences out of 15000+600000
+ 657304 words of font info for 105 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 75i,12n,79p,1380b,1086s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Pojesh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmbx12.pfb><C:/Users/Pojesh/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmmi12.pfb><C:/Users/Pojesh/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Pojesh/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Pojesh/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Pojesh/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Pojesh/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Pojesh/A
+ppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Pojesh/
+AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Pojesh
+/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on report.pdf (62 pages, 1299242 bytes).
+PDF statistics:
+ 951 PDF objects out of 1000 (max. 8388607)
+ 303 named destinations out of 1000 (max. 500000)
+ 561 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,0 +1,18 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Literature Survey Summary}}{7}{table.2.1}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Query Pipeline Complexity Analysis}}{10}{table.caption.2}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Cache Management Component Summary}}{11}{table.caption.3}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Thompson Sampling Threshold Arms Configuration}}{13}{table.caption.4}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Technology Stack}}{15}{table.caption.5}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces API Endpoint Summary}}{17}{table.caption.6}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Configuration Parameters}}{21}{table.caption.7}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Benchmark Results on Natural Questions Dataset (650 queries, 300 capacity)}}{23}{table.caption.8}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Benchmark Results on SQuAD Dataset (650 queries, 300 capacity)}}{24}{table.caption.10}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Precision Analysis on NQ --- Top Three Strategies}}{25}{table.caption.11}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Latency Comparison on NQ}}{25}{table.caption.12}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsfinish 
