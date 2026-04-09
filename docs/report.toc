@@ -1,4 +1,6 @@
-\contentsline {chapter}{List of Abbreviations}{vii}{Doc-Start}%
+\contentsline {chapter}{List of Tables}{iv}{Doc-Start}%
+\contentsline {chapter}{List of Figures}{v}{Doc-Start}%
+\contentsline {chapter}{List of Abbreviations}{vi}{Doc-Start}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}The Query Redundancy Opportunity}{1}{section.1.2}%
@@ -12,55 +14,53 @@
 \contentsline {section}{\numberline {2.2}Existing Semantic Cache Systems}{5}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Related Algorithmic Foundations}{6}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Literature Survey Summary}{7}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Research Gap}{8}{section.2.5}%
-\contentsline {chapter}{\numberline {3}System Design}{9}{chapter.3}%
-\contentsline {section}{\numberline {3.1}High-Level Architecture}{9}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Query Pipeline Complexity}{10}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Cache Management Components}{11}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Two-Tier Lookup Architecture}{11}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Per-Entry Conformal Thresholds}{11}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Thompson Sampling Bandit for Threshold Exploration}{13}{section.3.6}%
-\contentsline {section}{\numberline {3.7}ADWIN Drift Detection}{14}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Semantic W-TinyLFU Admission Policy}{14}{section.3.8}%
-\contentsline {section}{\numberline {3.9}CostGDSF Eviction}{14}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Session Context Fusion}{14}{section.3.10}%
-\contentsline {section}{\numberline {3.11}Technology Stack}{15}{section.3.11}%
-\contentsline {section}{\numberline {3.12}Backend Module Structure}{15}{section.3.12}%
-\contentsline {section}{\numberline {3.13}API Endpoints}{17}{section.3.13}%
-\contentsline {section}{\numberline {3.14}Frontend Dashboard}{17}{section.3.14}%
-\contentsline {section}{\numberline {3.15}Benchmark Framework}{18}{section.3.15}%
-\contentsline {section}{\numberline {3.16}Testing}{18}{section.3.16}%
-\contentsline {section}{\numberline {3.17}Distributed Systems Design}{19}{section.3.17}%
-\contentsline {section}{\numberline {3.18}Configuration Parameters}{21}{section.3.18}%
-\contentsline {chapter}{\numberline {4}Results and Discussion}{22}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Experimental Setup}{22}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Results on Natural Questions}{23}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Results on SQuAD}{24}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Precision Analysis}{25}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Latency Analysis}{25}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Thompson Sampling Arm Distribution}{26}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Cross-Dataset Comparison}{27}{section.4.7}%
-\contentsline {section}{\numberline {4.8}Ablation Analysis}{27}{section.4.8}%
-\contentsline {section}{\numberline {4.9}Cost Savings Estimation}{28}{section.4.9}%
-\contentsline {section}{\numberline {4.10}False Positive Analysis}{29}{section.4.10}%
-\contentsline {section}{\numberline {4.11}Implementation Demonstration}{29}{section.4.11}%
-\contentsline {chapter}{\numberline {5}Challenges and Solutions}{33}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Conformal Threshold Cold Start}{33}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Embedding Model Selection}{33}{section.5.2}%
-\contentsline {section}{\numberline {5.3}FAISS Memory Management}{33}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Admission Policy Calibration}{33}{section.5.4}%
-\contentsline {section}{\numberline {5.5}LLM Conversation Context}{34}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Benchmark Fairness and Shared Resources}{34}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Text Normalization Consistency}{34}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Circuit Breaker for External Dependencies}{35}{section.5.8}%
-\contentsline {section}{\numberline {5.9}Count-Min Sketch Frequency Aging}{35}{section.5.9}%
-\contentsline {chapter}{\numberline {6}Conclusion}{36}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Conclusion}{36}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Future work}{37}{section.6.2}%
-\contentsline {chapter}{References}{38}{Item.30}%
-\contentsline {chapter}{Appendices}{40}{Item.50}%
-\contentsline {section}{Appendix A: API Request and Response Formats}{40}{appendix*.18}%
-\contentsline {section}{Appendix B: Figures}{41}{appendix*.19}%
-\contentsline {section}{Appendix C: Tables}{45}{appendix*.27}%
-\contentsline {section}{Appendix D: Algorithms}{51}{appendix*.38}%
+\contentsline {section}{\numberline {2.5}Research Gap}{12}{section.2.5}%
+\contentsline {chapter}{\numberline {3}System Design}{14}{chapter.3}%
+\contentsline {section}{\numberline {3.1}High-Level Architecture}{14}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Query Pipeline Complexity}{16}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Cache Management Components}{16}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Two-Tier Lookup Architecture}{16}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Per-Entry Conformal Thresholds}{17}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Thompson Sampling Bandit for Threshold Exploration}{18}{section.3.6}%
+\contentsline {section}{\numberline {3.7}ADWIN Drift Detection}{19}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Semantic W-TinyLFU Admission Policy}{20}{section.3.8}%
+\contentsline {section}{\numberline {3.9}CostGDSF Eviction}{20}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Session Context Fusion}{20}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Technology Stack}{21}{section.3.11}%
+\contentsline {section}{\numberline {3.12}Backend Module Structure}{21}{section.3.12}%
+\contentsline {section}{\numberline {3.13}API Endpoints}{22}{section.3.13}%
+\contentsline {section}{\numberline {3.14}Frontend Dashboard}{22}{section.3.14}%
+\contentsline {section}{\numberline {3.15}Benchmark Framework}{23}{section.3.15}%
+\contentsline {section}{\numberline {3.16}Testing}{24}{section.3.16}%
+\contentsline {section}{\numberline {3.17}Distributed Systems Design}{25}{section.3.17}%
+\contentsline {section}{\numberline {3.18}Configuration Parameters}{26}{section.3.18}%
+\contentsline {chapter}{\numberline {4}Results and Discussion}{28}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Experimental Setup}{28}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Results on Natural Questions}{29}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Results on SQuAD}{31}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Precision Analysis}{32}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Latency Analysis}{33}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Thompson Sampling Arm Distribution}{34}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Cross-Dataset Comparison}{35}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Ablation Analysis}{35}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Cost Savings Estimation}{36}{section.4.9}%
+\contentsline {section}{\numberline {4.10}False Positive Analysis}{37}{section.4.10}%
+\contentsline {section}{\numberline {4.11}Implementation Demonstration}{37}{section.4.11}%
+\contentsline {chapter}{\numberline {5}Challenges and Solutions}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Conformal Threshold Cold Start}{41}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Embedding Model Selection}{41}{section.5.2}%
+\contentsline {section}{\numberline {5.3}FAISS Memory Management}{41}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Admission Policy Calibration}{41}{section.5.4}%
+\contentsline {section}{\numberline {5.5}LLM Conversation Context}{42}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Benchmark Fairness and Shared Resources}{42}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Text Normalization Consistency}{42}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Circuit Breaker for External Dependencies}{43}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Count-Min Sketch Frequency Aging}{43}{section.5.9}%
+\contentsline {chapter}{\numberline {6}Conclusion}{44}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Conclusion}{44}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Future work}{45}{section.6.2}%
+\contentsline {chapter}{References}{46}{Item.30}%
+\contentsline {chapter}{Appendices}{48}{Item.50}%
+\contentsline {section}{Appendix A: API Request and Response Formats}{48}{appendix*.21}%
+\contentsline {section}{Appendix B: Code Snippets}{49}{appendix*.22}%
 \contentsfinish 

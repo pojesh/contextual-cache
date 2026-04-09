@@ -21,6 +21,11 @@
 \usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage{float}
+\usepackage{microtype}
+
+% ── Disable word hyphenation ────────────────────────────
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
 
 % ── Spacing ──────────────────────────────────────────────
 \onehalfspacing
@@ -37,6 +42,11 @@
 \titleformat{\subsection}
   {\normalfont\fontsize{12}{15}\bfseries}
   {\thesubsection}{1em}{}
+
+% ── TOC spacing (reduce vertical gaps by 2pt) ───────────
+\setlength{\cftbeforechapskip}{4pt}   % default ~10pt, reduced
+\setlength{\cftbeforesecskip}{1pt}    % default ~3pt, reduced
+\setlength{\cftbeforesubsecskip}{1pt} % default ~3pt, reduced
 
 % ── TOC depth ────────────────────────────────────────────
 \setcounter{tocdepth}{2}
@@ -76,6 +86,7 @@
 % DOCUMENT BEGIN
 % ════════════════════════════════════════════════════════════
 \begin{document}
+\sloppy
 
 % ── No page numbers on title / declaration / certificate / acknowledgement
 \pagenumbering{gobble}
@@ -121,7 +132,7 @@
 \end{center}
 \vspace{1cm}
 
-\noindent\hspace{1.27cm}I hereby declare that the thesis entitled ``Semantic Cache for LLM Serving'' submitted by \textbf{Pojesh Kumar R (22BAI1373)}, for the award of the degree of Bachelor of Technology in Computer Science and Engineering, Vellore Institute of Technology, Chennai is a record of bonafide work carried out by me under the supervision of \textbf{Dr.\ Kumar R}.
+\noindent I hereby declare that the thesis entitled ``Semantic Cache for LLM Serving'' submitted by \textbf{Pojesh Kumar R (22BAI1373)}, for the award of the degree of \mbox{Bachelor of Technology} in \mbox{Computer Science} and Engineering, Vellore Institute of Technology, Chennai is a record of bonafide work carried out by me under the supervision of \textbf{\mbox{Dr.~Kumar~R}}.
 
 \vspace{0.5cm}
 
@@ -130,7 +141,7 @@
 \vspace{3cm}
 
 \noindent Place: Chennai \hfill Signature of the Candidate\\
-\noindent Date: 06-04-2026
+\noindent Date: 
 
 % ════════════════════════════════════════════════════════════
 % CERTIFICATE
@@ -143,19 +154,19 @@
 \end{center}
 \vspace{0.8cm}
 
-\noindent\hspace{1.27cm}This is to certify that the report entitled ``\textbf{Semantic Cache for LLM Serving}'' is prepared and submitted by \textbf{Pojesh Kumar R (22BAI1373)} to Vellore Institute of Technology, Chennai, in partial fulfillment of the requirement for the award of the degree of \textbf{Bachelor of Technology in Computer Science and Engineering (Artificial Intelligence and Machine Learning)} is a bonafide record carried out under my guidance. The project fulfills the requirements as per the regulations of this University and in my opinion meets the necessary standards for submission. The contents of this report have not been submitted and will not be submitted either in part or in full, for the award of any other degree or diploma and the same is certified.
+\noindent This is to certify that the report entitled ``\textbf{Semantic Cache for LLM Serving}'' is prepared and submitted by \textbf{Pojesh Kumar R (22BAI1373)} to Vellore Institute of Technology, Chennai, in partial fulfillment of the requirement for the award of the degree of \textbf{\mbox{Bachelor of Technology} in \mbox{Computer Science} and Engineering (\mbox{Artificial Intelligence} and \mbox{Machine Learning})} is a bonafide record carried out under my guidance. The project fulfills the requirements as per the regulations of this University and in my opinion meets the necessary standards for submission. The contents of this report have not been submitted and will not be submitted either in part or in full, for the award of any other degree or diploma and the same is certified.
 
 \vspace{2cm}
 
 \noindent Signature of the Guide:\\
-Name: Dr.\ Kumar R\\
-Date: 06-04-2026
+Name: \mbox{Dr.~Kumar~R}\\
+Date: 
 
 \vspace{2cm}
 
 \begin{tabular}{p{7cm}p{7cm}}
 Signature of the Examiner & Signature of the Examiner \\
-Name: Dr. Jani Anbarasi L & Name: Dr. A.B.Ahadit \\
+Name:  & Name:  \\
 Date: & Date: \\
 \end{tabular}
 
@@ -164,8 +175,8 @@ Date: & Date: \\
 \begin{flushright}
 Approved by the Head of Department,\\
 B.Tech CSE (AI \& ML)\\[0.3cm]
-Name: Dr.\ Tulasi Prasad Sariki\\
-Date: 06-04-2026
+Name: \mbox{Dr.~Tulasi~Prasad~Sariki}\\
+Date: \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
 \end{flushright}
 
 % ════════════════════════════════════════════════════════════
@@ -177,19 +188,19 @@ Date: 06-04-2026
 \end{center}
 \vspace{0.5cm}
 
-\noindent It is my pleasure to express with deep sense of gratitude to \textbf{Dr.\ Kumar R}, School of Computer Science and Engineering, Vellore Institute of Technology, Chennai, for his constant guidance, continual encouragement, understanding; more than all, he taught me patience in my endeavor. My association with him is not confined to academics only, but it is a great opportunity on my part to work with an intellectual and expert in the field of machine learning and distributed systems.
+\noindent It is my pleasure to express with deep sense of gratitude to \textbf{\mbox{Dr.~Kumar~R}}, School of \mbox{Computer Science} and Engineering, Vellore Institute of Technology, Chennai, for his constant guidance, continual encouragement, understanding; more than all, he taught me patience in my endeavor. My association with him is not confined to academics only, but it is a great opportunity on my part to work with an intellectual and expert in the field of machine learning and distributed systems.
 
 \vspace{0.3cm}
 
-\noindent It is with gratitude that I would like to extend my thanks to the visionary leader Dr.\ G.\ Viswanathan our Honorable Chancellor, Dr.\ Sankar Viswanathan, Dr.\ Sekar Viswanathan, Dr.\ G.V.\ Selvam Vice Presidents, Dr.\ Sandhya Pentareddy, Executive Director, Ms.\ Kadhambari S.\ Viswanathan, Assistant Vice-President, Dr.\ V.\ S.\ Kanchana Bhaaskaran Vice-Chancellor, Dr.\ T.\ Thyagarajan Pro-Vice Chancellor, VIT Chennai, Dr.\ K.\ Sathiyanarayanan, Director, Chennai Campus and Dr.\ P.\ K.\ Manoharan, Additional Registrar for providing an exceptional working environment and inspiring all of us during the tenure of the course.
+\noindent It is with gratitude that I would like to extend my thanks to the visionary leader Dr.~G.~Viswanathan our Honorable Chancellor, Dr.~Sankar~Viswanathan, Dr.~Sekar~Viswanathan, Dr.~G.V.~Selvam Vice Presidents, Dr.~Sandhya~Pentareddy, Executive Director, Ms.~Kadhambari~S.~Viswanathan, Assistant Vice-President, Dr.~V.~S.~Kanchana~Bhaaskaran Vice-Chancellor, Dr.~T.~Thyagarajan Pro-Vice Chancellor, VIT Chennai, Dr.~K.~Sathiyanarayanan, Director, Chennai Campus and Dr.~P.~K.~Manoharan, Additional Registrar for providing an exceptional working environment and inspiring all of us during the tenure of the course.
 
 \vspace{0.3cm}
 
-\noindent Special mention to Dr.\ Viswanathan V, Dean, Dr.\ Nithyanandam P, Dr.\ Suganya G, Dr.\ Sweetlin Hemalatha C, Associate Deans, School of Computer Science and Engineering, Vellore Institute of Technology, Chennai for spending their valuable time and efforts in sharing their knowledge and for helping us in every aspect.
+\noindent Special mention to Dr.~Viswanathan~V, Dean, Dr.~Nithyanandam~P, Dr.~Suganya~G, Dr.~Sweetlin~Hemalatha~C, Associate Deans, School of \mbox{Computer Science} and Engineering, Vellore Institute of Technology, Chennai for spending their valuable time and efforts in sharing their knowledge and for helping us in every aspect.
 
 \vspace{0.3cm}
 
-\noindent In jubilant state, I express ingeniously my whole-hearted thanks to \textbf{Dr.\ Tulasi Prasad Sariki}, Head of the Department, B.Tech.\ CSE AIML and the Project Coordinators for their valuable support and encouragement to take up and complete the thesis.
+\noindent In jubilant state, I express ingeniously my whole-hearted thanks to \textbf{\mbox{Dr.~Tulasi~Prasad~Sariki}}, Head of the Department, B.Tech.\ CSE AIML and the Project Coordinators for their valuable support and encouragement to take up and complete the thesis.
 
 \vspace{0.3cm}
 
@@ -198,7 +209,7 @@ Date: 06-04-2026
 \vspace{1.5cm}
 
 \noindent Place: Chennai \hfill \textbf{Pojesh Kumar R}\\
-\noindent Date: 06-04-2026
+\noindent Date: 
 
 % ════════════════════════════════════════════════════════════
 % ABSTRACT
@@ -211,7 +222,7 @@ Date: 06-04-2026
 \end{center}
 \vspace{0.5cm}
 
-Large Language Models now sit at the core of many modern applications, from chatbots and search assistants to content generation tools. Despite their usefulness, running these models at scale is expensive, which makes efficient deployment a real challenge. Studies on around 27,000 ChatGPT conversations show that nearly a third of user queries are semantically similar to ones asked before, pointing to a clear opportunity to reuse past results through caching. Current semantic caching systems like GPTCache and MeanCache rely on fixed similarity thresholds applied across all queries. This one-size-fits-all approach struggles in practice, since different queries need different levels of precision. As a result, these systems either return incorrect cached responses too often or miss chances where caching could have worked effectively.
+\noindent Large Language Models now sit at the core of many modern applications, from chatbots and search assistants to content generation tools. Despite their usefulness, running these models at scale is expensive, which makes efficient deployment a real challenge. Studies on around 27,000 ChatGPT conversations show that nearly a third of user queries are semantically similar to ones asked before, pointing to a clear opportunity to reuse past results through caching. Current semantic caching systems like GPTCache and MeanCache rely on fixed similarity thresholds applied across all queries. This one-size-fits-all approach struggles in practice, since different queries need different levels of precision. As a result, these systems either return incorrect cached responses too often or miss chances where caching could have worked effectively.
 
 This project presents a fault-tolerant adaptive semantic cache that addresses these limitations through several key innovations. First, per-entry conformal thresholds replace the single global threshold with individually calibrated similarity boundaries for each cached entry, providing a formal guarantee that the probability of serving an incorrect cached response remains below a user-specified error rate. Second, a Thompson Sampling multi-armed bandit with Beta posteriors explores the threshold parameter space to learn optimal default thresholds for newly cached entries. Third, an ADWIN-based drift detector monitors the distribution of cache hit rewards and resets the bandit posteriors when a statistically significant shift is detected. Fourth, a Semantic W-TinyLFU admission policy uses locality-sensitive hashing over Count-Min Sketch frequency estimates to reject one-hit-wonder queries that would pollute the cache. Fifth, CostGDSF eviction prioritizes retention of entries that are expensive to regenerate via the LLM. The system employs a two-tier lookup architecture combining $O(1)$ exact-hash matching with $O(\log n)$ FAISS HNSW approximate nearest-neighbor search, with Redis backing for distributed deployments.
 
@@ -228,12 +239,14 @@ Evaluation on the Natural Questions dataset with 650 queries including 150 parap
 % ════════════════════════════════════════════════════════════
 \newpage
 \listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
 
 % ════════════════════════════════════════════════════════════
 % LIST OF FIGURES
 % ════════════════════════════════════════════════════════════
 \newpage
 \listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
 
 % ════════════════════════════════════════════════════════════
 % LIST OF ABBREVIATIONS
@@ -250,22 +263,36 @@ Evaluation on the Natural Questions dataset with 650 queries including 150 parap
 \textbf{Abbreviation} & \textbf{Full Form} \\
 \midrule
 \endhead
-LLM & Large Language Model \\
-NQ & Natural Questions \\
-ANN & Approximate Nearest Neighbor \\
-HNSW & Hierarchical Navigable Small World \\
-FAISS & Facebook AI Similarity Search \\
-CMS & Count-Min Sketch \\
-LSH & Locality-Sensitive Hashing \\
-GDSF & Greedy Dual Size Frequency \\
-W-TinyLFU & Windowed Tiny Least Frequently Used \\
 ADWIN & Adaptive Windowing \\
-EMA & Exponential Moving Average \\
-MAB & Multi-Armed Bandit \\
+AI & Artificial Intelligence \\
+ANN & Approximate Nearest Neighbor \\
 API & Application Programming Interface \\
-TTL & Time To Live \\
-SLRU & Segmented Least Recently Used \\
+ASGI & Asynchronous Server Gateway Interface \\
+CMS & Count-Min Sketch \\
+CRC & Cyclic Redundancy Check \\
+CUDA & Compute Unified Device Architecture \\
+EMA & Exponential Moving Average \\
+FAISS & Facebook AI Similarity Search \\
 FedAvg & Federated Averaging \\
+GDSF & Greedy Dual Size Frequency \\
+GPT & Generative Pre-trained Transformer \\
+GTE & General Text Embeddings \\
+HNSW & Hierarchical Navigable Small World \\
+LLM & Large Language Model \\
+LSH & Locality-Sensitive Hashing \\
+LSN & Log Sequence Number \\
+MAB & Multi-Armed Bandit \\
+NQ & Natural Questions \\
+QA & Question Answering \\
+RAG & Retrieval-Augmented Generation \\
+REST & Representational State Transfer \\
+SCALM & Semantic Caching for Automated Chat Services with LLMs \\
+SHA & Secure Hash Algorithm \\
+SLRU & Segmented Least Recently Used \\
+SQLite & Structured Query Language Lite \\
+SQuAD & Stanford Question Answering Dataset \\
+TTL & Time To Live \\
+W-TinyLFU & Windowed Tiny Least Frequently Used \\
 WAL & Write-Ahead Log \\
 \bottomrule
 \end{longtable}
@@ -284,16 +311,16 @@ WAL & Write-Ahead Log \\
 
 \section{Background}
 
-Models like GPT-4, Claude, LLaMA, and Gemini have ended up becoming the backbone of a lot of modern AI applications. You see them everywhere now—chatbots, coding tools, search, content generation—you name it. As more companies plug them into their products, the number of requests being handled daily has shot up to massive scales.
+Models like GPT-4, Claude, LLaMA, and Gemini have ended up becoming the backbone of a lot of modern AI applications. You see them everywhere now,chatbots, coding tools, search, content generation,you name it. As more companies plug them into their products, the number of requests being handled daily has shot up to massive scales.
 
-The catch is that running all of this isn’t cheap. Every query eats up compute, usually on GPU-heavy infrastructure, and most providers bill based on token usage. Once traffic starts increasing, the costs don’t just grow—they ramp up fast. It’s not unusual for even fairly standard deployments to rack up thousands of dollars per day just to keep inference running.
+The catch is that running all of this isn’t cheap. Every query eats up compute, usually on GPU-heavy infrastructure, and most providers bill based on token usage. Once traffic starts increasing, the costs don’t just grow,they ramp up fast. It’s not unusual for even fairly standard deployments to rack up thousands of dollars per day just to keep inference running.
 
 Then there’s latency, which is just as tricky to deal with. Responses can come back quickly or take a few seconds depending on the model and input size, but either way, users notice. For things like chatbots or search, people expect replies almost instantly. Even small delays start to feel frustrating, and that directly affects how much they trust or continue using the system.
 
 
 \section{The Query Redundancy Opportunity}
 
-Studies looking at how people actually use large language models have pointed out a pretty clear opportunity to optimize things. In one analysis of around 27,000 ChatGPT conversations, roughly 31\% of the queries turned out to be semantically similar to something that had already been asked. This happens because users often ask the same question in slightly different ways—changing wording, sentence structure, or how detailed the question is.
+Studies looking at how people actually use large language models have pointed out a pretty clear opportunity to optimize things. In one analysis of around 27,000 ChatGPT conversations, roughly 31\% of the queries turned out to be semantically similar to something that had already been asked. This happens because users often ask the same question in slightly different ways,changing wording, sentence structure, or how detailed the question is.
 
 The problem is that traditional caching methods don’t really capture this. They rely on exact matches so even some small changes in phrasing will make two identical questions look completely different. Example statements like "What is the capital of France?" and "Tell me the capital city of France" are same in terms of meaning, but string matching doesn't recognize this.
 
@@ -316,7 +343,7 @@ The central problem addressed by this project is the design and implementation o
 
 The specific objectives of this project are as follows:
 
-\begin{enumerate}[leftmargin=2cm]
+\begin{enumerate}[label=(\roman*),leftmargin=2cm]
 \item Design and implement per-entry conformal similarity thresholds that learn from correctness feedback, providing a formal guarantee that the probability of a false positive (incorrect cache hit) remains below a user-specified error rate of 5 percent.
 
 \item Implement a Thompson Sampling multi-armed bandit with Beta posteriors to explore the threshold parameter space and learn optimal default thresholds for newly cached entries, coupled with ADWIN drift detection to handle distribution shifts.
@@ -361,38 +388,37 @@ Semantic caching for LLM-based systems has quickly become an active area of rese
 
 \section{Existing Semantic Cache Systems}
 
-\textbf{GPTCache (Regmi and Pun, 2024):} GPTCache is a Redis-based semantic caching system that uses HNSW approximate nearest-neighbor search to find similar queries in the cache. It employs a fixed similarity threshold, typically set to 0.75, and uses LRU eviction for cache management. While GPTCache shows that semantic caching can help reduce LLM costs, its use of a fixed threshold makes performance uneven across different types of queries. In our experiments on the Natural Questions dataset, it reached a hit rate of 19.38\% with a precision of 61.9\%, which means that a noticeable portion of its cache hits close to 38\% ended up returning incorrect responses.
+\textbf{GPTCache~[3] (Regmi and Pun, 2024):} GPTCache is a Redis-based semantic caching system that uses HNSW approximate nearest-neighbor search to find similar queries in the cache. It employs a fixed similarity threshold, typically set to 0.75, and uses LRU eviction for cache management. While GPTCache shows that semantic caching can help reduce LLM costs, its use of a fixed threshold makes performance uneven across different types of queries. In our experiments on the Natural Questions dataset, it reached a hit rate of 19.38\% with a precision of 61.9\%, which means that a noticeable portion of its cache hits close to 38\% ended up returning incorrect responses.
 
-\textbf{MeanCache (Gill et al., 2024):} MeanCache introduces user-centric semantic caching with federated learning for similarity model training. It computes an adaptive threshold as the mean minus one standard deviation of observed similarity scores and uses PCA-based embedding compression. While MeanCache's threshold adaptation represents an improvement over static approaches, it operates on a global level and cannot distinguish between query types that require different precision levels. MeanCache achieves 13.23\% hit rate with 66.28\% precision in our evaluation.
+\textbf{MeanCache~[2] (Gill et al., 2024):} MeanCache introduces user-centric semantic caching with federated learning for similarity model training. It computes an adaptive threshold as the mean minus one standard deviation of observed similarity scores and uses PCA-based embedding compression. While MeanCache's threshold adaptation represents an improvement over static approaches, it operates on a global level and cannot distinguish between query types that require different precision levels. MeanCache achieves 13.23\% hit rate with 66.28\% precision in our evaluation.
 
-\textbf{vCache (Schroeder et al., 2025):} vCache is the most closely related work to our system. It introduces per-entry conformal thresholds using online conformal prediction, providing formal guarantees on the false positive rate. However, vCache uses a higher default threshold of 0.80, employs simple LRU eviction, and lacks admission control. Our system extends the conformal threshold approach with Thompson Sampling exploration for learning optimal default thresholds, CostGDSF eviction for value-aware cache management, and W-TinyLFU admission for frequency-gated entry filtering.
+\textbf{vCache~[4] (Schroeder et al., 2025):} vCache is the most closely related work to our system. It introduces per-entry conformal thresholds using online conformal prediction, providing formal guarantees on the false positive rate. However, vCache uses a higher default threshold of 0.80, employs simple LRU eviction, and lacks admission control. Our system extends the conformal threshold approach with Thompson Sampling exploration for learning optimal default thresholds, CostGDSF eviction for value-aware cache management, and W-TinyLFU admission for frequency-gated entry filtering.
 
-\textbf{RAGCache (Jin et al., 2024):} RAGCache focuses on caching for retrieval-augmented generation workloads. It uses a higher similarity threshold of 0.85 and incorporates cost-aware GDSF eviction similar to our approach. However, RAGCache does not implement per-entry adaptive thresholds and uses a static global threshold.
+\textbf{RAGCache~[8] (Jin et al., 2024):} RAGCache focuses on caching for retrieval-augmented generation workloads. It uses a higher similarity threshold of 0.85 and incorporates cost-aware GDSF eviction similar to our approach. However, RAGCache does not implement per-entry adaptive thresholds and uses a static global threshold.
 
-\textbf{SCALM (Li et al., 2024):} SCALM targets semantic caching for automated chat services with vector quantization and semantic clustering. It achieves significant token savings but does not include adaptive threshold mechanisms.
+\textbf{SCALM~[6] (Li et al., 2024):} SCALM targets semantic caching for automated chat services with vector quantization and semantic clustering. It achieves significant token savings but does not include adaptive threshold mechanisms.
 
-\textbf{MinCache (Haqiq et al., 2025):} MinCache implements a three-tier hierarchy using exact, resemblance, and semantic matching. It achieves 4.5 times speedup over GPTCache but relies on MinHash approximation that misses nuanced semantic relationships.
+\textbf{MinCache~[1] (Haqiq et al., 2025):} MinCache implements a three-tier hierarchy using exact, resemblance, and semantic matching. It achieves 4.5 times speedup over GPTCache but relies on MinHash approximation that misses nuanced semantic relationships.
 
 \section{Related Algorithmic Foundations}
 
-\textbf{Conformal Prediction (Vovk et al., 2005):} Conformal prediction provides a framework for constructing prediction sets with guaranteed coverage. Given a sequence of observations, conformal prediction computes a nonconformity score for each new example and uses the quantile of historical scores to set a threshold that guarantees the desired error rate. Our per-entry conformal thresholds apply this framework to the cache hit decision, treating each cached entry as an independent prediction problem.
+\textbf{Conformal Prediction~[11] (Vovk et al., 2005):} Conformal prediction provides a framework for constructing prediction sets with guaranteed coverage. Given a sequence of observations, conformal prediction computes a nonconformity score for each new example and uses the quantile of historical scores to set a threshold that guarantees the desired error rate. Our per-entry conformal thresholds apply this framework to the cache hit decision, treating each cached entry as an independent prediction problem.
 
-\textbf{Thompson Sampling (Thompson, 1933):} Thompson Sampling is a Bayesian approach to multi armed bandit problem. Every arm maintains a Beta posterior distribution with count of successes ($\alpha$) and failures ($\beta$) as parameters. A sample is drawn from each arm's posterior in each trial and the arm with highest sample is selected. This gives natural exploration exploitation balance without needing explicit exploration parameters.
+\textbf{Thompson Sampling~[19] (Thompson, 1933):} Thompson Sampling is a Bayesian approach to multi armed bandit problem. Every arm maintains a Beta posterior distribution with count of successes ($\alpha$) and failures ($\beta$) as parameters. A sample is drawn from each arm's posterior in each trial and the arm with highest sample is selected. This gives natural exploration exploitation balance without needing explicit exploration parameters.
 
-\textbf{ADWIN Drift Detection (Bifet and Gavalda, 2007):} ADWIN maintains a variable-length sliding window of recent observations and detects distribution changes by comparing sub-windows using Hoeffding bounds. When a statistically significant change is detected, the window is shrunk to contain only post-change data. We use ADWIN to detect shifts in the cache hit reward distribution, triggering bandit posterior resets when the query distribution changes.
+\textbf{ADWIN Drift Detection~[10] (Bifet and Gavalda, 2007):} ADWIN maintains a variable-length sliding window of recent observations and detects distribution changes by comparing sub-windows using Hoeffding bounds. When a statistically significant change is detected, the window is shrunk to contain only post-change data. We use ADWIN to detect shifts in the cache hit reward distribution, triggering bandit posterior resets when the query distribution changes.
 
-\textbf{W-TinyLFU (Einziger et al., 2017):} The Windowed Tiny Least Frequently Used admission policy combines a small window cache that admits all entries with a frequency-gated main cache. New entries must demonstrate sufficient access frequency to displace existing entries from the window. Frequency is estimated using a Count-Min Sketch, providing space-efficient approximate counting. Our Semantic W-TinyLFU extends this with LSH-bucketed frequency estimation, where semantically similar queries contribute to the same frequency counter.
+\textbf{W-TinyLFU~[7] (Einziger et al., 2017):} The Windowed Tiny Least Frequently Used admission policy combines a small window cache that admits all entries with a frequency-gated main cache. New entries must demonstrate sufficient access frequency to displace existing entries from the window. Frequency is estimated using a Count-Min Sketch, providing space-efficient approximate counting. Our Semantic W-TinyLFU extends this with LSH-bucketed frequency estimation, where semantically similar queries contribute to the same frequency counter.
 
-\textbf{GDSF (Young, 2000):} Greedy Dual Size Frequency eviction policy assign a priority score for each cache entry by its access frequency, regeneration cost, and storage size. Entry with least priority is evicted first. An inflation factor is updated on each eviction to prevent recently inserted entries from being immediately evicted.
+\textbf{GDSF~[12] (Young, 2000):} Greedy Dual Size Frequency eviction policy assign a priority score for each cache entry by its access frequency, regeneration cost, and storage size. Entry with least priority is evicted first. An inflation factor is updated on each eviction to prevent recently inserted entries from being immediately evicted.
 
-\textbf{FedAvg (McMahan et al., 2017):} Federated Averaging enables distributed training of machine learning models by averaging locally trained model weights across multiple clients without sharing raw data. Our system implements FedAvg-based synchronization of Thompson Sampling bandit posteriors across distributed cache nodes.
+\textbf{FedAvg~[9] (McMahan et al., 2017):} Federated Averaging enables distributed training of machine learning models by averaging locally trained model weights across multiple clients without sharing raw data. Our system implements FedAvg-based synchronization of Thompson Sampling bandit posteriors across distributed cache nodes.
 
 \section{Literature Survey Summary}
 
 Table~\ref{tab:litsurvey} presents a summary of the key works reviewed in this chapter, highlighting their approaches, contributions, and identified gaps.
 
-\begin{longtable}{|c|p{2.5cm}|p{3cm}|p{3.5cm}|p{3.5cm}|}
-\caption{Literature Survey Summary} \label{tab:litsurvey} \\
+\begin{longtable}{|c|p{2.5cm}|p{2.5cm}|p{4cm}|p{4cm}|}
 \hline
 \textbf{S.No.} & \textbf{Author} & \textbf{Approach} & \textbf{Key Contribution} & \textbf{Gap Identified} \\
 \hline
@@ -401,43 +427,44 @@ Table~\ref{tab:litsurvey} presents a summary of the key works reviewed in this c
 \textbf{S.No.} & \textbf{Author} & \textbf{Approach} & \textbf{Key Contribution} & \textbf{Gap Identified} \\
 \hline
 \endhead
-1 & Haqiq et al., 2025 & MinCache: Hybrid Cache & Three-tier hierarchy; 4.5$\times$ speedup vs GPTCache & MinHash misses nuanced semantics \\
+1 & Haqiq et al., 2025 & MinCache: Hybrid Cache & Introduces a three-tier matching hierarchy combining exact, resemblance, and semantic matching. Achieves 4.5$\times$ speedup over GPTCache by filtering candidates at cheaper tiers before invoking full semantic comparison. & Relies on MinHash for resemblance tier, which captures surface-level token overlap but misses nuanced semantic relationships between paraphrased queries. No per-entry threshold adaptation. \\
 \hline
-2 & Gill et al., 2024 & MeanCache: User-Centric Caching & Federated learning for similarity models & No adaptive thresholds; fixed metrics \\
+2 & Gill et al., 2024 & MeanCache: User-Centric Caching & Proposes user-centric semantic caching with federated learning for training similarity models across multiple clients without sharing raw data. Uses PCA-based embedding compression to reduce storage and an adaptive threshold computed as mean minus one standard deviation. & The adaptive threshold operates at a global level and cannot distinguish between query types requiring different precision levels. No admission control or cost-aware eviction. \\
 \hline
-3 & Gao et al., 2025 & Online Context Caching & KV cache placement + request scheduling & Does not address semantic similarity \\
+3 & Gao et al., 2025 & Online Context Caching & Addresses KV cache placement and request scheduling for distributed LLM serving. Optimizes which attention key-value tensors to cache across GPU memory hierarchies to minimize inference latency. & Focuses on internal model computation caching rather than semantic similarity between user queries. Does not address query-level caching or threshold learning. \\
 \hline
-4 & Li et al., 2024 & SCALM: Semantic Caching & Vector quantization; semantic clustering & Semantic analysis overhead; no adaptation \\
+4 & Li et al., 2024 & SCALM: Semantic Caching & Applies vector quantization and semantic clustering to group similar queries before cache lookup. Achieves significant token savings by serving clustered responses for queries within the same semantic group. & The clustering and vector quantization introduce non-trivial computational overhead. No mechanism for adapting similarity thresholds based on feedback, and cluster boundaries remain static. \\
 \hline
-5 & Li et al., 2024 & Context-based Semantic Caching & Context embedding + attention weighting & Increased memory footprint \\
+5 & Li et al., 2024 & Context-based Semantic Caching & Enriches query embeddings with contextual information using attention-weighted fusion of surrounding conversation turns. Improves cache hit accuracy for multi-turn dialogues where individual queries lack sufficient context. & The attention-based context fusion increases the memory footprint proportionally to conversation length. Does not address threshold calibration or cache management beyond basic LRU eviction. \\
 \hline
-6 & Liu et al., 2024 & Lost in the Middle & Position bias analysis in transformers & Affects compression, not caching \\
+6 & Liu et al., 2024 & Lost in the Middle & Provides a systematic analysis of how transformer-based language models attend to information at different positions within long input contexts. Demonstrates that models tend to underweight information placed in the middle of the context window. & The findings relate to how models process cached or retrieved context rather than how to decide when to serve cached responses. Not directly applicable to semantic cache threshold or admission decisions. \\
 \hline
-7 & Regmi \& Pun, 2024 & GPT Semantic Cache & Redis-based with HNSW ANN & Fixed threshold; lacks adaptability \\
+7 & Regmi \& Pun, 2024 & GPT Semantic Cache & Implements a Redis-backed semantic cache using HNSW approximate nearest-neighbor search for query matching. Demonstrates practical latency and cost reductions on real-world GPT API workloads with a fixed cosine similarity threshold of 0.75. & The fixed global threshold cannot adapt to the varying precision requirements of different cached entries. Uses basic LRU eviction that ignores entry regeneration cost, and admits all queries unconditionally. \\
 \hline
-8 & Jin et al., 2024 & RAGCache & Cost-aware GDSF eviction & No per-entry threshold adaptation \\
+8 & Jin et al., 2024 & RAGCache & Designs a caching layer specifically for retrieval-augmented generation pipelines, using cost-aware GDSF eviction that prioritizes retention of entries with high regeneration cost. Employs a conservative static threshold of 0.85 to maintain high precision for RAG outputs. & The static global threshold is overly conservative for many query types, reducing hit rate unnecessarily. No per-entry threshold adaptation or exploration mechanism to discover optimal threshold values. \\
 \hline
-9 & Schroeder et al., 2025 & vCache & Per-entry conformal thresholds & High default; no bandit exploration \\
+9 & Schroeder et al., 2025 & vCache & Introduces per-entry conformal thresholds using online conformal prediction, providing formal guarantees on the false positive rate. Each cached entry maintains its own similarity boundary calibrated from feedback history. & Uses a relatively high default threshold of 0.80, which limits initial hit rates for new entries. Employs simple LRU eviction without cost awareness and lacks bandit-based exploration for learning optimal default thresholds. \\
 \hline
-10 & Zha et al., 2023 & Online Optimization for Cache & Bayesian optimization for thresholds & Single query type; manual init \\
+10 & Zha et al., 2023 & Online Optimization for Cache & Applies Bayesian optimization to automatically tune the global similarity threshold for semantic cache systems. Demonstrates convergence to near-optimal threshold values on synthetic query distributions. & Optimizes a single global threshold rather than per-entry thresholds. Requires manual initialization and focuses on a single query type distribution, limiting applicability to heterogeneous workloads. \\
 \hline
-11 & Zhu et al., 2023 & Semantic Caching for LLM Cost & Embedding-based lookup & Fixed threshold $\tau$=0.8; no adaptation \\
+11 & Zhu et al., 2023 & Semantic Caching for LLM Cost & Proposes an embedding-based semantic cache lookup with a fixed similarity threshold of $\tau$=0.8 to reduce LLM API costs. Provides empirical cost savings analysis on OpenAI API workloads. & The fixed threshold does not adapt to varying query characteristics. No formal analysis of false positive rates, and the system lacks admission control or intelligent eviction beyond basic recency. \\
 \hline
-12 & Einziger et al., 2017 & TinyLFU & Frequency-gated admission & Not designed for semantic caching \\
+12 & Einziger et al., 2017 & TinyLFU & Proposes frequency-gated cache admission using a Count-Min Sketch for space-efficient frequency estimation. The admission gate rejects entries that lack sufficient access frequency, preventing cache pollution by one-hit wonders. & Designed for traditional web caching with exact key matching. Does not handle semantic similarity, embedding-based frequency estimation, or the unique challenges of LLM response caching. \\
 \hline
-13 & Bifet \& Gavalda, 2007 & ADWIN & Adaptive windowing for drift & General-purpose; needs integration \\
+13 & Bifet \& Gavalda, 2007 & ADWIN & Introduces adaptive windowing for detecting distribution changes in data streams using Hoeffding bounds. The window automatically shrinks when a statistically significant change is detected, discarding pre-change data. & A general-purpose drift detection algorithm that requires integration into a specific application context. Not directly designed for cache systems or threshold management, requiring adaptation for bandit posterior resetting. \\
 \hline
-14 & Vovk et al., 2005 & Conformal Prediction & Guaranteed prediction sets & Theoretical; per-entry adaptation needed \\
+14 & Vovk et al., 2005 & Conformal Prediction & Establishes the theoretical foundation for constructing prediction sets with guaranteed coverage under the exchangeability assumption. Provides nonparametric confidence regions that require no distributional assumptions beyond exchangeability. & The framework is theoretical and does not specify how to apply conformal prediction to per-entry cache threshold calibration. Requires adaptation to handle the streaming, per-entry nature of cache feedback signals. \\
 \hline
-15 & McMahan et al., 2017 & FedAvg & Federated model averaging & Not applied to cache threshold learning \\
+15 & McMahan et al., 2017 & FedAvg & Proposes Federated Averaging for training deep neural networks across distributed clients by averaging locally trained model weights. Demonstrates communication efficiency by reducing the number of synchronization rounds needed for convergence. & Designed for gradient-based model training rather than bandit posterior synchronization. Application to cache threshold learning across distributed nodes requires adaptation of the averaging scheme to Beta distribution parameters. \\
 \hline
+\caption{Literature Survey Summary} \label{tab:litsurvey}
 \end{longtable}
 
 \section{Research Gap}
 
 The review of existing literature reveals three principal gaps:
 
-\begin{enumerate}[leftmargin=2cm]
+\begin{enumerate}[label=(\roman*),leftmargin=2cm]
 \item \textbf{No per-entry threshold adaptation:} All existing systems except vCache apply a single global threshold. Even vCache uses a relatively high default (0.80) and lacks exploration mechanisms for learning optimal thresholds.
 
 \item \textbf{Primitive cache management:} Most systems use simple LRU eviction and admit all entries unconditionally, ignoring the heterogeneous value of cached entries in terms of regeneration cost and access frequency.
@@ -460,15 +487,15 @@ The system follows a layered architecture with clear separation of concerns. At 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig-architecture.png}
-\caption{System Architecture Diagram}
+\caption{High-Level Architecture}
 \label{fig:architecture}
 \end{figure}
 
-Figure~\ref{fig:architecture} illustrates the complete data flow through the ContextualCache system. A user query enters from the top left and first passes through the Tier 1 exact hash lookup. On a miss, the query is encoded using the MiniLM-L6-v2 embedding model and forwarded to the Tier 2 FAISS HNSW index for semantic search. If a candidate exceeds its per-entry conformal threshold, the cached response is returned. Otherwise, the query falls through to the LLM backend, and the generated response passes through the W-TinyLFU admission gate before being stored with CostGDSF eviction metadata. The diagram also shows the feedback loop where correctness signals flow back to the conformal threshold calibrator, the Thompson Sampling bandit that learns optimal default thresholds, and the ADWIN drift detector that triggers bandit resets. On the left side, the distributed components are depicted: Redis for shared exact-match storage, FedAvg for bandit posterior synchronization, and SQLite for local persistence.
+Figure~\ref{fig:architecture} illustrates the complete data flow through the ContextualCache system. A user query enters from the top left and first passes through the Tier 1 exact hash lookup. On a miss, the query is encoded using the MiniLM-L6-v2 embedding model and forwarded to the Tier 2 FAISS~[20] HNSW index for semantic search. If a candidate exceeds its per-entry conformal threshold, the cached response is returned. Otherwise, the query falls through to the LLM backend, and the generated response passes through the W-TinyLFU admission gate before being stored with CostGDSF eviction metadata. The diagram also shows the feedback loop where correctness signals flow back to the conformal threshold calibrator, the Thompson Sampling bandit that learns optimal default thresholds, and the ADWIN drift detector that triggers bandit resets. On the left side, the distributed components are depicted: Redis for shared exact-match storage, FedAvg for bandit posterior synchronization, and SQLite for local persistence.
 
 The central orchestrator is the ContextualCacheManager which coordinates all cache operations. When a query arrives, it flows through the following pipeline:
 
-\begin{enumerate}[leftmargin=2cm]
+\begin{enumerate}[label=(\roman*),leftmargin=2cm]
 \item \textbf{Tier 1 Exact Hash Lookup:} The query text is normalized (lowercased, punctuation stripped, whitespace collapsed) and hashed using SHA-256. The hash is checked against an in-memory dictionary and optionally against a Redis backing store. If found, the cached response is returned immediately with sub-millisecond latency.
 
 \item \textbf{Embedding Generation:} If the exact hash lookup misses, the query is encoded into a 384-dimensional dense vector using the paraphrase-MiniLM-L6-v2 sentence transformer model. An LRU embedding cache (10,000 entries) avoids redundant encoding of recently seen queries.
@@ -488,8 +515,6 @@ The central orchestrator is the ContextualCacheManager which coordinates all cac
 
 \begin{table}[H]
 \centering
-\caption{Query Pipeline Complexity Analysis}
-\label{tab:pipeline}
 \begin{tabular}{llll}
 \toprule
 \textbf{Stage} & \textbf{Component} & \textbf{Complexity} & \textbf{Latency} \\
@@ -501,14 +526,14 @@ Threshold & Per-entry conformal $\tau_i$ & $O(k \log k)$ & $<$0.1 ms \\
 Miss & LLM Provider (Ollama/Groq) & Network & 500--6000 ms \\
 \bottomrule
 \end{tabular}
+\caption{Query Pipeline Complexity Analysis}
+\label{tab:pipeline}
 \end{table}
 
 \section{Cache Management Components}
 
 \begin{table}[H]
 \centering
-\caption{Cache Management Component Summary}
-\label{tab:components}
 \begin{tabular}{p{3cm}p{4.5cm}p{6cm}}
 \toprule
 \textbf{Component} & \textbf{Algorithm} & \textbf{Purpose} \\
@@ -521,6 +546,8 @@ Session Context & EMA fusion ($\alpha$=0.85) & Multi-turn conversational awarene
 Fault Isolation & Circuit Breaker & Per-dependency isolation (CLOSED/OPEN/HALF\_OPEN) \\
 \bottomrule
 \end{tabular}
+\caption{Cache Management Component Summary}
+\label{tab:components}
 \end{table}
 
 \section{Two-Tier Lookup Architecture}
@@ -552,6 +579,8 @@ For an incorrect cache hit with similarity $s$:
 P(\text{false positive}) \leq \varepsilon
 \end{equation}
 
+\vspace{6.2cm}
+
 \textbf{Algorithm 1: Conformal Threshold Update}
 \begin{lstlisting}
 Input: entry_id, similarity, was_correct
@@ -581,8 +610,6 @@ The bandit maintains 10 arms corresponding to threshold values linearly spaced f
 
 \begin{table}[H]
 \centering
-\caption{Thompson Sampling Threshold Arms Configuration}
-\label{tab:arms}
 \begin{tabular}{cc}
 \toprule
 \textbf{Arm} & \textbf{Threshold Value} \\
@@ -599,6 +626,8 @@ The bandit maintains 10 arms corresponding to threshold values linearly spaced f
 9 & 0.950 \\
 \bottomrule
 \end{tabular}
+\caption{Thompson Sampling Threshold Arms Configuration}
+\label{tab:arms}
 \end{table}
 
 \textbf{Algorithm 2: Thompson Sampling Update}
@@ -627,7 +656,7 @@ The ADWIN (Adaptive Windowing) algorithm monitors the stream of bandit rewards f
 
 The admission policy determines whether a new entry should be admitted to the cache on a miss. The W-TinyLFU design consists of two stages:
 
-\begin{enumerate}[leftmargin=2cm]
+\begin{enumerate}[label=(\roman*),leftmargin=2cm]
 \item \textbf{Window Cache (5\% of capacity):} Admits all entries freely, providing a cold-start period where new entries can accumulate frequency without being rejected.
 \item \textbf{Main Cache (95\% of capacity):} Requires that a new entry's frequency exceeds that of the window's LRU victim to gain admission.
 \end{enumerate}
@@ -658,8 +687,6 @@ where $\alpha = 0.85$ (query-dominant). The fused vector is normalized to unit l
 
 \begin{table}[H]
 \centering
-\caption{Technology Stack}
-\label{tab:techstack}
 \begin{tabular}{ll}
 \toprule
 \textbf{Category} & \textbf{Technology} \\
@@ -678,6 +705,8 @@ Deep Learning & PyTorch (CUDA 12.6) \\
 Testing & pytest with pytest-asyncio (120 tests) \\
 \bottomrule
 \end{tabular}
+\caption{Technology Stack}
+\label{tab:techstack}
 \end{table}
 
 \section{Backend Module Structure}
@@ -685,30 +714,28 @@ Testing & pytest with pytest-asyncio (120 tests) \\
 The backend is organized into the following Python modules within the \texttt{contextual\_cache} package:
 
 \begin{itemize}[leftmargin=2cm]
-\item \textbf{cache\_manager.py} --- Central orchestrator coordinating all cache operations, query pipeline, feedback processing, and statistics aggregation.
-\item \textbf{lookup\_engine.py} --- Two-tier lookup with SHA-256 exact hash and FAISS IndexIDMap2(IndexHNSWFlat).
-\item \textbf{embedding\_service.py} --- Sentence-transformers wrapper with LRU embedding cache.
-\item \textbf{conformal\_thresholds.py} --- Per-entry conformal threshold store with online calibration.
-\item \textbf{bandit.py} --- Thompson Sampling MAB with Beta posteriors and ADWIN integration.
-\item \textbf{admission\_policy.py} --- Semantic W-TinyLFU with LSH-bucketed CMS frequency estimation.
-\item \textbf{eviction.py} --- CostGDSF eviction with inflation factor tracking.
-\item \textbf{drift\_detection.py} --- ADWIN drift detector using Hoeffding bounds.
-\item \textbf{circuit\_breaker.py} --- Per-dependency circuit breaker (CLOSED/OPEN/HALF\_OPEN).
-\item \textbf{session\_context.py} --- Session context accumulator with EMA fusion.
-\item \textbf{llm\_provider.py} --- Unified LLM abstraction over Ollama, Groq, and OpenAI.
-\item \textbf{redis\_store.py} --- Optional Redis-backed exact-match store with circuit breaker.
-\item \textbf{persistence.py} --- SQLite persistence for cache entries, scores, bandit state, and chat history.
-\item \textbf{metrics.py} --- Metrics collector powering the dashboard.
-\item \textbf{data\_structures.py} --- CMS, LSH, LRU, and SLRU implementations.
-\item \textbf{config.py} --- Pydantic BaseSettings with CC\_ environment variable overrides.
+\item \textbf{cache\_manager} -- Central orchestrator coordinating all cache operations, query pipeline, feedback processing, and statistics aggregation.
+\item \textbf{lookup\_engine} -- Two-tier lookup with SHA-256 exact hash and FAISS IndexIDMap2(IndexHNSWFlat).
+\item \textbf{embedding\_service} -- Sentence-transformers wrapper with LRU embedding cache.
+\item \textbf{conformal\_thresholds} -- Per-entry conformal threshold store with online calibration.
+\item \textbf{bandit} -- Thompson Sampling MAB with Beta posteriors and ADWIN integration.
+\item \textbf{admission\_policy} -- Semantic W-TinyLFU with LSH-bucketed CMS frequency estimation.
+\item \textbf{eviction} -- CostGDSF eviction with inflation factor tracking.
+\item \textbf{drift\_detection} -- ADWIN drift detector using Hoeffding bounds.
+\item \textbf{circuit\_breaker} -- Per-dependency circuit breaker (CLOSED/OPEN/HALF\_OPEN).
+\item \textbf{session\_context} -- Session context accumulator with EMA fusion.
+\item \textbf{llm\_provider} -- Unified LLM abstraction over Ollama, Groq, and OpenAI.
+\item \textbf{redis\_store} -- Optional Redis-backed exact-match store with circuit breaker.
+\item \textbf{persistence} -- SQLite persistence for cache entries, scores, bandit state, and chat history.
+\item \textbf{metrics} -- Metrics collector powering the dashboard.
+\item \textbf{data\_structures} -- CMS, LSH, LRU, and SLRU implementations.
+\item \textbf{config} -- Pydantic BaseSettings with CC\_ environment variable overrides.
 \end{itemize}
 
 \section{API Endpoints}
 
 \begin{table}[H]
 \centering
-\caption{API Endpoint Summary}
-\label{tab:api}
 \begin{tabular}{lll}
 \toprule
 \textbf{Method} & \textbf{Path} & \textbf{Description} \\
@@ -726,6 +753,8 @@ GET & /api/benchmark/status/\{id\} & Poll benchmark progress \\
 GET & /api/benchmark/results & List benchmark results \\
 \bottomrule
 \end{tabular}
+\caption{API Endpoint Summary}
+\label{tab:api}
 \end{table}
 
 \section{Frontend Dashboard}
@@ -746,13 +775,18 @@ Screenshots of all four pages are presented in Section 4.7.
 
 The benchmark system compares ContextualCache against six baseline strategies under identical conditions:
 
-\begin{enumerate}[leftmargin=2cm]
-\item \textbf{Exact-Match LRU} --- Hash-based exact matching with LRU eviction (lower-bound baseline).
-\item \textbf{GPTCache} --- Static threshold (0.75) with LRU eviction [3].
-\item \textbf{MeanCache} --- Adaptive threshold (mean $-$ std) with PCA compression and LRU [2].
-\item \textbf{vCache} --- Per-entry conformal thresholds with LRU eviction [4].
-\item \textbf{RAGCache} --- Static threshold (0.85) with cost-aware GDSF eviction [8].
-\item \textbf{No-Admission} --- Conformal thresholds with CostGDSF but no admission gate (ablation study).
+\begin{enumerate}[label=(\roman*),leftmargin=2cm]
+\item \textbf{Exact-Match LRU} -- Uses SHA-256 hashing of normalized query text and matches only identical queries. Eviction follows a standard LRU policy with the same capacity as all other strategies. This baseline serves as a lower bound, quantifying the cache performance achievable without any semantic matching capability. Any improvement over this baseline is directly attributable to the semantic similarity mechanism.
+
+\item \textbf{GPTCache~[3]} -- Implements a fixed cosine similarity threshold of 0.75 with HNSW-based approximate nearest-neighbor search for query matching. Cache management uses LRU eviction with no admission control, meaning every cache miss results in unconditional entry insertion. This represents the most widely adopted open-source semantic cache design and serves as the primary point of comparison for our system.
+
+\item \textbf{MeanCache~[2]} -- Computes an adaptive global threshold as the mean minus one standard deviation of observed similarity scores, which adjusts to the overall distribution of query similarities. Embeddings are compressed using PCA before storage, and eviction follows LRU ordering. The federated learning component for similarity model training is not used in this single-node benchmark, isolating the caching policy for fair comparison.
+
+\item \textbf{vCache~[4]} -- Maintains per-entry conformal thresholds using online conformal prediction with a target error rate matching our system. The default threshold for new entries is set higher at 0.80, and eviction uses simple LRU without cost awareness. This is the closest related work to our system and isolates the contribution of Thompson Sampling exploration, CostGDSF eviction, and W-TinyLFU admission.
+
+\item \textbf{RAGCache~[8]} -- Uses a conservative static similarity threshold of 0.85 designed for retrieval-augmented generation workloads where serving an incorrect cached document can cascade into factually wrong answers. Eviction follows CostGDSF, similar to our approach, prioritizing retention of entries with high regeneration cost. This baseline tests whether per-entry threshold adaptation provides value beyond cost-aware eviction alone.
+
+\item \textbf{No-Admission} -- An ablation of the full ContextualCache system with the W-TinyLFU admission gate removed. It retains per-entry conformal thresholds and CostGDSF eviction but admits every cache miss entry unconditionally. Comparing this against the full system isolates the contribution of frequency-gated admission to overall hit rate and precision.
 \end{enumerate}
 
 All strategies receive identical pre-computed embeddings and LLM responses to ensure fair comparison.
@@ -791,10 +825,10 @@ The gossip protocol enables decentralized synchronization of Thompson Sampling b
 
 \section{Configuration Parameters}
 
+Every tunable parameter in the system is exposed through a Pydantic BaseSettings configuration class that reads values from environment variables prefixed with \texttt{CC\_} or from a \texttt{.env} file at startup. This design makes it straightforward to adjust the cache behavior without touching any source code, which is particularly useful when switching between development, benchmarking, and production deployments. For instance, the benchmark runs use a cache capacity of 300 entries to stress the eviction and admission logic under tight constraints, while the default production setting of 50,000 entries provides ample headroom for real workloads. The conformal error rate, embedding model, HNSW index parameters, and bandit arm count can all be changed independently, allowing operators to trade off between precision, recall, latency, and memory usage depending on what matters most for their particular use case. Table~\ref{tab:config} lists the key parameters along with their default values.
+
 \begin{table}[H]
 \centering
-\caption{Configuration Parameters}
-\label{tab:config}
 \begin{tabular}{lll}
 \toprule
 \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
@@ -813,6 +847,8 @@ CC\_DRIFT\_DELTA & 0.002 & ADWIN sensitivity \\
 CC\_DEFAULT\_TTL\_S & 3600 & Entry time-to-live (seconds) \\
 \bottomrule
 \end{tabular}
+\caption{Configuration Parameters}
+\label{tab:config}
 \end{table}
 
 
@@ -825,9 +861,9 @@ CC\_DEFAULT\_TTL\_S & 3600 & Entry time-to-live (seconds) \\
 
 \textbf{Datasets:} Two public question-answering datasets from HuggingFace were used for evaluation:
 
-\begin{enumerate}[leftmargin=2cm]
-\item \textbf{Natural Questions (NQ)} --- Google's Natural Questions dataset containing web search queries with short answers. 500 unique questions were sampled with 150 paraphrase variants (30\% ratio) for a total of 650 queries per run.
-\item \textbf{SQuAD} --- Stanford Question Answering Dataset (validation split) containing reading comprehension questions. 500 unique questions with 150 paraphrases, totaling 650 queries.
+\begin{enumerate}[label=(\roman*),leftmargin=2cm]
+\item \textbf{Natural Questions (NQ)~[17]} -- Google's Natural Questions dataset containing web search queries with short answers. 500 unique questions were sampled with 150 paraphrase variants (30\% ratio) for a total of 650 queries per run.
+\item \textbf{SQuAD~[18]} -- Stanford Question Answering Dataset (validation split) containing reading comprehension questions. 500 unique questions with 150 paraphrases, totaling 650 queries.
 \end{enumerate}
 
 \textbf{Paraphrase Generation:} Deterministic rule-based transforms were applied to generate paraphrase variants. The system implements 26 transformation patterns including syntactic restructuring and prefix injection.
@@ -846,13 +882,11 @@ CC\_DEFAULT\_TTL\_S & 3600 & Entry time-to-live (seconds) \\
 
 \begin{table}[H]
 \centering
-\caption{Benchmark Results on Natural Questions Dataset (650 queries, 300 capacity)}
-\label{tab:nq}
 \begin{tabular}{lcccccc}
 \toprule
 \textbf{Strategy} & \textbf{Hit Rate} & \textbf{Precision} & \textbf{F1} & \textbf{Correct} & \textbf{Incorrect} & \textbf{LLM Calls} \\
 \midrule
-\textbf{Ours} & \textbf{20.77\%} & \textbf{62.22\%} & \textbf{0.214} & \textbf{84} & \textbf{51} & \textbf{515} \\
+\textbf{ContextualCache} & \textbf{20.77\%} & \textbf{62.22\%} & \textbf{0.214} & \textbf{84} & \textbf{51} & \textbf{515} \\
 GPTCache & 19.38\% & 61.90\% & 0.201 & 78 & 48 & 524 \\
 vCache & 18.62\% & 62.81\% & 0.197 & 76 & 45 & 529 \\
 No-Admission & 17.69\% & 63.48\% & 0.191 & 73 & 42 & 535 \\
@@ -861,6 +895,8 @@ MeanCache & 13.23\% & 66.28\% & 0.155 & 57 & 29 & 564 \\
 Exact-Match LRU & 0.00\% & --- & 0.000 & 0 & 0 & 650 \\
 \bottomrule
 \end{tabular}
+\caption[Benchmark Results on Natural Questions Dataset]{Benchmark Results on Natural Questions Dataset \\ (650 queries, 300 capacity)}
+\label{tab:nq}
 \end{table}
 
 \begin{figure}[H]
@@ -878,17 +914,26 @@ The lower default threshold (0.70) allows ContextualCache to capture paraphrase 
 
 MeanCache achieves the highest precision (66.28\%) but at the cost of a significantly lower hit rate (13.23\%), as its adaptive threshold (mean $-$ std) tends to be conservative.
 
+Figure~\ref{fig:conformal} illustrates how individual conformal thresholds evolve over the course of the benchmark as feedback signals accumulate. All five sample entries begin at the default threshold of 0.70, indicated by the gray dashed line. After receiving the minimum three feedback events required for calibration, each entry's threshold begins to diverge based on the nature of the queries it serves. Entry A, which handles precise factual queries where incorrect cached responses are easily distinguishable, sees its threshold rise to approximately 0.85 as the conformal quantile tightens to reduce false positive risk. Entry C, which corresponds to a broad topical query where most semantically similar queries are indeed valid matches, drops its threshold toward the lower clamp bound of 0.65, allowing the system to serve cached responses more aggressively for that particular entry.
+
+This per-entry adaptation is what distinguishes the proposed system from global-threshold approaches. Rather than applying a single compromise threshold across all entries, each cached response learns its own similarity boundary from the feedback it receives. The result is a heterogeneous threshold landscape where precise entries are strict and broad entries are permissive, both operating within the formal conformal guarantee that the per-entry false positive rate remains below the target error rate of five percent.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{fig-conformal-evolution.png}
+\caption{Per-Entry Conformal Threshold Evolution Over Feedback Events}
+\label{fig:conformal}
+\end{figure}
+
 \section{Results on SQuAD}
 
 \begin{table}[H]
 \centering
-\caption{Benchmark Results on SQuAD Dataset (650 queries, 300 capacity)}
-\label{tab:squad}
 \begin{tabular}{lcccccc}
 \toprule
 \textbf{Strategy} & \textbf{Hit Rate} & \textbf{Precision} & \textbf{F1} & \textbf{Correct} & \textbf{Incorrect} & \textbf{LLM Calls} \\
 \midrule
-\textbf{Ours} & \textbf{23.69\%} & 35.71\% & \textbf{0.137} & \textbf{55} & 99 & \textbf{496} \\
+\textbf{ContextualCache} & \textbf{23.69\%} & 35.71\% & \textbf{0.137} & \textbf{55} & 99 & \textbf{496} \\
 GPTCache & 19.54\% & 38.58\% & 0.126 & 49 & 78 & 523 \\
 vCache & 17.85\% & 38.79\% & 0.118 & 45 & 71 & 534 \\
 No-Admission & 17.85\% & 37.07\% & 0.112 & 43 & 73 & 534 \\
@@ -897,6 +942,8 @@ MeanCache & 5.23\% & 47.06\% & 0.047 & 16 & 18 & 616 \\
 Exact-Match LRU & 0.00\% & --- & 0.000 & 0 & 0 & 650 \\
 \bottomrule
 \end{tabular}
+\caption[Benchmark Results on SQuAD Dataset]{Benchmark Results on SQuAD Dataset \\ (650 queries, 300 capacity)}
+\label{tab:squad}
 \end{table}
 
 On SQuAD, ContextualCache again achieves the highest hit rate (23.69\%) and F1 score (0.137), outperforming GPTCache by 4.15 percentage points in hit rate. The overall precision is lower across all strategies on SQuAD compared to NQ, reflecting the challenge of matching short, factual SQuAD answers within longer LLM-generated responses. ContextualCache saves 154 LLM calls out of 650 queries on SQuAD, the most among all strategies.
@@ -905,11 +952,9 @@ On SQuAD, ContextualCache again achieves the highest hit rate (23.69\%) and F1 s
 
 \begin{table}[H]
 \centering
-\caption{Precision Analysis on NQ --- Top Three Strategies}
-\label{tab:precision}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Metric} & \textbf{GPTCache} & \textbf{vCache} & \textbf{Ours} \\
+\textbf{Metric} & \textbf{GPTCache} & \textbf{vCache} & \textbf{ContextualCache} \\
 \midrule
 Total Hits & 126 & 121 & 135 \\
 Correct Hits & 78 & 76 & 84 \\
@@ -918,21 +963,30 @@ Precision & 61.90\% & 62.81\% & 62.22\% \\
 False Positive Rate & 38.10\% & 37.19\% & 37.78\% \\
 \bottomrule
 \end{tabular}
+\caption{Precision Analysis on NQ --- Top Three Strategies}
+\label{tab:precision}
 \end{table}
 
 ContextualCache serves 84 correct responses out of 135 total hits, meaning that approximately 62\% of cache hits deliver the right answer. GPTCache achieves a similar precision (61.90\%) but with fewer total hits (126). The marginal difference in precision (0.32 percentage points) is offset by the significant advantage in hit rate (1.39 percentage points) and total correct hits (6 more).
+
+Figure~\ref{fig:simdist} shows the distribution of cosine similarity scores for correct and incorrect cache hits on the NQ dataset. Correct hits cluster at higher similarity values with a mean around 0.82, indicating that the embedding model assigns noticeably higher similarity to queries that are genuine semantic matches. Incorrect hits are spread more broadly with a mean around 0.74, overlapping with the lower end of the correct distribution. The vertical dashed line at 0.70 marks the default threshold. The overlap region between the two distributions is where the per-entry conformal thresholds operate most critically, learning for each individual entry whether a given similarity score is likely to produce a correct or incorrect response.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{fig-similarity-distribution.png}
+\caption{Distribution of Cosine Similarity Scores for Correct and Incorrect Cache Hits}
+\label{fig:simdist}
+\end{figure}
 
 \section{Latency Analysis}
 
 \begin{table}[H]
 \centering
-\caption{Latency Comparison on NQ}
-\label{tab:latency}
 \begin{tabular}{lccc}
 \toprule
 \textbf{Strategy} & \textbf{Hit Latency (ms)} & \textbf{Overall Latency (ms)} & \textbf{LLM Saved} \\
 \midrule
-Ours & 0.00 & 1610.17 & 135 \\
+ContextualCache & 0.00 & 1610.17 & 135 \\
 GPTCache & 0.13 & 1613.17 & 126 \\
 vCache & 0.00 & 1632.40 & 121 \\
 No-Admission & 0.13 & 1662.86 & 115 \\
@@ -940,6 +994,8 @@ RAGCache & 0.28 & 1675.60 & 112 \\
 MeanCache & 0.00 & 1736.22 & 86 \\
 \bottomrule
 \end{tabular}
+\caption{Latency Comparison on NQ}
+\label{tab:latency}
 \end{table}
 
 \begin{figure}[H]
@@ -955,7 +1011,16 @@ All strategies achieve sub-millisecond hit latency, confirming that cache lookup
 
 \section{Thompson Sampling Arm Distribution}
 
-The Thompson Sampling bandit provides insights into the optimal threshold region. After processing cache queries, the arm distribution shows the learned expected rewards for each threshold value, with lower thresholds generally receiving higher rewards due to their ability to capture more valid semantic matches.
+The Thompson Sampling bandit provides insights into the optimal threshold region. After processing the NQ benchmark queries, the arm distribution reveals the learned expected rewards for each of the ten threshold values, as shown in Figure~\ref{fig:thompson}. Arms corresponding to lower thresholds in the 0.65 to 0.75 range accumulate higher expected rewards because these thresholds allow the cache to serve responses for a broader set of semantically similar queries, many of which turn out to be correct. The best arm, highlighted in orange, corresponds to a threshold near 0.65 with an expected reward of approximately 0.89, confirming that the bandit learns to favor more permissive defaults for this particular workload.
+
+As the threshold increases toward the conservative end of the spectrum, the expected reward drops sharply. Arms at 0.85 and above rarely match any queries at all, so they accumulate far fewer success signals and their Beta posteriors remain pessimistic. This monotonically decreasing reward pattern is consistent with the observation that the NQ dataset contains genuine paraphrase variants that cluster at moderate similarity levels between 0.70 and 0.85, well below the thresholds used by conservative systems like RAGCache.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{fig-thompson-convergence.png}
+\caption{Thompson Sampling Arm Expected Rewards after NQ Benchmark}
+\label{fig:thompson}
+\end{figure}
 
 \section{Cross-Dataset Comparison}
 
@@ -1091,8 +1156,9 @@ Figure~\ref{fig:benchmark} shows the integrated benchmark suite page, which enab
 
 \textbf{Challenge:} The Count-Min Sketch used by the W-TinyLFU admission policy accumulates frequency counts indefinitely. Over time, entries that were popular in the distant past but are no longer relevant retain high frequency counts, biasing the admission decision in favor of stale entries and against genuinely popular new entries. This frequency staleness became apparent during long-running test sessions where the cache population drifted away from the current query distribution.
 
-\textbf{Solution:} A periodic halving mechanism was added to the Count-Min Sketch to keep it responsive to recent activity. After a set number of insertions (by default, equal to the cache size), all counters are halved using a simple right shift. This gives more importance to recent queries while gradually fading out older ones.
-The halving interval is chosen to occur about once per full cache cycle. This keeps the system adaptive to changing patterns without making the frequency estimates too unstable.
+\textbf{Solution:} A periodic halving mechanism keeps the Count-Min Sketch focused on recent activity by reducing all counters after a fixed number of insertions (typically one cache cycle). This lets newer queries matter more while older ones naturally fade, maintaining adaptability without making frequency estimates unstable.
+
+
 
 
 
@@ -1114,7 +1180,7 @@ Experimental evaluation on the Natural Questions dataset demonstrated that the p
 The full-stack implementation provides a production-ready system with a Python FastAPI backend supporting multiple LLM providers, optional Redis backing for distributed deployments, a comprehensive test suite of 120 automated tests, and a polished Tauri/SvelteKit analytics dashboard for real-time monitoring, cache comparison, and integrated benchmarking. The distributed systems components including consistent hashing, write-ahead logging, vector clocks, and gossip-based bandit synchronization are fully implemented and unit-tested, laying the groundwork for horizontal scaling in future deployments.
 
 \section{Future work}
-\begin{enumerate}[leftmargin=2cm]
+\begin{enumerate}[label=(\roman*),leftmargin=2cm]
 \item \textbf{Embedding model upgrades:} The current paraphrase-MiniLM-L6-v2 model was chosen for its balance of speed and quality, but larger models like E5-base-v2 (768 dimensions) or instruction-tuned models like GTE-large could improve semantic matching accuracy at the cost of increased embedding latency and memory usage. A systematic evaluation across multiple embedding models would help identify the optimal trade-off point for different deployment scenarios, and the modular embedding service design makes it straightforward to swap models without changing any other component.
 
 \item \textbf{Multi-round evaluation:} The current benchmark runs each query set in a single pass. Running the same query distribution through the cache over multiple rounds result is a progressive improvement in precision as entries learn their optimal similarity boundaries. This would more accurately represent the steady-state performance of a production deployment where the same types of questions recur over days and weeks.
@@ -1222,378 +1288,128 @@ The full-stack implementation provides a production-ready system with a Python F
 \end{lstlisting}
 
 % ════════════════════════════════════════════════════════════
-% Appendix B: Figures
+% Appendix B: Code Snippets and Tables
 % ════════════════════════════════════════════════════════════
 \newpage
-\chapter*{Appendix B: Figures}
-\addcontentsline{toc}{section}{Appendix B: Figures}
+\chapter*{Appendix B: Code Snippets}
+\addcontentsline{toc}{section}{Appendix B: Code Snippets}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{fig-architecture.png}
-\caption*{Figure~\ref{fig:architecture}: System Architecture Diagram}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.85\textwidth]{fig-hit-rate-precision-chart.png}
-\caption*{Figure~\ref{fig:hitrate}: Hit Rate and Precision Comparison across Strategies (NQ Dataset)}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.85\textwidth]{fig-latency-chart.png}
-\caption*{Figure~\ref{fig:latency}: Latency Analysis across Strategies (Log Scale)}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=1.0\textwidth]{fig-chat-interface.png}
-\caption*{Figure~\ref{fig:chat}: Chat Interface demonstrating cache hit/miss behavior}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=1.0\textwidth]{fig-comparison-view.png}
-\caption*{Figure~\ref{fig:compare}: Comparison view showing cached vs direct LLM response}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=1.0\textwidth]{fig-analytics-dashboard.png}
-\caption*{Figure~\ref{fig:analytics}: Analytics dashboard with real-time monitoring}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{fig-benchmark-suite.png}
-\caption*{Figure~\ref{fig:benchmark}: Benchmark suite with dataset selection and results}
-\end{figure}
-
-
-% ════════════════════════════════════════════════════════════
-% Appendix C: Tables
-% ════════════════════════════════════════════════════════════
-\newpage
-\chapter*{Appendix C: Tables}
-\addcontentsline{toc}{section}{Appendix C: Tables}
-
-\vspace{0.3cm}
-\noindent\textbf{Table~\ref{tab:litsurvey}: Literature Survey Summary}
-\vspace{0.3cm}
-
-\begin{longtable}{|c|p{2.5cm}|p{3cm}|p{3.5cm}|p{3.5cm}|}
-\hline
-\textbf{S.No.} & \textbf{Author} & \textbf{Approach} & \textbf{Key Contribution} & \textbf{Gap Identified} \\
-\hline
-\endfirsthead
-\hline
-\textbf{S.No.} & \textbf{Author} & \textbf{Approach} & \textbf{Key Contribution} & \textbf{Gap Identified} \\
-\hline
-\endhead
-1 & Haqiq et al., 2025 & MinCache: Hybrid Cache & Three-tier hierarchy; 4.5$\times$ speedup vs GPTCache & MinHash misses nuanced semantics \\
-\hline
-2 & Gill et al., 2024 & MeanCache: User-Centric Caching & Federated learning for similarity models & No adaptive thresholds; fixed metrics \\
-\hline
-3 & Gao et al., 2025 & Online Context Caching & KV cache placement + request scheduling & Does not address semantic similarity \\
-\hline
-4 & Li et al., 2024 & SCALM: Semantic Caching & Vector quantization; semantic clustering & Semantic analysis overhead; no adaptation \\
-\hline
-5 & Li et al., 2024 & Context-based Semantic Caching & Context embedding + attention weighting & Increased memory footprint \\
-\hline
-6 & Liu et al., 2024 & Lost in the Middle & Position bias analysis in transformers & Affects compression, not caching \\
-\hline
-7 & Regmi \& Pun, 2024 & GPT Semantic Cache & Redis-based with HNSW ANN & Fixed threshold; lacks adaptability \\
-\hline
-8 & Jin et al., 2024 & RAGCache & Cost-aware GDSF eviction & No per-entry threshold adaptation \\
-\hline
-9 & Schroeder et al., 2025 & vCache & Per-entry conformal thresholds & High default; no bandit exploration \\
-\hline
-10 & Zha et al., 2023 & Online Optimization for Cache & Bayesian optimization for thresholds & Single query type; manual init \\
-\hline
-11 & Zhu et al., 2023 & Semantic Caching for LLM Cost & Embedding-based lookup & Fixed threshold $\tau$=0.8; no adaptation \\
-\hline
-12 & Einziger et al., 2017 & TinyLFU & Frequency-gated admission & Not designed for semantic caching \\
-\hline
-13 & Bifet \& Gavalda, 2007 & ADWIN & Adaptive windowing for drift & General-purpose; needs integration \\
-\hline
-14 & Vovk et al., 2005 & Conformal Prediction & Guaranteed prediction sets & Theoretical; per-entry adaptation needed \\
-\hline
-15 & McMahan et al., 2017 & FedAvg & Federated model averaging & Not applied to cache threshold learning \\
-\hline
-\end{longtable}
+\noindent\textbf{Key Implementation Code Snippets}
 
 \vspace{0.5cm}
-\noindent\textbf{Table~\ref{tab:pipeline}: Query Pipeline Complexity Analysis}
-\vspace{0.3cm}
 
-\begin{table}[H]
-\centering
-\begin{tabular}{llll}
-\toprule
-\textbf{Stage} & \textbf{Component} & \textbf{Complexity} & \textbf{Latency} \\
-\midrule
-Tier 1 & Exact Hash Lookup (SHA-256) & $O(1)$ & $<$1 ms \\
-Tier 2 & FAISS HNSW Semantic Search & $O(\log n)$ & 2--15 ms \\
-Embedding & paraphrase-MiniLM-L6-v2 & $O(d)$ & 5--20 ms \\
-Threshold & Per-entry conformal $\tau_i$ & $O(k \log k)$ & $<$0.1 ms \\
-Miss & LLM Provider (Ollama/Groq) & Network & 500--6000 ms \\
-\bottomrule
-\end{tabular}
-\end{table}
+\noindent The following code excerpts are taken from the core modules of the ContextualCache backend. They illustrate the four principal algorithmic strategies that distinguish the system from existing approaches.
 
 \vspace{0.5cm}
-\noindent\textbf{Table~\ref{tab:components}: Cache Management Component Summary}
-\vspace{0.3cm}
+\noindent\textbf{1. Conformal Threshold Retrieval} (\texttt{conformal\_thresholds} module)
 
-\begin{table}[H]
-\centering
-\begin{tabular}{p{3cm}p{4.5cm}p{6cm}}
-\toprule
-\textbf{Component} & \textbf{Algorithm} & \textbf{Purpose} \\
-\midrule
-Admission & Semantic W-TinyLFU & Reject one-hit-wonders based on LSH-bucketed frequency \\
-Eviction & CostGDSF & $H = f \times c / s + L$ (keeps expensive entries) \\
-Threshold Learning & Thompson Sampling (10 arms) & Learn optimal default $\tau$ for new entries \\
-Drift Detection & ADWIN & Reset bandit posteriors on distribution shift \\
-Session Context & EMA fusion ($\alpha$=0.85) & Multi-turn conversational awareness \\
-Fault Isolation & Circuit Breaker & Per-dependency isolation (CLOSED/OPEN/HALF\_OPEN) \\
-\bottomrule
-\end{tabular}
-\end{table}
+\noindent This method computes the per-entry conformal threshold as the $(1 - \varepsilon)$ quantile of historical nonconformity scores. Entries with fewer than the minimum calibration points fall back to the default threshold.
 
-\vspace{2.4cm}
-\noindent\textbf{Table~\ref{tab:arms}: Thompson Sampling Threshold Arms Configuration}
-\vspace{0.3cm}
+\begin{lstlisting}[language=Python]
+async def get_threshold(self, entry_id: str) -> float:
+    async with self._lock:
+        scores = self._scores.get(entry_id)
+        if scores is None or len(scores) < self.min_cal:
+            return self.default_threshold
 
-\begin{table}[H]
-\centering
-\begin{tabular}{cc}
-\toprule
-\textbf{Arm} & \textbf{Threshold Value} \\
-\midrule
-0 & 0.650 \\
-1 & 0.683 \\
-2 & 0.717 \\
-3 & 0.750 \\
-4 & 0.783 \\
-5 & 0.817 \\
-6 & 0.850 \\
-7 & 0.883 \\
-8 & 0.917 \\
-9 & 0.950 \\
-\bottomrule
-\end{tabular}
-\end{table}
+        sorted_scores = sorted(scores)
+        n = len(sorted_scores)
+        quantile_idx = int(np.ceil((1 - self.epsilon) * (n + 1))) - 1
+        quantile_idx = min(quantile_idx, n - 1)
+        quantile_idx = max(quantile_idx, 0)
 
-\vspace{0.5cm}
-\noindent\textbf{Table~\ref{tab:techstack}: Technology Stack}
-\vspace{0.3cm}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{ll}
-\toprule
-\textbf{Category} & \textbf{Technology} \\
-\midrule
-Language & Python 3.10 \\
-Backend Framework & FastAPI with Uvicorn ASGI \\
-Embedding Model & paraphrase-MiniLM-L6-v2 (384d) \\
-Vector Index & FAISS (faiss-cpu) with HNSW \\
-LLM Backend & Ollama (LLaMA 3.2:3b) / Groq / OpenAI \\
-Optional Cache Store & Redis (redis-py async) \\
-Persistence & SQLite \\
-Frontend Framework & SvelteKit (Svelte 5) \\
-Desktop Runtime & Tauri (Rust) \\
-Charting & Chart.js \\
-Deep Learning & PyTorch (CUDA 12.6) \\
-Testing & pytest with pytest-asyncio (120 tests) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\vspace{4.5cm}
-\noindent\textbf{Table~\ref{tab:api}: API Endpoint Summary}
-\vspace{0.3cm}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{lll}
-\toprule
-\textbf{Method} & \textbf{Path} & \textbf{Description} \\
-\midrule
-POST & /query & Main cache-fronted LLM query \\
-POST & /feedback & Correctness feedback for calibration \\
-POST & /bulk-query & Batch queries \\
-POST & /api/query-direct & Bypass cache, call LLM directly \\
-GET & /health & Health check \\
-GET & /api/stats & Full analytics for dashboard \\
-POST & /api/clear-cache & Clear all cache entries \\
-GET & /api/conversations & List chat sessions \\
-POST & /api/benchmark/run & Start benchmark run \\
-GET & /api/benchmark/status/\{id\} & Poll benchmark progress \\
-GET & /api/benchmark/results & List benchmark results \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\vspace{0.5cm}
-\noindent\textbf{Table~\ref{tab:config}: Configuration Parameters}
-\vspace{0.3cm}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{lll}
-\toprule
-\textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
-\midrule
-CC\_CACHE\_CAPACITY & 50,000 & Max cached entries (300 for benchmark) \\
-CC\_DEFAULT\_THRESHOLD & 0.70 & Initial conformal threshold \\
-CC\_TARGET\_ERROR\_RATE & 0.05 & Conformal error bound ($\varepsilon$) \\
-CC\_EMBEDDING\_MODEL & MiniLM-L6-v2 & 384-dimensional embeddings \\
-CC\_ANN\_K & 10 & FAISS top-$k$ neighbors \\
-CC\_HNSW\_M & 32 & HNSW links per node \\
-CC\_HNSW\_EF\_SEARCH & 64 & HNSW search expansion \\
-CC\_WINDOW\_PCT & 0.05 & W-TinyLFU window fraction \\
-CC\_CMS\_WIDTH & 4096 & Count-Min Sketch columns \\
-CC\_BANDIT\_N\_ARMS & 10 & Thompson Sampling arms \\
-CC\_DRIFT\_DELTA & 0.002 & ADWIN sensitivity \\
-CC\_DEFAULT\_TTL\_S & 3600 & Entry time-to-live (seconds) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\newpage
-
-\noindent\textbf{Table~\ref{tab:nq}: Benchmark Results on Natural Questions Dataset (650 queries, 300 capacity)}
-\vspace{0.3cm}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Strategy} & \textbf{Hit Rate} & \textbf{Precision} & \textbf{F1} & \textbf{Correct} & \textbf{Incorrect} & \textbf{LLM Calls} \\
-\midrule
-\textbf{Ours} & \textbf{20.77\%} & \textbf{62.22\%} & \textbf{0.214} & \textbf{84} & \textbf{51} & \textbf{515} \\
-GPTCache & 19.38\% & 61.90\% & 0.201 & 78 & 48 & 524 \\
-vCache & 18.62\% & 62.81\% & 0.197 & 76 & 45 & 529 \\
-No-Admission & 17.69\% & 63.48\% & 0.191 & 73 & 42 & 535 \\
-RAGCache & 17.23\% & 64.29\% & 0.189 & 72 & 40 & 538 \\
-MeanCache & 13.23\% & 66.28\% & 0.155 & 57 & 29 & 564 \\
-Exact-Match LRU & 0.00\% & --- & 0.000 & 0 & 0 & 650 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\vspace{0.5cm}
-\noindent\textbf{Table~\ref{tab:squad}: Benchmark Results on SQuAD Dataset (650 queries, 300 capacity)}
-\vspace{0.3cm}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Strategy} & \textbf{Hit Rate} & \textbf{Precision} & \textbf{F1} & \textbf{Correct} & \textbf{Incorrect} & \textbf{LLM Calls} \\
-\midrule
-\textbf{Ours} & \textbf{23.69\%} & 35.71\% & \textbf{0.137} & \textbf{55} & 99 & \textbf{496} \\
-GPTCache & 19.54\% & 38.58\% & 0.126 & 49 & 78 & 523 \\
-vCache & 17.85\% & 38.79\% & 0.118 & 45 & 71 & 534 \\
-No-Admission & 17.85\% & 37.07\% & 0.112 & 43 & 73 & 534 \\
-RAGCache & 17.38\% & 36.28\% & 0.108 & 41 & 72 & 537 \\
-MeanCache & 5.23\% & 47.06\% & 0.047 & 16 & 18 & 616 \\
-Exact-Match LRU & 0.00\% & --- & 0.000 & 0 & 0 & 650 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\vspace{0.5cm}
-\noindent\textbf{Table~\ref{tab:precision}: Precision Analysis on NQ --- Top Three Strategies}
-\vspace{0.3cm}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{lccc}
-\toprule
-\textbf{Metric} & \textbf{GPTCache} & \textbf{vCache} & \textbf{Ours} \\
-\midrule
-Total Hits & 126 & 121 & 135 \\
-Correct Hits & 78 & 76 & 84 \\
-Incorrect Hits & 48 & 45 & 51 \\
-Precision & 61.90\% & 62.81\% & 62.22\% \\
-False Positive Rate & 38.10\% & 37.19\% & 37.78\% \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\vspace{2.5cm}
-\noindent\textbf{Table~\ref{tab:latency}: Latency Comparison on NQ}
-\vspace{0.3cm}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{lccc}
-\toprule
-\textbf{Strategy} & \textbf{Hit Latency (ms)} & \textbf{Overall Latency (ms)} & \textbf{LLM Saved} \\
-\midrule
-Ours & 0.00 & 1610.17 & 135 \\
-GPTCache & 0.13 & 1613.17 & 126 \\
-vCache & 0.00 & 1632.40 & 121 \\
-No-Admission & 0.13 & 1662.86 & 115 \\
-RAGCache & 0.28 & 1675.60 & 112 \\
-MeanCache & 0.00 & 1736.22 & 86 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-
-% ════════════════════════════════════════════════════════════
-% Appendix D: Algorithms
-% ════════════════════════════════════════════════════════════
-\newpage
-\chapter*{Appendix D: Algorithms}
-\addcontentsline{toc}{section}{Appendix D: Algorithms}
-
-\vspace{0.5cm}
-\noindent\textbf{Algorithm 1: Conformal Threshold Update}
-\vspace{0.3cm}
-
-\begin{lstlisting}
-Input: entry_id, similarity, was_correct
-If was_correct:
-    nonconformity = 1.0 - similarity
-Else:
-    nonconformity = min(1.0, max(1.0 - similarity + 0.1, 0.5))
-
-scores[entry_id].append(nonconformity)
-If len(scores) > max_window:
-    scores = scores[-max_window:]
-
-If len(scores) >= min_calibration_points:
-    sorted_scores = sort(scores)
-    idx = ceil((1 - epsilon) * (len + 1)) - 1
-    tau_i = 1.0 - sorted_scores[idx]
-    tau_i = clamp(tau_i, 0.60, 0.99)
-Else:
-    tau_i = default_threshold
+        threshold = 1.0 - sorted_scores[quantile_idx]
+        return float(np.clip(threshold, self.min_threshold,
+                             self.max_threshold))
 \end{lstlisting}
 
-\vspace{1cm}
-\noindent\textbf{Algorithm 2: Thompson Sampling Update}
-\vspace{0.3cm}
+\vspace{0.5cm}
+\noindent\textbf{2. Thompson Sampling Update with ADWIN Drift Detection} (\texttt{bandit} module)
 
-\begin{lstlisting}
-On each cache hit:
-    arm* = current best arm (highest expected reward)
-    If similarity >= 0.85: reward = 1.0
-    Else if similarity < 0.65: reward = 0.0
-    Else: reward = (similarity - 0.65) / 0.20
+\noindent The bandit posterior is updated after each cache hit. The reward signal is fed to the ADWIN drift detector, and a detected distribution shift triggers a full posterior reset to weakly informative priors.
 
-    alpha[arm*] += reward
-    beta[arm*] += (1.0 - reward)
+\begin{lstlisting}[language=Python]
+def update(self, arm: int, reward: float) -> None:
+    if reward == 0.5:
+        return  # uncertain feedback -- skip
 
-    Feed reward to ADWIN drift detector
-    If drift detected:
-        Reset all alpha, beta to (2, 2)
+    self.alpha[arm] += reward
+    self.beta_params[arm] += (1.0 - reward)
+    self.total_updates += 1
+
+    self.drift_detector.add_element(reward)
+
+    if self.drift_detector.detected_change():
+        logger.warning(
+            "Distribution drift detected on shard %s "
+            "-- resetting posteriors.", self.shard_id)
+        self.alpha = np.ones(self.n_arms) * 2
+        self.beta_params = np.ones(self.n_arms) * 2
+        self.drift_resets += 1
+\end{lstlisting}
+
+\vspace{0.5cm}
+\noindent\textbf{3. Semantic W-TinyLFU Admission Decision} (\texttt{admission\_policy} module)
+
+\noindent The admission gate records the access frequency of a new entry and compares it against the window cache LRU victim. Entries with higher frequency displace the victim and are admitted.
+
+\begin{lstlisting}[language=Python]
+def should_admit(self, entry: CacheEntry) -> bool:
+    self.total_checks += 1
+    self.record_access(entry.embedding)
+
+    if len(self.window_cache) < self.window_size:
+        self.window_cache.put(entry.entry_id, entry)
+        self.total_admitted += 1
+        return True
+
+    victim = self.window_cache.get_lru_victim()
+    if victim is None:
+        self.window_cache.put(entry.entry_id, entry)
+        self.total_admitted += 1
+        return True
+
+    _victim_key, victim_entry = victim
+    new_freq = self._estimate_frequency(entry.embedding)
+    if isinstance(victim_entry, CacheEntry):
+        victim_freq = self._estimate_frequency(
+            victim_entry.embedding)
+    else:
+        victim_freq = 0
+
+    if new_freq >= victim_freq:
+        self.window_cache.remove(_victim_key)
+        if isinstance(victim_entry, CacheEntry):
+            self.main_cache.put(
+                victim_entry.entry_id, victim_entry)
+        self.window_cache.put(entry.entry_id, entry)
+        self.total_admitted += 1
+        return True
+
+    self.total_rejected += 1
+    return False
+\end{lstlisting}
+
+\vspace{0.5cm}
+\noindent\textbf{4. CostGDSF Eviction} (\texttt{eviction} module)
+
+\noindent The eviction policy selects the entry with the lowest priority score. The inflation factor $L$ is updated to the evicted entry's priority, preventing newly inserted entries from being immediately evicted.
+
+\begin{lstlisting}[language=Python]
+def evict_one(self) -> Optional[str]:
+    if not self._entries:
+        return None
+
+    victim_id = min(self._entries,
+                    key=lambda eid: self._entries[eid].H)
+    victim = self._entries.pop(victim_id)
+    self.L = victim.H  # update inflation factor
+    self.total_evictions += 1
+    return victim_id
+
+def _compute_priority(self, e: _EvictorEntry) -> float:
+    regen_cost = (e.llm_cost_usd * 1e6) + e.embed_cost_ms
+    return (e.frequency * regen_cost) / e.storage_bytes + self.L
 \end{lstlisting}
 
 

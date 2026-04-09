@@ -1,14 +1,17 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces System Architecture Diagram}}{9}{figure.caption.1}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces High-Level Architecture}}{14}{figure.caption.1}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Hit Rate and Precision Comparison across Strategies (NQ Dataset)}}{23}{figure.caption.9}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Latency Analysis across Strategies (Log Scale)}}{26}{figure.caption.13}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Chat Interface demonstrating cache hit/miss behavior}}{30}{figure.caption.14}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Comparison view showing cached vs direct LLM response}}{30}{figure.caption.15}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Analytics dashboard with real-time monitoring}}{31}{figure.caption.16}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Benchmark suite with dataset selection and results}}{32}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Hit Rate and Precision Comparison across Strategies (NQ Dataset)}}{29}{figure.caption.9}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Per-Entry Conformal Threshold Evolution Over Feedback Events}}{31}{figure.caption.10}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Distribution of Cosine Similarity Scores for Correct and Incorrect Cache Hits}}{32}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Latency Analysis across Strategies (Log Scale)}}{33}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Thompson Sampling Arm Expected Rewards after NQ Benchmark}}{34}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Chat Interface demonstrating cache hit/miss behavior}}{38}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Comparison view showing cached vs direct LLM response}}{38}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Analytics dashboard with real-time monitoring}}{39}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Benchmark suite with dataset selection and results}}{40}{figure.caption.20}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsfinish 
